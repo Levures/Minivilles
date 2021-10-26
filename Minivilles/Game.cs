@@ -10,10 +10,7 @@ namespace Minivilles
     {
         public Pile[] piles;
         public Player[] players;
-        private bool playerTurn;
+        public bool playerTurn { get; private set; }
         public Display display;
-
-
-
     }
 }
