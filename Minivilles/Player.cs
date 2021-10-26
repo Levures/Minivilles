@@ -12,10 +12,10 @@ namespace Minivilles
         public Die die;
         public int coins;
 
-        public Card BuyCard(Card chosenCard)
+        public void BuyCard(Card chosenCard)
         {
             town.Add(chosenCard);
-            coins -= chosenCard.cost;
+            coins -= chosenCard.GetCardCost;
         }
     }
 }
