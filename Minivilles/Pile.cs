@@ -3,12 +3,18 @@
     public class Pile
     {
         public Card card { get; }
-        public int nbCards { get; }
+        private int nbCards = 6;
 
-        public int WithdrawCard()
+        public string CardName()
+        {
+            string name = card.GetCardName;
+            return name;
+        }
+
+        public bool WithdrawCard()
         {
             int withdrawal = nbCards - 1;
-            return withdrawal;
+            return nbCards>0;
         }
     }
 }
