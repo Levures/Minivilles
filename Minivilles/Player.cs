@@ -23,7 +23,7 @@ namespace Minivilles
             coins -= chosenCard.GetCardCost;
         }
 
-        private void ApplyCardsEffect()
+        public void ApplyCardsEffect()
         {
             for(int i = 0; i < town.Count; i++)
             {
