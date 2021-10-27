@@ -11,25 +11,40 @@ namespace Minivilles
         public Pile[] piles;
         public Player[] players;
         public bool playerTurn { get; private set; }
-        public Display display = new Display();
-        List<Card> cardsTest = new List<Card> { new Card("Boulangerie", 4, "red", new int[1] { 1 }, 3), 
-            new Card("Tour de pise", 2, "blue", new int[2] { 4, 5 }, 1),
-            new Card("Champs de blé", 2, "green", new int[3] { 6, 7, 8 }, 4),
-            new Card("Champs de blé", 2, "green", new int[3] { 6, 7, 8 }, 4),
-            new Card("Champs de blé", 2, "green", new int[3] { 6, 7, 8 }, 4),
-            new Card("Champs de blé", 2, "green", new int[3] { 6, 7, 8 }, 4),
-            new Card("Champs de blé", 2, "green", new int[3] { 6, 7, 8 }, 4),
-            new Card("Villa", 4, "blue", new int[2] { 3, 1 }, 5)
-        };
+        public bool endGame = false;
+        public Display display;
 
-        public void Play()
+        public Game game()
         {
-            Console.WindowWidth = 170;
-            Console.WindowHeight = 50;
+            Console.WriteLine("Bienvenue dans Minivilles !");
 
-            int result = display.ChooseCard(cardsTest);
-            Console.WriteLine(result);
-            Console.ReadLine();
+            while (!endGame)
+            {
+                // Début du tour du joueur
+                playerTurn = true;
+                Console.WriteLine("Tour du joueur :");
+                display.DisplayCard();
+                Console.WriteLine("Appuyez sur Entrée pour lancer le dé.");
+                Console.ReadLine();
+
+                //Le joueur lance le dé
+                players[0].die.Roll();
+                if (playerTurn)
+                {
+                    
+                    
+                }
+                else
+                {
+
+                }
+
+                //Le joueur achète ou non une propriété
+            }
+            
+
+            return game();
         }
+
     }
 }
