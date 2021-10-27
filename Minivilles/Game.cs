@@ -10,7 +10,7 @@ namespace Minivilles
     {
         public Pile[] piles;
         public Player[] players;
-        private bool playerTurn;
+        public bool playerTurn { get; private set; }
         public bool endGame = false;
         public Display display;
 
@@ -23,7 +23,7 @@ namespace Minivilles
                 // Début du tour du joueur
                 playerTurn = true;
                 Console.WriteLine("Tour du joueur :");
-                display.DisplayCards();
+                display.DisplayCard();
                 Console.WriteLine("Appuyez sur Entrée pour lancer le dé.");
                 Console.ReadLine();
 
