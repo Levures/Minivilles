@@ -13,7 +13,7 @@ namespace Minivilles
         public bool playerTurn { get; private set; }
         public bool endGame = false;
         public Display display = new Display();
-        Die die = new Die();
+        private Random random = new Random();
 
         public Game game()
         {
@@ -31,13 +31,21 @@ namespace Minivilles
                 Console.ReadLine();
 
                 // Le joueur lance le dé.
-                int dieFace = die.Roll();
+                int dieFace = players[0].die.Roll();
                 display.DisplayDie(dieFace);
                 players[0].ApplyCardsEffect(dieFace);
 
                 //Le joueur achète ou non une propriété.
                 Console.WriteLine("Souhaitez-vous acheter une carte ?");
-                        //Display truc qui propose oui ou non.
+
+                //Display truc qui propose oui ou non.
+                string playerChoice = Console.ReadLine();
+
+                if(playerChoice == "o")
+                {
+                    Console.WriteLine("Je choisis une carte");
+                    //display.ChooseCard();
+                }
 
                         //- Si oui, curseur sous les piles de carte.
                     //players[0].BuyCard();
@@ -50,6 +58,35 @@ namespace Minivilles
                 System.Threading.Thread.Sleep(1000);
                 dieFace = players[1].die.Roll();
                 display.DisplayDie(dieFace);
+
+                int iaChoice;
+                iaChoice = random.Next(2);
+                List<Card> possibility = new List<Card>();
+
+                List<Card> haveEnoughCoinToBuy = new List<Card>();
+
+                foreach(Card entry in possibility)
+                {
+                    if(entry.GetCardCost >= players[1].coins)
+                    {
+                        haveEnoughCoinToBuy.Add(entry);
+                    }
+                }
+
+                
+
+                switch (iaChoice)
+                {
+                    case 0:
+                        Card iaChosenCard = haveEnoughCoinToBuy[random.Next(haveEnoughCoinToBuy.Count + 1)];
+                        players[1].BuyCard(iaChosenCard);
+                        Console.WriteLine("L'IA a choisi : {0}", iaChosenCard.GetCardName);
+                        break;
+                    case 1:
+                        Console.WriteLine("Ordi : Pas de carte pour moi");
+                        break;
+                }                
+                
             }
 
 
