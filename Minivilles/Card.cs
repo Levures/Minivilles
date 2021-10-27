@@ -26,6 +26,11 @@ namespace Minivilles
             NameAbreviated = aNameAbreviated;
         }
 
+        public string GetCardAbreviation
+        {
+            get => NameAbreviated;
+        }
+
         public string GetCardName
         {
             get => CardName;
