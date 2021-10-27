@@ -14,9 +14,11 @@ namespace Minivilles
         public bool endGame = false;
         public Display display = new Display();
         private Random random = new Random();
+        private Pile pile = new Pile(new Card("boulangerie", 1, "red", new int[1] { 2 }, 4, "blg"));
 
         public Game game()
         {
+            //Début
             Console.WriteLine("Bienvenue dans Minivilles !");
 
             players[0] = new Player();
@@ -24,6 +26,7 @@ namespace Minivilles
 
             while (!endGame)
             {
+
                 // Début du tour du joueur.
                 playerTurn = true;
                 Console.WriteLine("Tour du joueur:");
