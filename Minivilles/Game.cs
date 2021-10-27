@@ -35,6 +35,12 @@ namespace Minivilles
                 display.DisplayDie(dieFace);
                 players[0].ApplyCardsEffect(dieFace);
 
+                // Fin de partie ?
+                if (players[0].coins >= 20 || players[1].coins >= 20)
+                {
+                    endGame = true;
+                }
+
                 //Le joueur achète ou non une propriété.
                 Console.WriteLine("Souhaitez-vous acheter une carte ?");
 
@@ -58,6 +64,13 @@ namespace Minivilles
                 System.Threading.Thread.Sleep(1000);
                 dieFace = players[1].die.Roll();
                 display.DisplayDie(dieFace);
+                players[1].ApplyCardsEffect(dieFace);
+
+                // Fin de partie ?
+                if (players[0].coins >= 20 || players[1].coins >= 20)
+                {
+                    endGame = true;
+                }
 
                 int iaChoice;
                 iaChoice = random.Next(2);
@@ -72,7 +85,6 @@ namespace Minivilles
                         haveEnoughCoinToBuy.Add(entry);
                     }
                 }
-
                 
 
                 switch (iaChoice)
@@ -89,6 +101,14 @@ namespace Minivilles
                 
             }
 
+            if(players[0].coins < players[1].coins)
+            {
+                Console.WriteLine("Bahaha t'as perdu !");
+            }
+            else
+            {
+                Console.WriteLine("Bravo champion !");
+            }
 
             return game();
         }
