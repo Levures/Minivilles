@@ -8,45 +8,47 @@ namespace Minivilles
 {
     public class Card
     {
-        private string cardName;
-        private string cardColor;
-        private int cardCost;
-        private int givedCoins;
-        private int[] activationValue;
+        private string CardName;
+        private string CardColor;
+        private int CardCost;
+        private int GivedCoins;
+        private int[] ActivationValue;
+        private string NameAbreviated;
 
 
-        public Card(string aName, int aCost, string aColor, int[] aActivationValue, int aGivedCoins)
+        public Card(string aName, int aCost, string aColor, int[] aActivationValue, int aGivedCoins, string aNameAbreviated)
         {
-            cardName = aName;
-            cardColor = aColor;
-            cardCost = aCost;
-            givedCoins = aGivedCoins;
-            activationValue = aActivationValue;
+            CardName = aName;
+            CardColor = aColor;
+            CardCost = aCost;
+            GivedCoins = aGivedCoins;
+            ActivationValue = aActivationValue;
+            NameAbreviated = aNameAbreviated;
         }
 
         public string GetCardName
         {
-            get => cardName;
+            get => CardName;
         }
 
         public string GetCardColor
         {
-            get => cardColor;
+            get => CardColor;
         }
 
         public int GetCardCost
         {
-            get => cardCost;
+            get => CardCost;
         }
 
         public int GetCardGivedCoins
         {
-            get => givedCoins;
+            get => GivedCoins;
         }
 
         public int[] GetActivationValue
         {
-            get => activationValue;
+            get => ActivationValue;
         }
     }
 }

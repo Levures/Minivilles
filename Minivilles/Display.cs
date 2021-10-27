@@ -9,7 +9,6 @@ namespace Minivilles
     class Display
     {
         Game game;
-        Card[] cards = { new Card("Champs de blé", 2, "red", new int[1] { 2 }, 2), new Card("Café", 2, "bleu", new int[1] { 3 }, 5) };
         Die die = new Die();
 
         /*"+-----------------+"
