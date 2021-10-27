@@ -20,28 +20,34 @@ namespace Minivilles
 
             while (!endGame)
             {
-                // Début du tour du joueur
+                // Début du tour du joueur.
                 playerTurn = true;
-                Console.WriteLine("Tour du joueur :");
-                display.DisplayCard();
+                Console.WriteLine("Tour du joueur:");
                 Console.WriteLine("Appuyez sur Entrée pour lancer le dé.");
                 Console.ReadLine();
 
-                //Le joueur lance le dé
-                players[0].die.Roll();
-                if (playerTurn)
-                {
-                    
-                    
-                }
-                else
-                {
+                // Le joueur lance le dé.
+                int dieFace = players[0].die.Roll();
+                display.DisplayDie();
+                players[0].ApplyCardsEffect(dieFace);
 
-                }
+                //Le joueur achète ou non une propriété.
+                Console.WriteLine("Souhaitez-vous acheter une carte ?");
+                        //Display truc qui propose oui ou non.
 
-                //Le joueur achète ou non une propriété
+                        //- Si oui, curseur sous les piles de carte.
+                    //players[0].BuyCard();
+
+                        //- Si non, la suite.
+
+
+                // Début du tour de l'ordinateur.
+                Console.WriteLine("Tour de l'ordinateur:");
+                System.Threading.Thread.Sleep(1000);
+                dieFace = players[1].die.Roll();
+                display.DisplayDie();
             }
-            
+
 
             return game();
         }
