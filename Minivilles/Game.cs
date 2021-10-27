@@ -32,8 +32,7 @@ namespace Minivilles
 
                 // Le joueur lance le dé.
                 int dieFace = die.Roll();
-                Console.WriteLine(dieFace.ToString());
-                display.DisplayDie();
+                display.DisplayDie(dieFace);
                 players[0].ApplyCardsEffect(dieFace);
 
                 //Le joueur achète ou non une propriété.
@@ -50,7 +49,7 @@ namespace Minivilles
                 Console.WriteLine("Tour de l'ordinateur:");
                 System.Threading.Thread.Sleep(1000);
                 dieFace = players[1].die.Roll();
-                display.DisplayDie();
+                display.DisplayDie(dieFace);
             }
 
 

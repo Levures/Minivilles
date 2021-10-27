@@ -298,7 +298,7 @@ namespace Minivilles
             Console.ForegroundColor = ConsoleColor.Gray;
         }
 
-        public void DisplayDie()
+        public void DisplayDie(int dieFace)
         {
             string face1 = "+-------+\n" +
                             "|       |\n" +
@@ -331,7 +331,7 @@ namespace Minivilles
                             "| o   o |\n" +
                             "+-------+";
 
-            switch (die.currentFace)
+            switch (dieFace)
             {
                 case 1:
                     Console.WriteLine(face1);
