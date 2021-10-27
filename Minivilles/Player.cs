@@ -23,25 +23,28 @@ namespace Minivilles
             coins -= chosenCard.GetCardCost;
         }
 
-        public void ApplyCardsEffect()
+        public void ApplyCardsEffect(int dieValue)
         {
             for(int i = 0; i < town.Count; i++)
             {
                 switch (town[i].GetCardColor)
                 {
                     case "rouge":
-                        if(!game.playerTurn)
+                        if(!game.playerTurn && dieValue == town[i].GetActivationValue[0])
                         {
                             coins += town[i].GetCardGivedCoins;
                         }
                         break;
 
                     case "bleue":
-                        coins += town[i].GetCardGivedCoins;
+                        if(dieValue == town[i].GetActivationValue[0])
+                        {
+                            coins += town[i].GetCardGivedCoins;
+                        }
                         break;
 
                     case "vert":
-                        if(game.playerTurn)
+                        if(game.playerTurn && dieValue == town[i].GetActivationValue[0])
                         {
                             coins += town[i].GetCardGivedCoins;
                         }
