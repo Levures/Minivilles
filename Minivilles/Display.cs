@@ -10,6 +10,7 @@ namespace Minivilles
     {
         Game game;
         Card[] cards = { new Card("Champs de blé", 2, "red", new int[1] { 2 }, 2), new Card("Café", 2, "bleu", new int[1] { 3 }, 5) };
+        Die die = new Die();
 
         /*"+-----------------+"
           "|  Champs de blé  |"
@@ -299,7 +300,58 @@ namespace Minivilles
 
         public void DisplayDie()
         {
+            string face1 = "+-------+\n" +
+                            "|       |\n" +
+                            "|   o   |\n" +
+                            "|       |\n" +
+                            "+-------+";
+            string face2 = "+-------+\n" +
+                            "|     o |\n" +
+                            "|       |\n" +
+                            "| o     |\n" +
+                            "+-------+";
+            string face3 = "+-------+\n" +
+                            "|     o |\n" +
+                            "|   o   |\n" +
+                            "| o     |\n" +
+                            "+-------+";
+            string face4 = "+-------+\n" +
+                            "| o   o |\n" +
+                            "|       |\n" +
+                            "| o   o |\n" +
+                            "+-------+";
+            string face5 = "+-------+\n" +
+                            "| o   o |\n" +
+                            "|   o   |\n" +
+                            "| o   o |\n" +
+                            "+-------+";
+            string face6 = "+-------+\n" +
+                            "| o   o |\n" +
+                            "| o   o |\n" +
+                            "| o   o |\n" +
+                            "+-------+";
 
+            switch (die.currentFace)
+            {
+                case 1:
+                    Console.WriteLine(face1);
+                    break;
+                case 2:
+                    Console.WriteLine(face2);
+                    break;
+                case 3:
+                    Console.WriteLine(face3);
+                    break;
+                case 4:
+                    Console.WriteLine(face4);
+                    break;
+                case 5:
+                    Console.WriteLine(face5);
+                    break;
+                case 6:
+                    Console.WriteLine(face6);
+                    break;
+            }
         }
 
 

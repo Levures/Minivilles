@@ -9,7 +9,7 @@ namespace Minivilles
     class Game
     {
         public Pile[] piles;
-        public Player[] players;
+        public Player[] players = new Player[2];
         public bool playerTurn { get; private set; }
         public bool endGame = false;
         public Display display;
@@ -17,6 +17,9 @@ namespace Minivilles
         public Game game()
         {
             Console.WriteLine("Bienvenue dans Minivilles !");
+
+            players[0] = new Player();
+            players[1] = new Player();
 
             while (!endGame)
             {

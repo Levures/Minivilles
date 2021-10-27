@@ -10,15 +10,16 @@ namespace Minivilles
     {
         private Random random = new Random();
         private int nbFace;
+        public int currentFace { get; private set; }
 
-        public Die(int nbFace)
+        public Die(int nbFace = 6)
         {
             this.nbFace = nbFace;
         }
 
         public int Roll()
         {
-            int currentFace = random.Next(1, nbFace + 1);
+            currentFace = random.Next(1, nbFace + 1);
             return currentFace;
         }
     }
