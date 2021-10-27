@@ -12,7 +12,8 @@ namespace Minivilles
         public Player[] players = new Player[2];
         public bool playerTurn { get; private set; }
         public bool endGame = false;
-        public Display display;
+        public Display display = new Display();
+        Die die = new Die();
 
         public Game game()
         {
@@ -30,7 +31,8 @@ namespace Minivilles
                 Console.ReadLine();
 
                 // Le joueur lance le dé.
-                int dieFace = players[0].die.Roll();
+                int dieFace = die.Roll();
+                Console.WriteLine(dieFace.ToString());
                 display.DisplayDie();
                 players[0].ApplyCardsEffect(dieFace);
 

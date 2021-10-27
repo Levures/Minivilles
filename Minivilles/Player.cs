@@ -13,9 +13,9 @@ namespace Minivilles
             new Card("Boulangerie", 1, "vert", new int [1]{2}, 1),
             new Card("Champ de blé", 1, "vert", new int [1]{1}, 1)
         };
-        public Die die;
+        public Die die = new Die();
         public int coins { get; private set; } = 3;
-        private Game game;
+        private Game game = new Game();
 
         public void BuyCard(Card chosenCard)
         {

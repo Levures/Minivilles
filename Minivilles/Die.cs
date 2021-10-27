@@ -9,7 +9,7 @@ namespace Minivilles
     public class Die
     {
         private Random random = new Random();
-        private int nbFace;
+        private int nbFace = 6;
         public int currentFace { get; private set; }
 
         public Die(int nbFace = 6)
