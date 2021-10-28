@@ -33,10 +33,9 @@ namespace Minivilles
                 pile.InitializeStack();
             }
 
-            display.ChooseCard(gamePiles);
-
             //Début
             Console.WriteLine("Bienvenue dans Minivilles !");
+            Console.Clear();
 
             players[0] = new Player();
             players[1] = new Player();
@@ -46,8 +45,17 @@ namespace Minivilles
             players[0].town.Add(gamePiles[2].WithdrawCard());
             players[1].town.Add(gamePiles[2].WithdrawCard());
 
-            Console.WriteLine("{0}, {1}", players[0].town[0].GetCardName, players[0].town[1].GetCardName);
-            Console.WriteLine("{0}", gamePiles[0].GetStack.Count.ToString());
+            int[] cursorChooseCard = new int[2]{ 0, 0 };
+            int[] cursorThrowDice = new int[2]{ 0, 20 };
+            int[] cursorDisplayTown = new int[2]{ 0, 30 };
+
+            Console.SetCursorPosition(cursorChooseCard[0], cursorChooseCard[1]);
+            display.ChooseCard(gamePiles);
+            Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1]);
+            display.DisplayDie(3);
+            Console.SetCursorPosition(cursorDisplayTown[0], cursorDisplayTown[1]);
+            display.DisplayTown(players);
+
 
             while (!endGame)
             {

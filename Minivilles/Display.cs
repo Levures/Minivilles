@@ -11,11 +11,11 @@ namespace Minivilles
         Game game;
         Die die = new Die();
 
-        /*"+-----------------+"
-          "|  Champs de blé  |"
-          "+-----------------+"
-          "|                 |"
-          "|  Coût : 1$      |"
+        /*"+-----------------+"   "+-----+"
+          "|  Champs de blé  |"   "| BLG |"
+          "+-----------------+"   "|     |"
+          "|                 |"   "| +5$ |"
+          "|  Coût : 1$      |"   "+-----+"
           "|  Revenus : 5●   |"
           "|                 |"
           "|  Cette carte    |"
@@ -143,7 +143,7 @@ namespace Minivilles
                         WriteInColor(line, ConsoleColor.White);
                         break;
                     case 7: WriteInColor("|     NE PAS      |", ConsoleColor.White); break;
-                    case 8: WriteInColor("|     CHOISIR     |", ConsoleColor.White); break;
+                    case 8: WriteInColor("|     ACHETER     |", ConsoleColor.White); break;
                     case 9: WriteInColor("|     DE CARTE    |", ConsoleColor.White); break;
 
 
@@ -378,14 +378,82 @@ namespace Minivilles
         }
 
 
-        public void DisplayTown(Player player, Player IA)
+        public void DisplayTown(Player[] players)
         {
-            string handSep = " +-----+ ";
-            string handLine = " |     | ";
+            string sep =  "+-----+";
+            string line = "|     |";
+            string playersSep = "  ||  ";
+            Player player = players[0];
+            Player IA = players[1];
 
-            List<Card> playerCards = new();
-            List<Card> IACards = new();
 
+            for (int i = 0; i < 6; i++)
+            {
+                //Traque la carte qui évolue dans la boucle
+                int cardLoopCount = 0;
+                foreach (Card card in player.GetPlayerTown)
+                {                    
+                    //Couleur de la carte correspondante
+                    ConsoleColor cardColor = GetCardColor(card);
+                    switch (i)
+                    {
+                        case 0:
+                            if (cardLoopCount == 0)
+                            {
+                                WriteInColor("Player", ConsoleColor.White);
+                                string spacesToWrite = new string(' ', player.GetPlayerTown.Count * 8 - 6);
+                                Console.Write(spacesToWrite);
+                            }
+                            break;
+                        case 1 or 5:
+                            WriteInColor(sep, cardColor);
+                            Console.Write(" ");
+                            break;
+                        case 2:
+                            WriteInColor("|", cardColor);
+                            WriteInColor($" {card.GetCardAbreviation} ", ConsoleColor.White);
+                            WriteInColor("| ", cardColor);
+                            break;
+                        case 3 or 4:
+                            WriteInColor(line, cardColor);
+                            Console.Write(" ");
+                            break;
+                    }
+                    cardLoopCount++;
+                }
+                WriteInColor(playersSep, ConsoleColor.Gray);
+                cardLoopCount = 0;
+                foreach (Card card in IA.GetPlayerTown)
+                {
+                    //Couleur de la carte correspondante
+                    ConsoleColor cardColor = GetCardColor(card);
+                    switch (i)
+                    {
+                        case 0:
+                            if (cardLoopCount == 0)
+                            {
+                                WriteInColor("IA", ConsoleColor.White);
+                            }
+                            break;
+                        case 1 or 5:
+                            WriteInColor(sep, cardColor);
+                            Console.Write(" ");
+                            break;
+                        case 2:
+                            WriteInColor("|", cardColor);
+                            WriteInColor($" {card.GetCardAbreviation} ", ConsoleColor.White);
+                            WriteInColor("| ", cardColor);
+                            break;
+                        case 3 or 4:
+                            WriteInColor(line, cardColor);
+                            Console.Write(" ");
+                            break;
+                    }
+                    cardLoopCount++;
+                }
+
+                Console.WriteLine("");
+            }
         }
 
 
