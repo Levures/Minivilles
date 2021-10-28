@@ -42,7 +42,6 @@ namespace Minivilles
                         if(dieValue == town[i].GetActivationValue[0])
                         {
                             coins += town[i].GetCardGivedCoins;
-                            Console.WriteLine("Je suis bleue");
                         }
                         break;
 
@@ -50,7 +49,6 @@ namespace Minivilles
                         if(isMyTurn && dieValue == town[i].GetActivationValue[0])
                         {
                             coins += town[i].GetCardGivedCoins;
-                            Console.WriteLine("Jsuis la");
                         }
                         break;
 
