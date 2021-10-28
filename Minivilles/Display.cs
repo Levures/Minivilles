@@ -35,7 +35,7 @@ namespace Minivilles
             //La boucle for répète l'action autant de fois qu'il y a de lignes dans une carte
             for (int i = 1; i < 14; i++)
             {
-                // La boucle foreach répète l'action autant de fois qu'il y a de cartes
+                //La boucle foreach répète l'action autant de fois qu'il y a de cartes
                 foreach(Card card in cardsDeck)
                 {
                     //Couleur de la carte correspondante
@@ -124,6 +124,16 @@ namespace Minivilles
                             break;
                     }                    
                 }
+                //Ne pas choisir de carte
+                switch (i)
+                {
+                    case 1 or 13:
+                        WriteInColor(sep, ConsoleColor.White);
+                        break;
+                    case 2 or 3 or 4 or 5 or 6 or 7 or 8 or 9 or 10 or 11 or 12:
+                        WriteInColor(line, ConsoleColor.White);
+                        break;
+                }
                 Console.WriteLine("");
             }
             //Variables de base pour le curseur
@@ -207,6 +217,70 @@ namespace Minivilles
             while (!hasChosen);
             //Retourne l'index de la carte dans liste fournie en argument
             return chosenCard;
+        }
+
+        //Methode non fonctionelle (en cours)
+        public int ChooseBox(string[] msg, bool sep, ConsoleColor boxColor = ConsoleColor.Gray, ConsoleColor textColor = ConsoleColor.Gray)
+        {
+            int[] msgLength = new int[msg.Length];
+            for (int i = 0; i < msg.Length; i++)            
+                msgLength[i] = msg[i].Length;
+
+            int maxMsgLength = msgLength.Max();
+            string cursor = "<--";
+            ConsoleColor cursorColor = ConsoleColor.Green;
+
+            for (int i = 0; i < msg.Length; i++)
+            {
+                WriteInColor("+", boxColor);
+                WriteInColor(new string('-', maxMsgLength + 3), boxColor);
+
+                WriteLineInColor("+", boxColor);
+
+                WriteInColor("| ", boxColor);
+                WriteInColor(msg[i], textColor);
+                Console.Write(new string(' ', maxMsgLength - msg[i].Length + 2));
+                WriteLineInColor("|", boxColor);
+            }
+            Console.SetCursorPosition(maxMsgLength + 6, 1);
+            WriteInColor(cursor, cursorColor);
+
+            int selection = new();
+            bool hasChosen = false;
+            int cursorX = maxMsgLength + 6;
+
+            //Boucle qui s'exécute pendant que l'utilisateur choisis sa carte
+            do
+            {
+                //Touches de clavier tapées
+                ConsoleKeyInfo keyPresed = Console.ReadKey();
+                //Switch qui gère le changement de position du curseur en fonction de l'input clavier
+                switch (keyPresed.Key)
+                {
+                    //Quand la flèche du bas est tapée et que le curseur n'est pas sur la dernière carte
+                    case ConsoleKey.RightArrow:
+
+                        break;
+
+                    //Pareil pour le haut
+                    case ConsoleKey.LeftArrow:
+                        
+                        break;
+
+                    //Touche entrée tapée
+                    case ConsoleKey.Enter:
+                        //calcul de l'index à partir de la position du curseur
+
+                        hasChosen = true;
+                        break;
+
+                    default: break;
+                }
+            }
+            //Fait tourner la boucle tant que rien a été choisi
+            while (!hasChosen);
+            //Retourne l'index de la carte dans liste fournie en argument
+            return selection;
         }
 
         private ConsoleColor GetCardColor(Card card)
@@ -361,12 +435,6 @@ namespace Minivilles
                     Console.WriteLine(face6);
                     break;
             }
-        }
-
-
-        public void DisplayPiles()
-        {
-
         }
 
     }
