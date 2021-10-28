@@ -143,14 +143,14 @@ namespace Minivilles
                 switch (i)
                 {
                     case 2 or 14:
-                        WriteInColor(sep, ConsoleColor.White);
+                        WriteInColor("+--------+", ConsoleColor.White);
                         break;
                     case 3 or 4or 5 or 6 or 10 or 11 or 12 or 13:
-                        WriteInColor(line, ConsoleColor.White);
+                        WriteInColor("|        |", ConsoleColor.White);
                         break;
-                    case 7: WriteInColor("|     NE PAS      |", ConsoleColor.White); break;
-                    case 8: WriteInColor("|     ACHETER     |", ConsoleColor.White); break;
-                    case 9: WriteInColor("|     DE CARTE    |", ConsoleColor.White); break;
+                    case 7: WriteInColor("|NE PAS  |", ConsoleColor.White); break;
+                    case 8: WriteInColor("|ACHETER |", ConsoleColor.White); break;
+                    case 9: WriteInColor("|DE CARTE|", ConsoleColor.White); break;
 
 
                 }
@@ -600,5 +600,39 @@ namespace Minivilles
             }
         }
 
+        public void DisplayText(string textLine1, string textLine2, string textLine3)
+        {
+            Console.SetCursorPosition(90, 19);
+            Console.Write("+---------------------------------------------------------------------+");
+
+            Console.SetCursorPosition(90, 20);
+            Console.Write($"|");
+            Console.SetCursorPosition(160, 20);
+            Console.Write($"|");
+
+            Console.SetCursorPosition(90, 21);
+            Console.Write($"|  {textLine1}");
+            Console.SetCursorPosition(160, 21);
+            Console.Write($"|");
+
+            Console.SetCursorPosition(90, 22);
+            Console.Write($"|  {textLine2}");
+            Console.SetCursorPosition(160, 22);
+            Console.Write($"|");
+
+            Console.SetCursorPosition(90, 23);
+            Console.Write($"|  {textLine3}");
+            Console.SetCursorPosition(160, 23);
+            Console.Write($"|");
+
+            Console.SetCursorPosition(90, 24);
+            Console.Write($"|");
+            Console.SetCursorPosition(160, 24);
+            Console.Write($"|");
+
+            Console.SetCursorPosition(90, 25);
+            Console.Write("+---------------------------------------------------------------------+");
+            Console.WriteLine();
+        }
     }
 }
