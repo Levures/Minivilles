@@ -27,11 +27,13 @@ namespace Minivilles
         public void game()
         {
             //Init
-            Console.SetWindowSize(180, 50);
+            Console.SetWindowSize(180, 40);            
+
             foreach (Pile pile in gamePiles)
             {
                 pile.InitializeStack();
             }
+
 
             //Début
             Console.WriteLine("Bienvenue dans Minivilles !");
@@ -45,7 +47,8 @@ namespace Minivilles
             players[0].town.Add(gamePiles[2].WithdrawCard());
             players[1].town.Add(gamePiles[2].WithdrawCard());
 
-
+            display.DisplayTown(players, 1);
+            Console.ReadLine();
 
 
             while (!endGame)

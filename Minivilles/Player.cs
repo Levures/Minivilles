@@ -57,6 +57,10 @@ namespace Minivilles
             get => town;
         }
         
+        public bool GetIsMyTurn
+        {
+            get => isMyTurn;
+        }
         
     }
 }

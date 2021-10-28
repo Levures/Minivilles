@@ -9,7 +9,8 @@ namespace Minivilles
     class Display
     {
         int[] cursorChooseCard = new int[2] { 0, 0 };
-        int[] cursorDisplayTown = new int[2] { 65, 30 };
+        int[] cursorThrowDice = new int[2] { 35, 20 };
+        int[] cursorDisplayTown= new int[2] { 90, 33 };
 
         Game game;
         Die die = new Die();
@@ -381,7 +382,7 @@ namespace Minivilles
         }
 
 
-        public void DisplayTown(Player[] players)
+        public void DisplayTown(Player[] players, int dieResult)
         {
             string sep =  "+-----+";
             string line = "|     |";
@@ -389,11 +390,17 @@ namespace Minivilles
             Player player = players[0];
             Player IA = players[1];
 
+            cursorDisplayTown[0] -= (player.GetPlayerTown.Count * 8 + IA.GetPlayerTown.Count * 8 + 6) / 2;
+            Console.WriteLine(cursorDisplayTown[0]);
 
             for (int i = 0; i < 6; i++)
             {
                 //Traque la carte qui évolue dans la boucle
                 int cardLoopCount = 0;
+
+                //Gestion du curseur
+                Console.SetCursorPosition(cursorDisplayTown[0], cursorDisplayTown[1]);
+
                 foreach (Card card in player.GetPlayerTown)
                 {                    
                     //Couleur de la carte correspondante
@@ -404,7 +411,8 @@ namespace Minivilles
                             if (cardLoopCount == 0)
                             {
                                 WriteInColor("Player", ConsoleColor.White);
-                                string spacesToWrite = new string(' ', player.GetPlayerTown.Count * 8 - 6);
+                                WriteInColor($" {player.coins}o", ConsoleColor.Yellow);
+                                string spacesToWrite = new string(' ', player.GetPlayerTown.Count * 8 - 9);
                                 Console.Write(spacesToWrite);
                             }
                             break;
@@ -417,9 +425,26 @@ namespace Minivilles
                             WriteInColor($" {card.GetCardAbreviation} ", ConsoleColor.White);
                             WriteInColor("| ", cardColor);
                             break;
-                        case 3 or 4:
+                        case 3:
                             WriteInColor(line, cardColor);
                             Console.Write(" ");
+                            break;
+                        case 4:
+                            bool canBeActivated = false;
+                            foreach (int activationValue in card.GetActivationValue)
+                            {
+                                if (activationValue == dieResult)
+                                    canBeActivated = true;
+                            }
+                            WriteInColor("|", cardColor);
+                            if (card.GetCardColor == "blue" && canBeActivated)
+                                WriteInColor($" +{card.GetCardGivedCoins}$ ", ConsoleColor.Yellow);
+                            else if (card.GetCardColor == "green" && player.GetIsMyTurn && canBeActivated)
+                                WriteInColor($" +{card.GetCardGivedCoins}$ ", ConsoleColor.Yellow);
+                            else if (card.GetCardColor == "red" && !player.GetIsMyTurn && canBeActivated)
+                                WriteInColor($" +{card.GetCardGivedCoins}$ ", ConsoleColor.Yellow);
+                            else Console.Write("     ");
+                            WriteInColor("| ", cardColor);
                             break;
                     }
                     cardLoopCount++;
@@ -436,6 +461,7 @@ namespace Minivilles
                             if (cardLoopCount == 0)
                             {
                                 WriteInColor("IA", ConsoleColor.White);
+                                WriteInColor($" {IA.coins}o", ConsoleColor.Yellow);
                             }
                             break;
                         case 1 or 5:
@@ -447,15 +473,31 @@ namespace Minivilles
                             WriteInColor($" {card.GetCardAbreviation} ", ConsoleColor.White);
                             WriteInColor("| ", cardColor);
                             break;
-                        case 3 or 4:
+                        case 3:
                             WriteInColor(line, cardColor);
                             Console.Write(" ");
+                            break;
+                        case 4:
+                            bool canBeActivated = false;
+                            foreach (int activationValue in card.GetActivationValue)
+                            {
+                                if (activationValue == dieResult)
+                                    canBeActivated = true;
+                            }
+                            WriteInColor("|", cardColor);
+                            if (card.GetCardColor == "blue" && canBeActivated)
+                                WriteInColor($" +{card.GetCardGivedCoins}$ ", ConsoleColor.Yellow);
+                            else if (card.GetCardColor == "green" && IA.GetIsMyTurn && canBeActivated)
+                                WriteInColor($" +{card.GetCardGivedCoins}$ ", ConsoleColor.Yellow);
+                            else if (card.GetCardColor == "red" && !IA.GetIsMyTurn && canBeActivated)
+                                WriteInColor($" +{card.GetCardGivedCoins}$ ", ConsoleColor.Yellow);
+                            else Console.Write("     ");
+                            WriteInColor("| ", cardColor);
                             break;
                     }
                     cardLoopCount++;
                 }
-
-                Console.WriteLine("");
+                cursorDisplayTown[1] += 1;
             }
         }
 
