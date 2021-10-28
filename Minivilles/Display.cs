@@ -26,11 +26,15 @@ namespace Minivilles
         */
 
         //Méthode qui affiche les piles de cartes qui restent et laisse l'utilisateur choisir la carte qu'il veut acheter
-        public int ChooseCard(List<Card> cardsDeck)
+        public int ChooseCard(List<Pile> pileDeck)
         {
             //Elements de construction pour les cartes
             string sep = "+-----------------+";
             string line = "|                 |";
+
+            List<Card> cardsDeck = new();
+            foreach (Pile pile in pileDeck)
+                cardsDeck.Add(pile.StackCard);
 
             //La boucle for répète l'action autant de fois qu'il y a de lignes dans une carte
             for (int i = 1; i < 14; i++)
@@ -358,6 +362,7 @@ namespace Minivilles
             WriteLineInColor(sep, cardColor);
         }
 
+<<<<<<< Updated upstream
         //public void DisplayTown(Player playerHand)
         //{
         //    string handSep = " +-----+ ";
@@ -367,6 +372,13 @@ namespace Minivilles
                 
         //    }
         //}
+=======
+        public void DisplayTown(Player playerHand)
+        {
+            string handSep = " +-----+ ";
+            string handLine = " |     | ";
+        }
+>>>>>>> Stashed changes
 
         private void WriteInColor(string msg, ConsoleColor color)
         {
