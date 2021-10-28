@@ -9,7 +9,6 @@ namespace Minivilles
     class Display
     {
         int[] cursorChooseCard = new int[2] { 0, 0 };
-        int[] cursorThrowDice = new int[2] { 35, 20 };
         int[] cursorDisplayTown = new int[2] { 65, 30 };
 
         Game game;
@@ -476,56 +475,81 @@ namespace Minivilles
 
         public void DisplayDie(int dieFace)
         {
-            string face1 = "+-------+\n" +
-                            "|       |\n" +
-                            "|   o   |\n" +
-                            "|       |\n" +
-                            "+-------+";
-            string face2 = "+-------+\n" +
-                            "|     o |\n" +
-                            "|       |\n" +
-                            "| o     |\n" +
-                            "+-------+";
-            string face3 = "+-------+\n" +
-                            "|     o |\n" +
-                            "|   o   |\n" +
-                            "| o     |\n" +
-                            "+-------+";
-            string face4 = "+-------+\n" +
-                            "| o   o |\n" +
-                            "|       |\n" +
-                            "| o   o |\n" +
-                            "+-------+";
-            string face5 = "+-------+\n" +
-                            "| o   o |\n" +
-                            "|   o   |\n" +
-                            "| o   o |\n" +
-                            "+-------+";
-            string face6 = "+-------+\n" +
-                            "| o   o |\n" +
-                            "| o   o |\n" +
-                            "| o   o |\n" +
-                            "+-------+";
+            int[] cursorThrowDice = new int[2] { 35, 20 };
 
             switch (dieFace)
             {
                 case 1:
-                    Console.WriteLine(face1);
+                    Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1]);
+                    Console.Write("+-------+");
+                    Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1] + 1);
+                    Console.Write("|       |");
+                    Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1] + 2);
+                    Console.Write("|   o   |");
+                    Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1] + 3);
+                    Console.Write("|       |");
+                    Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1] + 4);
+                    Console.Write("+-------+");
                     break;
                 case 2:
-                    Console.WriteLine(face2);
+                    Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1]);
+                    Console.Write("+-------+");
+                    Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1] + 1);
+                    Console.Write("|     o |");
+                    Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1] + 2);
+                    Console.Write("|       |");
+                    Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1] + 3);
+                    Console.Write("| o     |");
+                    Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1] + 4);
+                    Console.Write("+-------+");
                     break;
                 case 3:
-                    Console.WriteLine(face3);
+                    Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1]);
+                    Console.Write("+-------+");
+                    Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1] + 1);
+                    Console.Write("|     o |");
+                    Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1] + 2);
+                    Console.Write("|   o   |");
+                    Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1] + 3);
+                    Console.Write("| o     |");
+                    Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1] + 4);
+                    Console.Write("+-------+");
                     break;
                 case 4:
-                    Console.WriteLine(face4);
+                    Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1]);
+                    Console.Write("+-------+");
+                    Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1] + 1);
+                    Console.Write("| o   o |");
+                    Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1] + 2);
+                    Console.Write("|       |");
+                    Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1] + 3);
+                    Console.Write("| o   o |");
+                    Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1] + 4);
+                    Console.Write("+-------+");
                     break;
                 case 5:
-                    Console.WriteLine(face5);
+                    Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1]);
+                    Console.Write("+-------+");
+                    Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1] + 1);
+                    Console.Write("| o   o |");
+                    Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1] + 2);
+                    Console.Write("|   o   |");
+                    Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1] + 3);
+                    Console.Write("| o   o |");
+                    Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1] + 4);
+                    Console.Write("+-------+");
                     break;
                 case 6:
-                    Console.WriteLine(face6);
+                    Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1]);
+                    Console.Write("+-------+");
+                    Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1] + 1);
+                    Console.Write("| o   o |");
+                    Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1] + 2);
+                    Console.Write("| o   o |");
+                    Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1] + 3);
+                    Console.Write("| o   o |");
+                    Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1] + 4);
+                    Console.Write("+-------+");
                     break;
             }
         }
