@@ -57,6 +57,12 @@ namespace Minivilles
                 players[1].ApplyCardsEffect(dieFace);
                 Console.WriteLine("le joueur a {0} pièce", players[0].coins.ToString());
 
+                // Fin de partie ?
+                if (players[0].coins >= 20 || players[1].coins >= 20)
+                {
+                    endGame = true;
+                }
+
                 //Le joueur achète ou non une propriété.
                 Console.WriteLine("Souhaitez-vous acheter une carte ?");
 
@@ -129,7 +135,16 @@ namespace Minivilles
                     break;
             }
 
-            players[1].isMyTurn = false;
+            if(players[0].coins < players[1].coins)
+            {
+                Console.WriteLine("Bahaha t'as perdu !");
+            }
+            else
+            {
+                Console.WriteLine("Bravo champion !");
+            }
+
+            return game();
         }
 
         #endregion
