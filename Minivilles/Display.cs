@@ -30,7 +30,7 @@ namespace Minivilles
         */
 
         //Méthode qui affiche les piles de cartes qui restent et laisse l'utilisateur choisir la carte qu'il veut acheter
-        public int ChooseCard(List<Pile> pileDeck)
+        public int ChooseCard(List<Pile> pileDeck, bool canChooseCard)
         {
             //Elements de construction pour les cartes
             string sep = "+-----------------+";
@@ -39,6 +39,8 @@ namespace Minivilles
             List<Card> cardsDeck = new();
             foreach (Pile pile in pileDeck)
                 cardsDeck.Add(pile.StackCard);
+
+            Console.SetCursorPosition(cursorChooseCard[0], cursorChooseCard[1]);
 
             //La boucle for répète l'action autant de fois qu'il y a de lignes dans une carte
             for (int i = 1; i < 15; i++)
@@ -154,92 +156,95 @@ namespace Minivilles
                 }
                 Console.WriteLine("");
             }
-            //Variables de base pour le curseur
-            int cursorPositionX = 8;
-            int cursorPositionY = 14;
-            string cursor = "^^^";
-
-            //Set le curseur à la position par défaut (sous la première carte)
-            Console.SetCursorPosition(cursorPositionX, cursorPositionY);
-            Console.Write(cursor);
-
-            //Variables pour la gestion de la selection
-            bool hasChosen = false;
-            int selection = new();
-            int chosenCard = new();
-
-            Console.CursorVisible = false;
-            //Boucle qui s'exécute pendant que l'utilisateur choisis sa carte
-            do
+            if (canChooseCard)
             {
-                //Touches de clavier tapées
-                ConsoleKeyInfo keyPresed = Console.ReadKey();
-                //Switch qui gère le changement de position du curseur en fonction de l'input clavier
-                switch (keyPresed.Key)
+                //Variables de base pour le curseur
+                int cursorPositionX = 8;
+                int cursorPositionY = 14;
+                string cursor = "^^^";
+
+                //Set le curseur à la position par défaut (sous la première carte)
+                Console.SetCursorPosition(cursorPositionX, cursorPositionY);
+                Console.Write(cursor);
+
+                //Variables pour la gestion de la selection
+                bool hasChosen = false;
+                int selection = new();
+                int chosenCard = new();
+
+                Console.CursorVisible = false;
+                //Boucle qui s'exécute pendant que l'utilisateur choisis sa carte
+                do
                 {
-                    //Quand la flèche de droite est tapée et que le curseur n'est pas sur la dernière carte
-                    case ConsoleKey.RightArrow:
-                        if (cursorPositionX < 8 + 20 * (cardsDeck.Count - 1) + 20)
-                        {                 
-                            //Offset du curseur
-                            cursorPositionX += 20;
-                            //Clear du curseur précédent
-                            Console.SetCursorPosition(0, cursorPositionY);
-                            Console.Write(new string(' ', Console.WindowWidth));
-                            //Ecriture du nouveau curseur au bon endroit
-                            Console.SetCursorPosition(cursorPositionX, cursorPositionY);
-                            Console.Write(cursor);
-                        }
-                        //Retour à la première carte si le curseur est sur la dernière carte
-                        else
-                        {
-                            cursorPositionX = 8;
-                            Console.SetCursorPosition(0, cursorPositionY);
-                            Console.Write(new string(' ', Console.WindowWidth));
-                            Console.SetCursorPosition(cursorPositionX, cursorPositionY);
-                            Console.Write(cursor);
-                        }
-                        break;
+                    //Touches de clavier tapées
+                    ConsoleKeyInfo keyPresed = Console.ReadKey();
+                    //Switch qui gère le changement de position du curseur en fonction de l'input clavier
+                    switch (keyPresed.Key)
+                    {
+                        //Quand la flèche de droite est tapée et que le curseur n'est pas sur la dernière carte
+                        case ConsoleKey.RightArrow:
+                            if (cursorPositionX < 8 + 20 * (cardsDeck.Count - 1) + 20)
+                            {
+                                //Offset du curseur
+                                cursorPositionX += 20;
+                                //Clear du curseur précédent
+                                Console.SetCursorPosition(0, cursorPositionY);
+                                Console.Write(new string(' ', Console.WindowWidth));
+                                //Ecriture du nouveau curseur au bon endroit
+                                Console.SetCursorPosition(cursorPositionX, cursorPositionY);
+                                Console.Write(cursor);
+                            }
+                            //Retour à la première carte si le curseur est sur la dernière carte
+                            else
+                            {
+                                cursorPositionX = 8;
+                                Console.SetCursorPosition(0, cursorPositionY);
+                                Console.Write(new string(' ', Console.WindowWidth));
+                                Console.SetCursorPosition(cursorPositionX, cursorPositionY);
+                                Console.Write(cursor);
+                            }
+                            break;
 
-                    //Pareil pour la gauche
-                    case ConsoleKey.LeftArrow:
-                        if (cursorPositionX > 8)
-                        {
-                            cursorPositionX -= 20;
-                            Console.SetCursorPosition(0, cursorPositionY);
-                            Console.Write(new string(' ', Console.WindowWidth));
-                            Console.SetCursorPosition(cursorPositionX, cursorPositionY);
-                            Console.Write(cursor);
-                        }
-                        else
-                        {
-                            cursorPositionX = 8 + 20 * (cardsDeck.Count - 1) + 20;
-                            Console.SetCursorPosition(0, cursorPositionY);
-                            Console.Write(new string(' ', Console.WindowWidth));
-                            Console.SetCursorPosition(cursorPositionX, cursorPositionY);
-                            Console.Write(cursor);
+                        //Pareil pour la gauche
+                        case ConsoleKey.LeftArrow:
+                            if (cursorPositionX > 8)
+                            {
+                                cursorPositionX -= 20;
+                                Console.SetCursorPosition(0, cursorPositionY);
+                                Console.Write(new string(' ', Console.WindowWidth));
+                                Console.SetCursorPosition(cursorPositionX, cursorPositionY);
+                                Console.Write(cursor);
+                            }
+                            else
+                            {
+                                cursorPositionX = 8 + 20 * (cardsDeck.Count - 1) + 20;
+                                Console.SetCursorPosition(0, cursorPositionY);
+                                Console.Write(new string(' ', Console.WindowWidth));
+                                Console.SetCursorPosition(cursorPositionX, cursorPositionY);
+                                Console.Write(cursor);
 
-                        }
-                        break;
-                    //Touche entrée tapée
-                    case ConsoleKey.Enter:
-                        //calcul de l'index à partir de la position du curseur
-                        chosenCard = (cursorPositionX - 8) / 20;
-                        hasChosen = true;
-                        break;
+                            }
+                            break;
+                        //Touche entrée tapée
+                        case ConsoleKey.Enter:
+                            //calcul de l'index à partir de la position du curseur
+                            chosenCard = (cursorPositionX - 8) / 20;
+                            hasChosen = true;
+                            break;
 
-                    default: break;
+                        default: break;
+                    }
                 }
+                //Fait tourner la boucle tant que rien a été choisi
+                while (!hasChosen);
+                if (chosenCard <= cardsDeck.Count - 1)
+                {
+                    //Retourne l'index de la carte dans liste fournie en argument
+                    return chosenCard;
+                }
+                else return 100; // Retourne 100 si le joueur ne veut pas choisir de cartes
             }
-            //Fait tourner la boucle tant que rien a été choisi
-            while (!hasChosen);
-            if (chosenCard <= cardsDeck.Count - 1)
-            {
-                //Retourne l'index de la carte dans liste fournie en argument
-                return chosenCard;
-            }
-            else return 100; // Retourne 100 si le joueur ne veut pas choisir de cartes
-            
+            return 200;
         }
 
         //Methode non fonctionelle (en cours)
