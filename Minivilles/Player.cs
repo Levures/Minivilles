@@ -10,7 +10,7 @@ namespace Minivilles
     {
         public List<Card> town = new List<Card>()
         {
-            new Card("Boulangerie", 1, "vert", new int [1]{1}, 1,"BLG"),
+            new Card("Boulangerie", 1, "vert", new int [1]{2}, 1,"BLG"),
             new Card("Champ de blé", 1, "bleue", new int [1]{1}, 1,"CDB")
         };
         public Die die = new Die();
