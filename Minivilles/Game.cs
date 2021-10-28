@@ -14,10 +14,26 @@ namespace Minivilles
         public bool endGame = false;
         public Display display = new Display();
         private Random random = new Random();
-        private Pile pile = new Pile(new Card("boulangerie", 1, "red", new int[1] { 2 }, 4, "blg"));
+
+        private List<Pile> gamePiles = new List<Pile> { new Pile(new Card("Ferme", 1, "blue", new int[1] { 1 }, 1, "BLG")),
+                                                        new Pile(new Card("Champs de blé", 2, "blue", new int[1] { 1 }, 1, "CDB")),
+                                                        new Pile(new Card("Boulangerie", 1, "green", new int[1] { 3 }, 1, "BLG")),
+                                                        new Pile(new Card("Café", 1, "red", new int[1] { 2 }, 4, "CAF")),
+                                                        new Pile(new Card("Superette", 2, "green", new int[1] { 4 }, 3, "SUP")),
+                                                        new Pile(new Card("Forêt", 1, "blue", new int[1] { 5 }, 2, "FOR")),
+                                                        new Pile(new Card("Restaurant", 4, "red", new int[1] { 5 }, 2, "RES")),
+                                                        new Pile(new Card("Stade", 6, "blue", new int[1] { 2 }, 4, "STD"))};
+
 
         public Game game()
         {
+            //Init
+            foreach(Pile pile in gamePiles)
+            {
+                pile.InitializeStack();
+            }
+
+
             //Début
             Console.WriteLine("Bienvenue dans Minivilles !");
 
