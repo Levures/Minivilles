@@ -528,6 +528,7 @@ namespace Minivilles
                 }
                 cursorDisplayTown[1] += 1;
             }
+            cursorDisplayTown = new int[2] { 90, 33 };
         }
 
 
@@ -625,66 +626,78 @@ namespace Minivilles
             }
         }
 
-        public void DisplayText(bool isPlayerTurn, string textLine1, string textLine2, string textLine3)
-        {
-            Console.SetCursorPosition(90, 18);
-            Console.Write("+---------------------------------------------------------------------+");
 
-            //De qui est-ce le tour ?
-            if (textLine2 == "Bienvenue dans Minivilles !")
+        public void DisplayText(string textLine1 = "", string textLine2 = "", string textLine3 = "", bool clear = false)
+        {
+            if (!clear)
             {
                 Console.SetCursorPosition(90, 19);
+                Console.Write("+---------------------------------------------------------------------+");
+
+                Console.SetCursorPosition(90, 20);
                 Console.Write($"|");
-                Console.SetCursorPosition(160, 19);
+                Console.SetCursorPosition(160, 20);
                 Console.Write($"|");
+
+                Console.SetCursorPosition(90, 21);
+                Console.Write($"|  {textLine1}");
+                Console.SetCursorPosition(160, 21);
+                Console.Write($"|");
+
+                Console.SetCursorPosition(90, 22);
+                Console.Write($"|  {textLine2}");
+                Console.SetCursorPosition(160, 22);
+                Console.Write($"|");
+
+                Console.SetCursorPosition(90, 23);
+                Console.Write($"|  {textLine3}");
+                Console.SetCursorPosition(160, 23);
+                Console.Write($"|");
+
+                Console.SetCursorPosition(90, 24);
+                Console.Write($"|");
+                Console.SetCursorPosition(160, 24);
+                Console.Write($"|");
+
+                Console.SetCursorPosition(90, 25);
+                Console.Write("+---------------------------------------------------------------------+");
+                Console.WriteLine();
             }
             else
             {
-                if (isPlayerTurn == true)
-                {
-                    Console.SetCursorPosition(90, 19);
-                    Console.Write($"|  Tour du joueur:");
-                    Console.SetCursorPosition(160, 19);
-                    Console.Write($"|");
-                }
-                else
-                {
-                    Console.SetCursorPosition(90, 19);
-                    Console.Write($"|  Tour de l'ordinateur:");
-                    Console.SetCursorPosition(160, 19);
-                    Console.Write($"|");
-                }
+                Console.SetCursorPosition(90, 19);
+                Console.Write("+---------------------------------------------------------------------+");
+
+                Console.SetCursorPosition(90, 20);
+                Console.Write($"|");
+                Console.SetCursorPosition(160, 20);
+                Console.Write($"|");
+
+                Console.SetCursorPosition(90, 21);
+                Console.Write($"|                                                                   ");
+                Console.SetCursorPosition(160, 21);
+                Console.Write($"|");
+
+                Console.SetCursorPosition(90, 22);
+                Console.Write($"|                                                                   ");
+                Console.SetCursorPosition(160, 22);
+                Console.Write($"|");
+
+                Console.SetCursorPosition(90, 23);
+                Console.Write($"|                                                                   ");
+                Console.SetCursorPosition(160, 23);
+                Console.Write($"|");
+
+                Console.SetCursorPosition(90, 24);
+                Console.Write($"|");
+                Console.SetCursorPosition(160, 24);
+                Console.Write($"|");
+
+                Console.SetCursorPosition(90, 25);
+                Console.Write("+---------------------------------------------------------------------+");
+                Console.WriteLine();
             }
-                        
-            //Reste du texte.
-            Console.SetCursorPosition(90, 20);
-            Console.Write($"|");
-            Console.SetCursorPosition(160, 20);
-            Console.Write($"|");
-
-            Console.SetCursorPosition(90, 21);
-            Console.Write($"|  {textLine1}");
-            Console.SetCursorPosition(160, 21);
-            Console.Write($"|");
-
-            Console.SetCursorPosition(90, 22);
-            Console.Write($"|  {textLine2}");
-            Console.SetCursorPosition(160, 22);
-            Console.Write($"|");
-
-            Console.SetCursorPosition(90, 23);
-            Console.Write($"|  {textLine3}");
-            Console.SetCursorPosition(160, 23);
-            Console.Write($"|");
-
-            Console.SetCursorPosition(90, 24);
-            Console.Write($"|");
-            Console.SetCursorPosition(160, 24);
-            Console.Write($"|");
-
-            Console.SetCursorPosition(90, 25);
-            Console.Write("+---------------------------------------------------------------------+");
-            Console.WriteLine();
+           
         }
     }
 }

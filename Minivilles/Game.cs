@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 
 namespace Minivilles
 {
@@ -28,17 +28,12 @@ namespace Minivilles
         public void game()
         {
             //Init
-            Console.SetWindowSize(180, 40);            
-
+            Console.SetWindowSize(180, 40);
+            Console.CursorVisible = false;
             foreach (Pile pile in gamePiles)
             {
                 pile.InitializeStack();
             }
-
-
-            //Début
-            Console.WriteLine("Bienvenue dans Minivilles !");
-            Console.Clear();
 
             players[0] = new Player();
             players[1] = new Player();
@@ -48,23 +43,26 @@ namespace Minivilles
             players[0].town.Add(gamePiles[2].WithdrawCard());
             players[1].town.Add(gamePiles[2].WithdrawCard());
 
-
-            display.DisplayDie(5);
-            display.DisplayTown(players, 1);
-            canChooseCard = true;
-            players[0].town.Add(gamePiles[display.ChooseCard(gamePiles, canChooseCard, players)].WithdrawCard());
+            //Début
+            display.DisplayText("Bienvenue dans Minivilles !");
+            Thread.Sleep(2000);
+            display.DisplayText("Bienvenue dans Minivilles !", "Voici votre plateau");
+            Thread.Sleep(2000);
+            display.DisplayTown(players, 6);
             canChooseCard = false;
             display.ChooseCard(gamePiles, canChooseCard, players);
-            Console.ReadLine();
 
 
             while (!endGame)
             {
 
                 // Début du tour du joueur.
+                display.DisplayText("", "", "", true);
                 players[0].isMyTurn = true;
-                Console.WriteLine("Tour du joueur:");
-                Console.WriteLine("Appuyez sur Entrée pour lancer le dé.");
+                Thread.Sleep(1000);
+                display.DisplayText("Tour du joueur");
+                Thread.Sleep(1000);
+                display.DisplayText("Tour du joueur", "Appuyez sur Entrée pour lancer le dé.");
                 Console.ReadLine();
 
                 // Le joueur lance le dé.
@@ -72,7 +70,10 @@ namespace Minivilles
                 display.DisplayDie(dieFace);
                 players[0].ApplyCardsEffect(dieFace);
                 players[1].ApplyCardsEffect(dieFace);
-                Console.WriteLine("Le joueur a {0} pièce(s).", players[0].coins.ToString());
+                Thread.Sleep(500);
+                display.DisplayTown(players, dieFace);
+                Thread.Sleep(2000);
+                
 
                 // Fin de partie ?
                 if (players[0].coins >= 20 || players[1].coins >= 20)
@@ -81,21 +82,13 @@ namespace Minivilles
                 }
 
                 //Le joueur achète ou non une propriété.
-                Console.WriteLine("Souhaitez-vous acheter une carte ?");
+                display.DisplayText("Choisissez une carte, ou passez votre tour.");
+                int cardChosen = display.ChooseCard(gamePiles, true, players);
+                if (cardChosen != 100)
+                    players[0].BuyCard(gamePiles[cardChosen].WithdrawCard());
+                display.DisplayTown(players, dieFace);
 
-                //Display truc qui propose oui ou non.
-                string playerChoice = Console.ReadLine();
-
-                if(playerChoice == "o")
-                {
-                    Console.WriteLine("Je choisis une carte.");
-                    //display.ChooseCard();
-                }
-
-                //- Si oui, curseur sous les piles de carte.
-                //players[0].BuyCard();
-
-                //- Si non, la suite.
+                Console.ReadLine();
 
                 players[0].isMyTurn = false;
                 // Début du tour de l'ordinateur.
