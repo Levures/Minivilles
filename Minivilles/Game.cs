@@ -32,14 +32,21 @@ namespace Minivilles
                 pile.InitializeStack();
             }
 
+            display.ChooseCard(gamePiles);
 
             //Début
             Console.WriteLine("Bienvenue dans Minivilles !");
 
-            players[0] = new Player(new List<Card> {new Card("Champs de blé", 2, "blue", new int[1] { 1 }, 1, "CDB"),
-                                                    new Card("Ferme", 1, "blue", new int[1] { 1 }, 1, "FME")});
-            players[1] = new Player(new List<Card> {new Card("Champs de blé", 2, "blue", new int[1] { 1 }, 1, "CDB"),
-                                                    new Card("Ferme", 1, "blue", new int[1] { 1 }, 1, "FME")});
+            players[0] = new Player();
+            players[1] = new Player();
+
+            players[0].town.Add(gamePiles[0].WithdrawCard());
+            players[1].town.Add(gamePiles[0].WithdrawCard());
+            players[0].town.Add(gamePiles[2].WithdrawCard());
+            players[1].town.Add(gamePiles[2].WithdrawCard());
+
+            Console.WriteLine("{0}, {1}", players[0].town[0].GetCardName, players[0].town[1].GetCardName);
+            Console.WriteLine("{0}", gamePiles[0].GetStack.Count.ToString());
 
             while (!endGame)
             {

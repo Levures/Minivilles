@@ -9,16 +9,11 @@ namespace Minivilles
     class Player
     {
 
-        public List<Card> town;
+        public List<Card> town = new List<Card>();
         public Die die = new Die();
         public int coins { get; private set; } = 3;
         private Game game = new Game();
         public bool isMyTurn = false;
-
-        public Player(List<Card> aTown)
-        {
-            town = aTown;
-        }
 
         public void BuyCard(Card chosenCard)
         {
@@ -32,21 +27,21 @@ namespace Minivilles
             {
                 switch (town[i].GetCardColor)
                 {
-                    case "rouge":
+                    case "red":
                         if(!isMyTurn && dieValue == town[i].GetActivationValue[0])
                         {
                             coins += town[i].GetCardGivedCoins;
                         }
                         break;
 
-                    case "bleue":
+                    case "blue":
                         if(dieValue == town[i].GetActivationValue[0])
                         {
                             coins += town[i].GetCardGivedCoins;
                         }
                         break;
 
-                    case "vert":
+                    case "green":
                         if(isMyTurn && dieValue == town[i].GetActivationValue[0])
                         {
                             coins += town[i].GetCardGivedCoins;
