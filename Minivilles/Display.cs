@@ -244,6 +244,7 @@ namespace Minivilles
                 }
                 else return 100; // Retourne 100 si le joueur ne veut pas choisir de cartes
             }
+            else Console.Write(new string(' ', Console.WindowWidth));
             return 200;
         }
 
