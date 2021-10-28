@@ -39,8 +39,6 @@ namespace Minivilles
             players[0] = new Player();
             players[1] = new Player();
 
-            Console.WriteLine("{0}, {1}", players[0].town[0].GetCardName, players[0].town[1].GetCardName);
-
             while (!endGame)
             {
 
@@ -89,7 +87,17 @@ namespace Minivilles
                 display.DisplayDie(dieFace);
                 players[0].ApplyCardsEffect(dieFace);
                 players[1].ApplyCardsEffect(dieFace);
-                IATurn();                
+                Console.WriteLine("l'ordi a {0} pièce", players[1].coins.ToString());
+                IATurn();
+            }
+
+            if (players[0].coins < players[1].coins)
+            {
+                Console.WriteLine("Bahaha t'as perdu !");
+            }
+            else
+            {
+                Console.WriteLine("Bravo champion !");
             }
 
             return game();
@@ -134,17 +142,12 @@ namespace Minivilles
                     Console.WriteLine("Ordi : Pas de carte pour moi");
                     break;
             }
-
-            if(players[0].coins < players[1].coins)
+            // Fin de partie ?
+            if (players[0].coins >= 20 || players[1].coins >= 20)
             {
-                Console.WriteLine("Bahaha t'as perdu !");
+                endGame = true;
             }
-            else
-            {
-                Console.WriteLine("Bravo champion !");
-            }
-
-            return game();
+            players[1].isMyTurn = false;
         }
 
         #endregion

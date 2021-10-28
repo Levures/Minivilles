@@ -358,15 +358,15 @@ namespace Minivilles
             WriteLineInColor(sep, cardColor);
         }
 
-        public void DisplayTown(Player playerHand)
-        {
-            string handSep = " +-----+ ";
-            string handLine = " |     | ";
-            foreach (Card hand in Player.GetPlayerTown())
-            {
+        //public void DisplayTown(Player playerHand)
+        //{
+        //    string handSep = " +-----+ ";
+        //    string handLine = " |     | ";
+        //    foreach (Card hand in Player.GetPlayerTown())
+        //    {
                 
-            }
-        }
+        //    }
+        //}
 
         private void WriteInColor(string msg, ConsoleColor color)
         {
