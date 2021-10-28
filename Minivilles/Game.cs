@@ -13,6 +13,7 @@ namespace Minivilles
         public bool endGame = false;
         public Display display = new Display();
         private Random random = new Random();
+        public bool canChooseCard;
 
         private List<Pile> gamePiles = new List<Pile> { new Pile(new Card("Champs de blé", 2, "blue", new int[1] { 1 }, 1, "CDB")),
                                                         new Pile(new Card("Ferme", 1, "blue", new int[1] { 1 }, 1, "FME")),
@@ -47,7 +48,9 @@ namespace Minivilles
             players[0].town.Add(gamePiles[2].WithdrawCard());
             players[1].town.Add(gamePiles[2].WithdrawCard());
 
-            display.ChooseCard(gamePiles);
+            canChooseCard = true;
+            players[0].town.Add(gamePiles[display.ChooseCard(gamePiles)].WithdrawCard());
+            canChooseCard = false;
             display.DisplayDie(5);
             display.DisplayTown(players, 1);
             Console.ReadLine();
