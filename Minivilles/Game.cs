@@ -10,7 +10,6 @@ namespace Minivilles
     {
         public Pile[] piles;
         public Player[] players = new Player[2];
-        public bool playerTurn { get; private set; }
         public bool endGame = false;
         public Display display = new Display();
         private Random random = new Random();
@@ -40,11 +39,13 @@ namespace Minivilles
             players[0] = new Player();
             players[1] = new Player();
 
+            Console.WriteLine("{0}, {1}", players[0].town[0].GetCardName, players[0].town[1].GetCardName);
+
             while (!endGame)
             {
 
                 // Début du tour du joueur.
-                playerTurn = true;
+                players[0].isMyTurn = true;
                 Console.WriteLine("Tour du joueur:");
                 Console.WriteLine("Appuyez sur Entrée pour lancer le dé.");
                 Console.ReadLine();
@@ -53,6 +54,8 @@ namespace Minivilles
                 int dieFace = players[0].die.Roll();
                 display.DisplayDie(dieFace);
                 players[0].ApplyCardsEffect(dieFace);
+                players[1].ApplyCardsEffect(dieFace);
+                Console.WriteLine("le joueur a {0} pièce", players[0].coins.ToString());
 
                 // Fin de partie ?
                 if (players[0].coins >= 20 || players[1].coins >= 20)
@@ -72,52 +75,64 @@ namespace Minivilles
                     //display.ChooseCard();
                 }
 
-                        //- Si oui, curseur sous les piles de carte.
-                    //players[0].BuyCard();
+                //- Si oui, curseur sous les piles de carte.
+                //players[0].BuyCard();
 
-                        //- Si non, la suite.
+                //- Si non, la suite.
 
-
+                players[0].isMyTurn = false;
                 // Début du tour de l'ordinateur.
                 Console.WriteLine("Tour de l'ordinateur:");
+                players[1].isMyTurn = true;
                 System.Threading.Thread.Sleep(1000);
                 dieFace = players[1].die.Roll();
                 display.DisplayDie(dieFace);
+                players[0].ApplyCardsEffect(dieFace);
                 players[1].ApplyCardsEffect(dieFace);
+                IATurn();                
+            }
 
-                // Fin de partie ?
-                if (players[0].coins >= 20 || players[1].coins >= 20)
+            return game();
+        }
+
+        #region Private Methods
+        private void IATurn()
+        {
+            int iaChoice;
+            iaChoice = random.Next(2);
+            List<Card> possibility = new List<Card>();
+
+            List<Card> haveEnoughCoinToBuy = new List<Card>();
+            bool canBuyCard = false;
+
+            foreach (Card entry in possibility)
+            {
+                if (entry.GetCardCost >= players[1].coins)
                 {
-                    endGame = true;
+                    haveEnoughCoinToBuy.Add(entry);
+                    canBuyCard = true;
                 }
+            }
 
-                int iaChoice;
-                iaChoice = random.Next(2);
-                List<Card> possibility = new List<Card>();
 
-                List<Card> haveEnoughCoinToBuy = new List<Card>();
 
-                foreach(Card entry in possibility)
-                {
-                    if(entry.GetCardCost >= players[1].coins)
+            switch (iaChoice)
+            {
+                case 0:
+                    if(canBuyCard)
                     {
-                        haveEnoughCoinToBuy.Add(entry);
-                    }
-                }
-                
-
-                switch (iaChoice)
-                {
-                    case 0:
-                        Card iaChosenCard = haveEnoughCoinToBuy[random.Next(haveEnoughCoinToBuy.Count + 1)];
+                        Card iaChosenCard = haveEnoughCoinToBuy[random.Next(haveEnoughCoinToBuy.Count)];
                         players[1].BuyCard(iaChosenCard);
                         Console.WriteLine("L'IA a choisi : {0}", iaChosenCard.GetCardName);
-                        break;
-                    case 1:
+                    }
+                    else
+                    {
                         Console.WriteLine("Ordi : Pas de carte pour moi");
-                        break;
-                }                
-                
+                    }
+                    break;
+                case 1:
+                    Console.WriteLine("Ordi : Pas de carte pour moi");
+                    break;
             }
 
             if(players[0].coins < players[1].coins)
@@ -131,6 +146,8 @@ namespace Minivilles
 
             return game();
         }
+
+        #endregion
 
     }
 }

@@ -284,6 +284,16 @@ namespace Minivilles
             WriteLineInColor(sep, cardColor);
         }
 
+        public void DisplayTown(Player playerHand)
+        {
+            string handSep = " +-----+ ";
+            string handLine = " |     | ";
+            foreach (Card hand in getPlayerTown)
+            {
+                
+            }
+        }
+
         private void WriteInColor(string msg, ConsoleColor color)
         {
             Console.ForegroundColor = color;

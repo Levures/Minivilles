@@ -11,11 +11,12 @@ namespace Minivilles
         public List<Card> town = new List<Card>()
         {
             new Card("Boulangerie", 1, "vert", new int [1]{2}, 1,"BLG"),
-            new Card("Champ de blé", 1, "vert", new int [1]{1}, 1,"CDB")
+            new Card("Champ de blé", 1, "bleue", new int [1]{1}, 1,"CDB")
         };
         public Die die = new Die();
         public int coins { get; private set; } = 3;
         private Game game = new Game();
+        public bool isMyTurn = false;
 
         public void BuyCard(Card chosenCard)
         {
@@ -30,7 +31,7 @@ namespace Minivilles
                 switch (town[i].GetCardColor)
                 {
                     case "rouge":
-                        if(!game.playerTurn && dieValue == town[i].GetActivationValue[0])
+                        if(!isMyTurn && dieValue == town[i].GetActivationValue[0])
                         {
                             coins += town[i].GetCardGivedCoins;
                         }
@@ -40,13 +41,15 @@ namespace Minivilles
                         if(dieValue == town[i].GetActivationValue[0])
                         {
                             coins += town[i].GetCardGivedCoins;
+                            Console.WriteLine("Je suis bleue");
                         }
                         break;
 
                     case "vert":
-                        if(game.playerTurn && dieValue == town[i].GetActivationValue[0])
+                        if(isMyTurn && dieValue == town[i].GetActivationValue[0])
                         {
                             coins += town[i].GetCardGivedCoins;
+                            Console.WriteLine("Jsuis la");
                         }
                         break;
 
