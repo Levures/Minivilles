@@ -619,11 +619,38 @@ namespace Minivilles
             }
         }
 
-        public void DisplayText(string textLine1, string textLine2, string textLine3)
+        public void DisplayText(bool isPlayerTurn, string textLine1, string textLine2, string textLine3)
         {
-            Console.SetCursorPosition(90, 19);
+            Console.SetCursorPosition(90, 18);
             Console.Write("+---------------------------------------------------------------------+");
 
+            //De qui est-ce le tour ?
+            if (textLine2 == "Bienvenue dans Minivilles !")
+            {
+                Console.SetCursorPosition(90, 19);
+                Console.Write($"|");
+                Console.SetCursorPosition(160, 19);
+                Console.Write($"|");
+            }
+            else
+            {
+                if (isPlayerTurn == true)
+                {
+                    Console.SetCursorPosition(90, 19);
+                    Console.Write($"|  Tour du joueur:");
+                    Console.SetCursorPosition(160, 19);
+                    Console.Write($"|");
+                }
+                else
+                {
+                    Console.SetCursorPosition(90, 19);
+                    Console.Write($"|  Tour de l'ordinateur:");
+                    Console.SetCursorPosition(160, 19);
+                    Console.Write($"|");
+                }
+            }
+                        
+            //Reste du texte.
             Console.SetCursorPosition(90, 20);
             Console.Write($"|");
             Console.SetCursorPosition(160, 20);
