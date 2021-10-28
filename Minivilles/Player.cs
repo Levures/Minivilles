@@ -8,16 +8,17 @@ namespace Minivilles
 {
     class Player
     {
-        
-        public List<Card> town = new List<Card>()
-        {
-            new Card("Boulangerie", 1, "vert", new int [1]{2}, 1,"BLG"),
-            new Card("Champ de blé", 1, "bleue", new int [1]{1}, 1,"CDB")
-        };
+
+        public List<Card> town;
         public Die die = new Die();
         public int coins { get; private set; } = 3;
         private Game game = new Game();
         public bool isMyTurn = false;
+
+        public Player(List<Card> aTown)
+        {
+            town = aTown;
+        }
 
         public void BuyCard(Card chosenCard)
         {
@@ -56,9 +57,9 @@ namespace Minivilles
             }
         }
 
-        public List<Card> GetPlayerTown()
+        public List<Card> GetPlayerTown
         {
-            return town;
+            get => town;
         }
         
         

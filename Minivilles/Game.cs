@@ -27,7 +27,7 @@ namespace Minivilles
         public void game()
         {
             //Init
-            foreach(Pile pile in gamePiles)
+            foreach (Pile pile in gamePiles)
             {
                 pile.InitializeStack();
             }
@@ -36,8 +36,10 @@ namespace Minivilles
             //Début
             Console.WriteLine("Bienvenue dans Minivilles !");
 
-            players[0] = new Player();
-            players[1] = new Player();
+            players[0] = new Player(new List<Card> {new Card("Champs de blé", 2, "blue", new int[1] { 1 }, 1, "CDB"),
+                                                    new Card("Ferme", 1, "blue", new int[1] { 1 }, 1, "FME")});
+            players[1] = new Player(new List<Card> {new Card("Champs de blé", 2, "blue", new int[1] { 1 }, 1, "CDB"),
+                                                    new Card("Ferme", 1, "blue", new int[1] { 1 }, 1, "FME")});
 
             while (!endGame)
             {
