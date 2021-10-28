@@ -30,10 +30,10 @@ namespace Minivilles
         */
 
         //Méthode qui affiche les piles de cartes qui restent et laisse l'utilisateur choisir la carte qu'il veut acheter
-        public int ChooseCard(List<Pile> pileDeck, bool canChooseCard)
+        public int ChooseCard(List<Pile> pileDeck, bool canChooseCard, Player[] players)
         {
             //Elements de construction pour les cartes
-            string sep = "+-----------------+";
+            string sep =  "+-----------------+";
             string line = "|                 |";
 
             List<Card> cardsDeck = new();
@@ -165,7 +165,10 @@ namespace Minivilles
 
                 //Set le curseur à la position par défaut (sous la première carte)
                 Console.SetCursorPosition(cursorPositionX, cursorPositionY);
-                Console.Write(cursor);
+                if (players[0].coins < pileDeck[(cursorPositionX - 8) / 20].GetCard().GetCardCost)
+                    WriteInColor(cursor, ConsoleColor.Red);
+                else
+                    WriteInColor(cursor, ConsoleColor.Green);
 
                 //Variables pour la gestion de la selection
                 bool hasChosen = false;
@@ -192,7 +195,10 @@ namespace Minivilles
                                 Console.Write(new string(' ', Console.WindowWidth));
                                 //Ecriture du nouveau curseur au bon endroit
                                 Console.SetCursorPosition(cursorPositionX, cursorPositionY);
-                                Console.Write(cursor);
+                                if (players[0].coins < pileDeck[(cursorPositionX - 8) / 20].GetCard().GetCardCost)
+                                    WriteInColor(cursor, ConsoleColor.Red);
+                                else
+                                    WriteInColor(cursor, ConsoleColor.Green);
                             }
                             //Retour à la première carte si le curseur est sur la dernière carte
                             else
@@ -201,7 +207,10 @@ namespace Minivilles
                                 Console.SetCursorPosition(0, cursorPositionY);
                                 Console.Write(new string(' ', Console.WindowWidth));
                                 Console.SetCursorPosition(cursorPositionX, cursorPositionY);
-                                Console.Write(cursor);
+                                if (players[0].coins < pileDeck[(cursorPositionX - 8) / 20].GetCard().GetCardCost)
+                                    WriteInColor(cursor, ConsoleColor.Red);
+                                else
+                                    WriteInColor(cursor, ConsoleColor.Green);
                             }
                             break;
 
@@ -213,7 +222,11 @@ namespace Minivilles
                                 Console.SetCursorPosition(0, cursorPositionY);
                                 Console.Write(new string(' ', Console.WindowWidth));
                                 Console.SetCursorPosition(cursorPositionX, cursorPositionY);
-                                Console.Write(cursor);
+                                chosenCard = (cursorPositionX - 8) / 20;
+                                if (players[0].coins < pileDeck[(cursorPositionX - 8) / 20].GetCard().GetCardCost)
+                                    WriteInColor(cursor, ConsoleColor.Red);
+                                else
+                                    WriteInColor(cursor, ConsoleColor.Green);
                             }
                             else
                             {
@@ -221,14 +234,19 @@ namespace Minivilles
                                 Console.SetCursorPosition(0, cursorPositionY);
                                 Console.Write(new string(' ', Console.WindowWidth));
                                 Console.SetCursorPosition(cursorPositionX, cursorPositionY);
-                                Console.Write(cursor);
-
+                                if (players[0].coins < pileDeck[(cursorPositionX - 8) / 20].GetCard().GetCardCost)
+                                    WriteInColor(cursor, ConsoleColor.Red);
+                                else
+                                    WriteInColor(cursor, ConsoleColor.Green);
                             }
                             break;
                         //Touche entrée tapée
                         case ConsoleKey.Enter:
                             //calcul de l'index à partir de la position du curseur
                             chosenCard = (cursorPositionX - 8) / 20;
+                            if (players[0].coins < pileDeck[chosenCard].GetCard().GetCardCost)
+                                break;
+
                             hasChosen = true;
                             break;
 

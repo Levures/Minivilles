@@ -48,12 +48,13 @@ namespace Minivilles
             players[0].town.Add(gamePiles[2].WithdrawCard());
             players[1].town.Add(gamePiles[2].WithdrawCard());
 
-            canChooseCard = true;
-            players[0].town.Add(gamePiles[display.ChooseCard(gamePiles, canChooseCard)].WithdrawCard());
-            canChooseCard = false;
-            display.ChooseCard(gamePiles, canChooseCard);
+
             display.DisplayDie(5);
             display.DisplayTown(players, 1);
+            canChooseCard = true;
+            players[0].town.Add(gamePiles[display.ChooseCard(gamePiles, canChooseCard, players)].WithdrawCard());
+            canChooseCard = false;
+            display.ChooseCard(gamePiles, canChooseCard, players);
             Console.ReadLine();
 
 
