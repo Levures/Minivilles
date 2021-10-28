@@ -14,17 +14,17 @@ namespace Minivilles
         public Display display = new Display();
         private Random random = new Random();
 
-        private List<Pile> gamePiles = new List<Pile> { new Pile(new Card("Ferme", 1, "blue", new int[1] { 1 }, 1, "BLG")),
-                                                        new Pile(new Card("Champs de blé", 2, "blue", new int[1] { 1 }, 1, "CDB")),
-                                                        new Pile(new Card("Boulangerie", 1, "green", new int[1] { 3 }, 1, "BLG")),
-                                                        new Pile(new Card("Café", 1, "red", new int[1] { 2 }, 4, "CAF")),
+        private List<Pile> gamePiles = new List<Pile> { new Pile(new Card("Champs de blé", 2, "blue", new int[1] { 1 }, 1, "CDB")),
+                                                        new Pile(new Card("Ferme", 1, "blue", new int[1] { 1 }, 1, "FME")),
+                                                        new Pile(new Card("Boulangerie", 1, "green", new int[1] { 2 }, 1, "BLG")),
+                                                        new Pile(new Card("Café", 1, "red", new int[1] { 3 }, 4, "CAF")),
                                                         new Pile(new Card("Superette", 2, "green", new int[1] { 4 }, 3, "SUP")),
                                                         new Pile(new Card("Forêt", 1, "blue", new int[1] { 5 }, 2, "FOR")),
                                                         new Pile(new Card("Restaurant", 4, "red", new int[1] { 5 }, 2, "RES")),
-                                                        new Pile(new Card("Stade", 6, "blue", new int[1] { 2 }, 4, "STD"))};
+                                                        new Pile(new Card("Stade", 6, "blue", new int[1] { 6 }, 4, "STD"))};
 
 
-        public Game game()
+        public void game()
         {
             //Init
             foreach(Pile pile in gamePiles)
@@ -53,7 +53,7 @@ namespace Minivilles
                 display.DisplayDie(dieFace);
                 players[0].ApplyCardsEffect(dieFace);
                 players[1].ApplyCardsEffect(dieFace);
-                Console.WriteLine("le joueur a {0} pièce", players[0].coins.ToString());
+                Console.WriteLine("Le joueur a {0} pièce(s).", players[0].coins.ToString());
 
                 // Fin de partie ?
                 if (players[0].coins >= 20 || players[1].coins >= 20)
@@ -69,7 +69,7 @@ namespace Minivilles
 
                 if(playerChoice == "o")
                 {
-                    Console.WriteLine("Je choisis une carte");
+                    Console.WriteLine("Je choisis une carte.");
                     //display.ChooseCard();
                 }
 
@@ -87,7 +87,7 @@ namespace Minivilles
                 display.DisplayDie(dieFace);
                 players[0].ApplyCardsEffect(dieFace);
                 players[1].ApplyCardsEffect(dieFace);
-                Console.WriteLine("l'ordi a {0} pièce", players[1].coins.ToString());
+                Console.WriteLine("L'ordinateur a {0} pièce(s).", players[1].coins.ToString());
                 IATurn();
             }
 
@@ -99,8 +99,6 @@ namespace Minivilles
             {
                 Console.WriteLine("Bravo champion !");
             }
-
-            return game();
         }
 
         #region Private Methods
