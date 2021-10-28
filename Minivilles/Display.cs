@@ -134,9 +134,14 @@ namespace Minivilles
                     case 1 or 13:
                         WriteInColor(sep, ConsoleColor.White);
                         break;
-                    case 2 or 3 or 4 or 5 or 6 or 7 or 8 or 9 or 10 or 11 or 12:
+                    case 2 or 3 or 4or 5 or 9 or 10 or 11 or 12:
                         WriteInColor(line, ConsoleColor.White);
                         break;
+                    case 6: WriteInColor("|     NE PAS      |", ConsoleColor.White); break;
+                    case 7: WriteInColor("|     CHOISIR     |", ConsoleColor.White); break;
+                    case 8: WriteInColor("|     DE CARTE    |", ConsoleColor.White); break;
+
+
                 }
                 Console.WriteLine("");
             }
@@ -165,7 +170,7 @@ namespace Minivilles
                 {
                     //Quand la flèche de droite est tapée et que le curseur n'est pas sur la dernière carte
                     case ConsoleKey.RightArrow:
-                        if (cursorPositionX < 8 + 20 * (cardsDeck.Count - 1))
+                        if (cursorPositionX < 8 + 20 * (cardsDeck.Count - 1) + 20)
                         {                 
                             //Offset du curseur
                             cursorPositionX += 20;
@@ -199,7 +204,7 @@ namespace Minivilles
                         }
                         else
                         {
-                            cursorPositionX = 8 + 20 * (cardsDeck.Count - 1);
+                            cursorPositionX = 8 + 20 * (cardsDeck.Count - 1) + 20;
                             Console.SetCursorPosition(0, cursorPositionY);
                             Console.Write(new string(' ', Console.WindowWidth));
                             Console.SetCursorPosition(cursorPositionX, cursorPositionY);
@@ -219,8 +224,13 @@ namespace Minivilles
             }
             //Fait tourner la boucle tant que rien a été choisi
             while (!hasChosen);
-            //Retourne l'index de la carte dans liste fournie en argument
-            return chosenCard;
+            if (chosenCard <= cardsDeck.Count - 1)
+            {
+                //Retourne l'index de la carte dans liste fournie en argument
+                return chosenCard;
+            }
+            else return 100; // Retourne 100 si le joueur ne veut pas choisir de cartes
+            
         }
 
         //Methode non fonctionelle (en cours)
