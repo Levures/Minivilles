@@ -391,7 +391,6 @@ namespace Minivilles
             Player IA = players[1];
 
             cursorDisplayTown[0] -= (player.GetPlayerTown.Count * 8 + IA.GetPlayerTown.Count * 8 + 6) / 2;
-            Console.WriteLine(cursorDisplayTown[0]);
 
             for (int i = 0; i < 6; i++)
             {

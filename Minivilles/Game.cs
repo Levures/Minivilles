@@ -47,6 +47,8 @@ namespace Minivilles
             players[0].town.Add(gamePiles[2].WithdrawCard());
             players[1].town.Add(gamePiles[2].WithdrawCard());
 
+            display.ChooseCard(gamePiles);
+            display.DisplayDie(5);
             display.DisplayTown(players, 1);
             Console.ReadLine();
 
