@@ -27,6 +27,7 @@ namespace Minivilles
         public void game()
         {
             //Init
+            Console.SetWindowSize(180, 50);
             foreach (Pile pile in gamePiles)
             {
                 pile.InitializeStack();

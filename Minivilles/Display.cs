@@ -373,10 +373,14 @@ namespace Minivilles
         }
 
 
-        public void DisplayTown(Player playerHand)
+        public void DisplayTown(Player player, Player IA)
         {
             string handSep = " +-----+ ";
             string handLine = " |     | ";
+
+            List<Card> playerCards = new();
+            List<Card> IACards = new();
+
         }
 
 
