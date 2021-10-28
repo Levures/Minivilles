@@ -8,6 +8,10 @@ namespace Minivilles
 {
     class Display
     {
+        int[] cursorChooseCard = new int[2] { 0, 0 };
+        int[] cursorThrowDice = new int[2] { 35, 20 };
+        int[] cursorDisplayTown = new int[2] { 65, 30 };
+
         Game game;
         Die die = new Die();
 

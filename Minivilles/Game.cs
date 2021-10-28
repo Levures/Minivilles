@@ -45,16 +45,7 @@ namespace Minivilles
             players[0].town.Add(gamePiles[2].WithdrawCard());
             players[1].town.Add(gamePiles[2].WithdrawCard());
 
-            int[] cursorChooseCard = new int[2]{ 0, 0 };
-            int[] cursorThrowDice = new int[2]{ 0, 20 };
-            int[] cursorDisplayTown = new int[2]{ 0, 30 };
 
-            Console.SetCursorPosition(cursorChooseCard[0], cursorChooseCard[1]);
-            display.ChooseCard(gamePiles);
-            Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1]);
-            display.DisplayDie(3);
-            Console.SetCursorPosition(cursorDisplayTown[0], cursorDisplayTown[1]);
-            display.DisplayTown(players);
 
 
             while (!endGame)
