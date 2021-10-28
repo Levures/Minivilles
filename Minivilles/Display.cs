@@ -195,10 +195,13 @@ namespace Minivilles
                                 Console.Write(new string(' ', Console.WindowWidth));
                                 //Ecriture du nouveau curseur au bon endroit
                                 Console.SetCursorPosition(cursorPositionX, cursorPositionY);
-                                if (players[0].coins < pileDeck[(cursorPositionX - 8) / 20].GetCard().GetCardCost)
-                                    WriteInColor(cursor, ConsoleColor.Red);
+                                if (cursorPositionX < 7 + pileDeck.Count * 20)
+                                    if (players[0].coins < pileDeck[(cursorPositionX - 8) / 20].GetCard().GetCardCost)
+                                        WriteInColor(cursor, ConsoleColor.Red);
+                                    else
+                                        WriteInColor(cursor, ConsoleColor.Green);
                                 else
-                                    WriteInColor(cursor, ConsoleColor.Green);
+                                    WriteInColor(cursor, ConsoleColor.White);
                             }
                             //Retour à la première carte si le curseur est sur la dernière carte
                             else
@@ -234,10 +237,13 @@ namespace Minivilles
                                 Console.SetCursorPosition(0, cursorPositionY);
                                 Console.Write(new string(' ', Console.WindowWidth));
                                 Console.SetCursorPosition(cursorPositionX, cursorPositionY);
-                                if (players[0].coins < pileDeck[(cursorPositionX - 8) / 20].GetCard().GetCardCost)
-                                    WriteInColor(cursor, ConsoleColor.Red);
+                                if (cursorPositionX < 7 + pileDeck.Count * 20)
+                                    if (players[0].coins < pileDeck[(cursorPositionX - 8) / 20].GetCard().GetCardCost)
+                                        WriteInColor(cursor, ConsoleColor.Red);
+                                    else
+                                        WriteInColor(cursor, ConsoleColor.Green);
                                 else
-                                    WriteInColor(cursor, ConsoleColor.Green);
+                                    WriteInColor(cursor, ConsoleColor.White);
                             }
                             break;
                         //Touche entrée tapée
