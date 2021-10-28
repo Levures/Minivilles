@@ -8,6 +8,7 @@ namespace Minivilles
 {
     class Player
     {
+        
         public List<Card> town = new List<Card>()
         {
             new Card("Boulangerie", 1, "vert", new int [1]{2}, 1,"BLG"),
@@ -56,5 +57,12 @@ namespace Minivilles
                 }
             }
         }
+
+        public List<Card> GetPlayerTown()
+        {
+            return town;
+        }
+        
+        
     }
 }

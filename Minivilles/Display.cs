@@ -288,7 +288,7 @@ namespace Minivilles
         {
             string handSep = " +-----+ ";
             string handLine = " |     | ";
-            foreach (Card hand in getPlayerTown)
+            foreach (Card hand in Player.GetPlayerTown())
             {
                 
             }
