@@ -362,23 +362,13 @@ namespace Minivilles
             WriteLineInColor(sep, cardColor);
         }
 
-<<<<<<< Updated upstream
-        //public void DisplayTown(Player playerHand)
-        //{
-        //    string handSep = " +-----+ ";
-        //    string handLine = " |     | ";
-        //    foreach (Card hand in Player.GetPlayerTown())
-        //    {
-                
-        //    }
-        //}
-=======
+
         public void DisplayTown(Player playerHand)
         {
             string handSep = " +-----+ ";
             string handLine = " |     | ";
         }
->>>>>>> Stashed changes
+
 
         private void WriteInColor(string msg, ConsoleColor color)
         {
