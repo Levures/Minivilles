@@ -37,32 +37,37 @@ namespace Minivilles
                 cardsDeck.Add(pile.StackCard);
 
             //La boucle for répète l'action autant de fois qu'il y a de lignes dans une carte
-            for (int i = 1; i < 14; i++)
+            for (int i = 1; i < 15; i++)
             {
                 //La boucle foreach répète l'action autant de fois qu'il y a de cartes
-                foreach(Card card in cardsDeck)
+                foreach(Pile pile in pileDeck)
                 {
+                    Card card = pile.GetCard();
                     //Couleur de la carte correspondante
                     ConsoleColor cardColor = GetCardColor(card);
                     //Switch prenant comme variable la ligne sur laquelle le programme est executé
                     switch (i)
                     {
-                        case 1 or 3 or 13:
+                        case 1:
+                            WriteInColor($"|       {pile.GetStack.Count} []      |", ConsoleColor.White);
+                            Console.Write(" ");
+                            break;
+                        case 2 or 4 or 14:
                             WriteInColor(sep, cardColor);
                             Console.Write(" ");
                             break;
-                        case 2:
+                        case 3:
                             WriteInColor("|  ", cardColor);
                             WriteInColor(card.GetCardName, cardColor);
                             for (int j = 0; j < 15 - card.GetCardName.Length; j++)
                                 Console.Write(" ");
                             WriteInColor("| ", cardColor);
                             break;
-                        case 5 or 8 or 12:
+                        case 6 or 9 or 13:
                             WriteInColor(line, cardColor);
                             Console.Write(" ");
                             break;
-                        case 4:
+                        case 5:
                             WriteInColor("|    ", cardColor);
                             int[] activationValue = card.GetActivationValue;
                             int characters = 0;
@@ -74,24 +79,24 @@ namespace Minivilles
                             for (int k = 0; k <  13 - characters; k++) { Console.Write(" "); }
                             WriteInColor("| ", cardColor);
                             break;
-                        case 6:
+                        case 7:
                             WriteInColor("|", cardColor);
                             Console.Write(" Coût : ");
                             WriteInColor($"{card.GetCardCost} $      ", ConsoleColor.DarkYellow);
                             WriteInColor("| ", cardColor);
                             break;
-                        case 7:
+                        case 8:
                             WriteInColor("|", cardColor);
                             Console.Write(" Revenus : ");
                             WriteInColor($"{card.GetCardGivedCoins} o   ", ConsoleColor.Yellow);
                             WriteInColor("| ", cardColor);
                             break;
-                        case 9:
+                        case 10:
                             WriteInColor("|", cardColor);
                             WriteInColor("  Cette carte    ", ConsoleColor.DarkGray);
                             WriteInColor("| ", cardColor);
                             break;
-                        case 10:
+                        case 11:
                             switch (card.GetCardColor)
                             {
                                 case "red" or "green":
@@ -106,7 +111,7 @@ namespace Minivilles
                                     break;
                             }
                             break;
-                        case 11:
+                        case 12:
                             switch (card.GetCardColor)
                             {
                                 case "red":
@@ -131,15 +136,15 @@ namespace Minivilles
                 //Ne pas choisir de carte
                 switch (i)
                 {
-                    case 1 or 13:
+                    case 2 or 14:
                         WriteInColor(sep, ConsoleColor.White);
                         break;
-                    case 2 or 3 or 4or 5 or 9 or 10 or 11 or 12:
+                    case 3 or 4or 5 or 6 or 10 or 11 or 12 or 13:
                         WriteInColor(line, ConsoleColor.White);
                         break;
-                    case 6: WriteInColor("|     NE PAS      |", ConsoleColor.White); break;
-                    case 7: WriteInColor("|     CHOISIR     |", ConsoleColor.White); break;
-                    case 8: WriteInColor("|     DE CARTE    |", ConsoleColor.White); break;
+                    case 7: WriteInColor("|     NE PAS      |", ConsoleColor.White); break;
+                    case 8: WriteInColor("|     CHOISIR     |", ConsoleColor.White); break;
+                    case 9: WriteInColor("|     DE CARTE    |", ConsoleColor.White); break;
 
 
                 }
@@ -147,7 +152,7 @@ namespace Minivilles
             }
             //Variables de base pour le curseur
             int cursorPositionX = 8;
-            int cursorPositionY = 13;
+            int cursorPositionY = 14;
             string cursor = "^^^";
 
             //Set le curseur à la position par défaut (sous la première carte)
