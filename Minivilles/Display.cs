@@ -30,7 +30,7 @@ namespace Minivilles
         */
 
         //Méthode qui affiche les piles de cartes qui restent et laisse l'utilisateur choisir la carte qu'il veut acheter
-        public int ChooseCard(List<Pile> pileDeck, bool canChooseCard, Player[] players)
+        public int ChooseCard(List<Pile> pileDeck, bool canChooseCard, Player[] players, bool clear = false)
         {
             //Elements de construction pour les cartes
             string sep =  "+-----------------+";
@@ -45,8 +45,12 @@ namespace Minivilles
             //La boucle for répète l'action autant de fois qu'il y a de lignes dans une carte
             for (int i = 1; i < 15; i++)
             {
+                if (clear)
+                {
+                    Console.Write(new string(' ', Console.LargestWindowWidth));
+                }
                 //La boucle foreach répète l'action autant de fois qu'il y a de cartes
-                foreach(Pile pile in pileDeck)
+                foreach (Pile pile in pileDeck)
                 {
                     Card card = pile.GetCard();
                     //Couleur de la carte correspondante
