@@ -49,117 +49,121 @@ namespace Minivilles
                 {
                     Console.Write(new string(' ', Console.LargestWindowWidth));
                 }
-                //La boucle foreach répète l'action autant de fois qu'il y a de cartes
-                foreach (Pile pile in pileDeck)
+                else
                 {
-                    Card card = pile.GetCard();
-                    //Couleur de la carte correspondante
-                    ConsoleColor cardColor = GetCardColor(card);
-                    //Switch prenant comme variable la ligne sur laquelle le programme est executé
+                    //La boucle foreach répète l'action autant de fois qu'il y a de cartes
+                    foreach (Pile pile in pileDeck)
+                    {
+                        Card card = pile.GetCard();
+                        //Couleur de la carte correspondante
+                        ConsoleColor cardColor = GetCardColor(card);
+                        //Switch prenant comme variable la ligne sur laquelle le programme est executé
+                        switch (i)
+                        {
+                            case 1:
+                                WriteInColor($"|       {pile.GetStack.Count} []      |", ConsoleColor.White);
+                                Console.Write(" ");
+                                break;
+                            case 2 or 4 or 14:
+                                WriteInColor(sep, cardColor);
+                                Console.Write(" ");
+                                break;
+                            case 3:
+                                WriteInColor("|  ", cardColor);
+                                WriteInColor(card.GetCardName, cardColor);
+                                for (int j = 0; j < 15 - card.GetCardName.Length; j++)
+                                    Console.Write(" ");
+                                WriteInColor("| ", cardColor);
+                                break;
+                            case 6 or 9 or 13:
+                                WriteInColor(line, cardColor);
+                                Console.Write(" ");
+                                break;
+                            case 5:
+                                WriteInColor("|    ", cardColor);
+                                int[] activationValue = card.GetActivationValue;
+                                int characters = 0;
+                                foreach (int value in activationValue)
+                                {
+                                    WriteInColor("|" + value + "|", ConsoleColor.White);
+                                    characters += 3;
+                                }
+                                for (int k = 0; k < 13 - characters; k++) { Console.Write(" "); }
+                                WriteInColor("| ", cardColor);
+                                break;
+                            case 7:
+                                WriteInColor("|", cardColor);
+                                Console.Write(" Coût : ");
+                                WriteInColor($"{card.GetCardCost} $      ", ConsoleColor.DarkYellow);
+                                WriteInColor("| ", cardColor);
+                                break;
+                            case 8:
+                                WriteInColor("|", cardColor);
+                                Console.Write(" Revenus : ");
+                                WriteInColor($"{card.GetCardGivedCoins} o   ", ConsoleColor.Yellow);
+                                WriteInColor("| ", cardColor);
+                                break;
+                            case 10:
+                                WriteInColor("|", cardColor);
+                                WriteInColor("  Cette carte    ", ConsoleColor.DarkGray);
+                                WriteInColor("| ", cardColor);
+                                break;
+                            case 11:
+                                switch (card.GetCardColor)
+                                {
+                                    case "red" or "green":
+                                        WriteInColor("|", cardColor);
+                                        WriteInColor("  s'active au    ", ConsoleColor.DarkGray);
+                                        WriteInColor("| ", cardColor);
+                                        break;
+                                    case "blue":
+                                        WriteInColor("|", cardColor);
+                                        WriteInColor("   s'active à    ", ConsoleColor.DarkGray);
+                                        WriteInColor("| ", cardColor);
+                                        break;
+                                }
+                                break;
+                            case 12:
+                                switch (card.GetCardColor)
+                                {
+                                    case "red":
+                                        WriteInColor("|", cardColor);
+                                        WriteInColor("  tour adverse   ", ConsoleColor.DarkGray);
+                                        WriteInColor("| ", cardColor);
+                                        break;
+                                    case "blue":
+                                        WriteInColor("|", cardColor);
+                                        WriteInColor("  tous les tours ", ConsoleColor.DarkGray);
+                                        WriteInColor("| ", cardColor);
+                                        break;
+                                    case "green":
+                                        WriteInColor("|", cardColor);
+                                        WriteInColor("  tour du joueur ", ConsoleColor.DarkGray);
+                                        WriteInColor("| ", cardColor);
+                                        break;
+                                }
+                                break;
+                        }
+                    }
+                    //Ne pas choisir de carte
                     switch (i)
                     {
-                        case 1:
-                            WriteInColor($"|       {pile.GetStack.Count} []      |", ConsoleColor.White);
-                            Console.Write(" ");
+                        case 2 or 14:
+                            WriteInColor("+--------+", ConsoleColor.White);
                             break;
-                        case 2 or 4 or 14:
-                            WriteInColor(sep, cardColor);
-                            Console.Write(" ");
+                        case 3 or 4 or 5 or 6 or 10 or 11 or 12 or 13:
+                            WriteInColor("|        |", ConsoleColor.White);
                             break;
-                        case 3:
-                            WriteInColor("|  ", cardColor);
-                            WriteInColor(card.GetCardName, cardColor);
-                            for (int j = 0; j < 15 - card.GetCardName.Length; j++)
-                                Console.Write(" ");
-                            WriteInColor("| ", cardColor);
-                            break;
-                        case 6 or 9 or 13:
-                            WriteInColor(line, cardColor);
-                            Console.Write(" ");
-                            break;
-                        case 5:
-                            WriteInColor("|    ", cardColor);
-                            int[] activationValue = card.GetActivationValue;
-                            int characters = 0;
-                            foreach (int value in activationValue)
-                            {
-                                WriteInColor("|" + value + "|", ConsoleColor.White);
-                                characters += 3;
-                            }
-                            for (int k = 0; k <  13 - characters; k++) { Console.Write(" "); }
-                            WriteInColor("| ", cardColor);
-                            break;
-                        case 7:
-                            WriteInColor("|", cardColor);
-                            Console.Write(" Coût : ");
-                            WriteInColor($"{card.GetCardCost} $      ", ConsoleColor.DarkYellow);
-                            WriteInColor("| ", cardColor);
-                            break;
-                        case 8:
-                            WriteInColor("|", cardColor);
-                            Console.Write(" Revenus : ");
-                            WriteInColor($"{card.GetCardGivedCoins} o   ", ConsoleColor.Yellow);
-                            WriteInColor("| ", cardColor);
-                            break;
-                        case 10:
-                            WriteInColor("|", cardColor);
-                            WriteInColor("  Cette carte    ", ConsoleColor.DarkGray);
-                            WriteInColor("| ", cardColor);
-                            break;
-                        case 11:
-                            switch (card.GetCardColor)
-                            {
-                                case "red" or "green":
-                                    WriteInColor("|", cardColor);
-                                    WriteInColor("  s'active au    ", ConsoleColor.DarkGray);
-                                    WriteInColor("| ", cardColor);
-                                    break;
-                                case "blue":
-                                    WriteInColor("|", cardColor);
-                                    WriteInColor("   s'active à    ", ConsoleColor.DarkGray);
-                                    WriteInColor("| ", cardColor);
-                                    break;
-                            }
-                            break;
-                        case 12:
-                            switch (card.GetCardColor)
-                            {
-                                case "red":
-                                    WriteInColor("|", cardColor);
-                                    WriteInColor("  tour adverse   ", ConsoleColor.DarkGray);
-                                    WriteInColor("| ", cardColor);
-                                    break;
-                                case "blue":
-                                    WriteInColor("|", cardColor);
-                                    WriteInColor("  tous les tours ", ConsoleColor.DarkGray);
-                                    WriteInColor("| ", cardColor);
-                                    break;
-                                case "green":
-                                    WriteInColor("|", cardColor);
-                                    WriteInColor("  tour du joueur ", ConsoleColor.DarkGray);
-                                    WriteInColor("| ", cardColor);
-                                    break;
-                            }
-                            break;
-                    }                    
-                }
-                //Ne pas choisir de carte
-                switch (i)
-                {
-                    case 2 or 14:
-                        WriteInColor("+--------+", ConsoleColor.White);
-                        break;
-                    case 3 or 4or 5 or 6 or 10 or 11 or 12 or 13:
-                        WriteInColor("|        |", ConsoleColor.White);
-                        break;
-                    case 7: WriteInColor("|NE PAS  |", ConsoleColor.White); break;
-                    case 8: WriteInColor("|ACHETER |", ConsoleColor.White); break;
-                    case 9: WriteInColor("|DE CARTE|", ConsoleColor.White); break;
+                        case 7: WriteInColor("|NE PAS  |", ConsoleColor.White); break;
+                        case 8: WriteInColor("|ACHETER |", ConsoleColor.White); break;
+                        case 9: WriteInColor("|DE CARTE|", ConsoleColor.White); break;
 
 
+                    }
+                    Console.WriteLine("");
                 }
-                Console.WriteLine("");
             }
+                
             if (canChooseCard)
             {
                 //Variables de base pour le curseur
@@ -452,7 +456,15 @@ namespace Minivilles
                                 {
                                     WriteInColor("Player", ConsoleColor.White);
                                     WriteInColor($" {player.coins}o", ConsoleColor.Yellow);
-                                    string spacesToWrite = new string(' ', player.GetPlayerTown.Count * 8 - 9);
+                                    string spacesToWrite = "E";
+                                    if (player.coins < 10)
+                                    {
+                                        spacesToWrite = new string(' ', player.GetPlayerTown.Count * 8 - 9);
+                                    }
+                                    else
+                                    {
+                                        spacesToWrite = new string(' ', player.GetPlayerTown.Count * 8 - 10);
+                                    }
                                     Console.Write(spacesToWrite);
                                 }
                                 break;

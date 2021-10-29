@@ -28,7 +28,7 @@ namespace Minivilles
         public void game()
         {
             //Init
-            Console.SetWindowSize(180, 40);
+            Console.SetWindowSize(Console.LargestWindowWidth, Console.LargestWindowHeight);
             Console.CursorVisible = false;
             foreach (Pile pile in gamePiles)
             {
@@ -87,6 +87,16 @@ namespace Minivilles
                 int cardChosen = display.ChooseCard(gamePiles, true, players);
                 if (cardChosen != 100)
                     players[0].BuyCard(gamePiles[cardChosen].WithdrawCard());
+                foreach (Pile pile in gamePiles.ToList())
+                {
+                    if (pile.GetStack.Count == 0)
+                    {
+                        gamePiles.Remove(pile);
+                        display.ChooseCard(gamePiles, false, players, true);
+                    }
+                }
+
+
                 display.DisplayTown(players, dieFace);
                 display.ChooseCard(gamePiles, false, players);
 
@@ -110,7 +120,7 @@ namespace Minivilles
                 display.DisplayDie(dieFace);
                 players[0].ApplyCardsEffect(dieFace);
                 players[1].ApplyCardsEffect(dieFace);
-                IATurn();
+                IATurn(dieFace);
             }
 
             if (players[0].coins < players[1].coins)
@@ -124,7 +134,7 @@ namespace Minivilles
         }
 
         #region Private Methods
-        private void IATurn()
+        private void IATurn(int dieFace)
         {
             int iaChoice;
             iaChoice = random.Next(2);
@@ -166,6 +176,15 @@ namespace Minivilles
 
                         players[1].BuyCard(gamePiles[cardIndex].WithdrawCard());
                         display.DisplayText("Ordi : Je choisis " + iaChosenCard.GetCardName);
+                        foreach (Pile pile in gamePiles.ToList())
+                        {
+                            if (pile.GetStack.Count == 0)
+                            {
+                                gamePiles.Remove(pile);
+                                display.ChooseCard(gamePiles, false, players, true);
+
+                            }
+                        }
                     }
                     else
                     {                        
@@ -177,7 +196,7 @@ namespace Minivilles
                     break;
             }
             display.DisplayTown(players, 10, true);
-            display.DisplayTown(players, 10);
+            display.DisplayTown(players, dieFace);
             Thread.Sleep(1500);
             // Fin de partie ?
             if (players[0].coins >= 20 || players[1].coins >= 20)
