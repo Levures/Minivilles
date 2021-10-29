@@ -429,6 +429,7 @@ namespace Minivilles
             Player player = players[0];
             Player IA = players[1];
 
+            cursorDisplayTown[0] = Math.Clamp(cursorDisplayTown[0], 0, 10000000);
             cursorDisplayTown[0] -= (player.GetPlayerTown.Count * 8 + IA.GetPlayerTown.Count * 8 + 6) / 2;
 
             for (int i = 0; i < 6; i++)
@@ -437,6 +438,7 @@ namespace Minivilles
                 int cardLoopCount = 0;
 
                 //Gestion du curseur
+                cursorDisplayTown[0] = Math.Clamp(cursorDisplayTown[0], 0, 10000000);
                 Console.SetCursorPosition(cursorDisplayTown[0], cursorDisplayTown[1]);
 
                 if (clear)
@@ -457,7 +459,7 @@ namespace Minivilles
                                     WriteInColor("Player", ConsoleColor.White);
                                     WriteInColor($" {player.coins}o", ConsoleColor.Yellow);
                                     string spacesToWrite = "E";
-                                    if (player.coins < 10)
+                                    if (player.coins < 10 && player.coins > 0)
                                     {
                                         spacesToWrite = new string(' ', player.GetPlayerTown.Count * 8 - 9);
                                     }
@@ -558,7 +560,6 @@ namespace Minivilles
             cursorDisplayTown = new int[2] { 90, 33 };
         }
 
-
         private void WriteInColor(string msg, ConsoleColor color)
         {
             Console.ForegroundColor = color;
@@ -649,6 +650,18 @@ namespace Minivilles
                     Console.Write("| o   o |");
                     Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1] + 4);
                     Console.Write("+-------+");
+                    break;
+                case 100:
+                    Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1]);
+                    Console.Write("         ");
+                    Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1] + 1);
+                    Console.Write("         ");
+                    Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1] + 2);
+                    Console.Write("         ");
+                    Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1] + 3);
+                    Console.Write("         ");
+                    Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1] + 4);
+                    Console.Write("         ");
                     break;
             }
         }

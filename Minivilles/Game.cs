@@ -68,11 +68,11 @@ namespace Minivilles
                 // Le joueur lance le dé.
                 int dieFace = players[0].die.Roll();
                 display.DisplayDie(dieFace);
-                players[0].ApplyCardsEffect(dieFace);
-                players[1].ApplyCardsEffect(dieFace);
+                players[0].ApplyCardsEffect(dieFace, players[1]);
+                players[1].ApplyCardsEffect(dieFace, players[0]);
                 Thread.Sleep(500);
                 display.DisplayTown(players, dieFace);
-                Thread.Sleep(2000);
+                Thread.Sleep(1000);
                 
 
                 // Fin de partie ?
@@ -95,6 +95,7 @@ namespace Minivilles
                         display.ChooseCard(gamePiles, false, players, true);
                     }
                 }
+                display.DisplayDie(100);
 
 
                 display.DisplayTown(players, dieFace);
@@ -115,11 +116,12 @@ namespace Minivilles
                 display.DisplayText("C'est au tour de l'ordinateur.");
 
                 players[1].isMyTurn = true;
-                System.Threading.Thread.Sleep(1000);
+                Thread.Sleep(1000);
                 dieFace = players[1].die.Roll();
                 display.DisplayDie(dieFace);
-                players[0].ApplyCardsEffect(dieFace);
-                players[1].ApplyCardsEffect(dieFace);
+                players[0].ApplyCardsEffect(dieFace, players[1]);
+                players[1].ApplyCardsEffect(dieFace, players[0]);
+                Thread.Sleep(1000);
                 IATurn(dieFace);
             }
 
@@ -157,9 +159,9 @@ namespace Minivilles
 
             display.DisplayText("", "", "", true);
 
-            switch (/*iaChoice*/ 0)
+            switch (random.Next(0, 5))
             {
-                case 0:
+                case 0 or 1 or 2:
                     if(canBuyCard)
                     {
                         Card iaChosenCard = haveEnoughCoinToBuy[random.Next(haveEnoughCoinToBuy.Count)];
@@ -182,6 +184,9 @@ namespace Minivilles
                             {
                                 gamePiles.Remove(pile);
                                 display.ChooseCard(gamePiles, false, players, true);
+                                display.ChooseCard(gamePiles, false, players);
+                                display.DisplayTown(players, 10, true);
+                                display.DisplayTown(players, dieFace);
 
                             }
                         }
@@ -191,13 +196,14 @@ namespace Minivilles
                         display.DisplayText("Ordi : Pas de cartes pour moi");
                     }
                     break;
-                case 1:
+                case 3:
                     display.DisplayText("Ordi : Pas de cartes pour moi");
                     break;
             }
             display.DisplayTown(players, 10, true);
             display.DisplayTown(players, dieFace);
             Thread.Sleep(1500);
+            display.DisplayDie(100);
             // Fin de partie ?
             if (players[0].coins >= 20 || players[1].coins >= 20)
             {

@@ -21,34 +21,40 @@ namespace Minivilles
             coins -= chosenCard.GetCardCost;
         }
 
-        public void ApplyCardsEffect(int dieValue)
+        public void ApplyCardsEffect(int dieValue, Player otherPlayer)
         {
             for(int i = 0; i < town.Count; i++)
             {
                 switch (town[i].GetCardColor)
                 {
                     case "red":
-                        if(!isMyTurn && dieValue == town[i].GetActivationValue[0])
+                        if(!isMyTurn && town[i].GetActivationValue.Contains(dieValue))
                         {
                             coins += town[i].GetCardGivedCoins;
                         }
                         break;
-
                     case "blue":
-                        if(dieValue == town[i].GetActivationValue[0])
+                        if(town[i].GetActivationValue.Contains(dieValue))
                         {
                             coins += town[i].GetCardGivedCoins;
                         }
                         break;
 
                     case "green":
-                        if(isMyTurn && dieValue == town[i].GetActivationValue[0])
+                        if(isMyTurn && town[i].GetActivationValue.Contains(dieValue))
                         {
                             coins += town[i].GetCardGivedCoins;
                         }
                         break;
-
                 }
+            }
+            for (int i = 0; i < otherPlayer.GetPlayerTown.Count; i++)
+            {
+                if (otherPlayer.GetPlayerTown[i].GetCardColor == "red" && isMyTurn && otherPlayer.GetPlayerTown[i].GetActivationValue.Contains(dieValue))
+                {
+                    coins -= otherPlayer.GetPlayerTown[i].GetCardGivedCoins;
+                }
+
             }
         }
 
