@@ -82,24 +82,34 @@ namespace Minivilles
                 }
 
                 //Le joueur achète ou non une propriété.
+                display.DisplayText("", "", "", true);
                 display.DisplayText("Choisissez une carte, ou passez votre tour.");
                 int cardChosen = display.ChooseCard(gamePiles, true, players);
                 if (cardChosen != 100)
                     players[0].BuyCard(gamePiles[cardChosen].WithdrawCard());
                 display.DisplayTown(players, dieFace);
+                display.ChooseCard(gamePiles, false, players);
 
-                Console.ReadLine();
+                Thread.Sleep(500);
+                display.DisplayText("", "", "", true);
+                if (cardChosen <= gamePiles.Count - 1)
+                    display.DisplayText("Félicitations, " + gamePiles[cardChosen].GetCard().GetCardName + " s'ajoute à votre ville");
+                else
+                    display.DisplayText("Pas de cartes pour vous");
+                Thread.Sleep(2000);
 
                 players[0].isMyTurn = false;
+
                 // Début du tour de l'ordinateur.
-                Console.WriteLine("Tour de l'ordinateur:");
+                display.DisplayText("", "", "", true);
+                display.DisplayText("C'est au tour de l'ordinateur.");
+
                 players[1].isMyTurn = true;
                 System.Threading.Thread.Sleep(1000);
                 dieFace = players[1].die.Roll();
                 display.DisplayDie(dieFace);
                 players[0].ApplyCardsEffect(dieFace);
                 players[1].ApplyCardsEffect(dieFace);
-                Console.WriteLine("L'ordinateur a {0} pièce(s).", players[1].coins.ToString());
                 IATurn();
             }
 
@@ -118,40 +128,56 @@ namespace Minivilles
         {
             int iaChoice;
             iaChoice = random.Next(2);
-            List<Card> possibility = new List<Card>();
 
             List<Card> haveEnoughCoinToBuy = new List<Card>();
             bool canBuyCard = false;
 
-            foreach (Card entry in possibility)
+            foreach(Pile pile in gamePiles)
             {
-                if (entry.GetCardCost >= players[1].coins)
+
+                if (pile.GetCard().GetCardCost <= players[1].coins)
                 {
-                    haveEnoughCoinToBuy.Add(entry);
+                    haveEnoughCoinToBuy.Add(pile.GetCard());
                     canBuyCard = true;
                 }
+
             }
 
 
 
-            switch (iaChoice)
+            display.DisplayText("", "", "", true);
+
+            switch (/*iaChoice*/ 0)
             {
                 case 0:
                     if(canBuyCard)
                     {
                         Card iaChosenCard = haveEnoughCoinToBuy[random.Next(haveEnoughCoinToBuy.Count)];
-                        players[1].BuyCard(iaChosenCard);
-                        Console.WriteLine("L'IA a choisi : {0}", iaChosenCard.GetCardName);
+                        int indexCounter = -1;
+                        int cardIndex = 0;
+                        foreach (Pile pile in gamePiles)
+                        {
+                            indexCounter++;
+                            if (pile.GetCard() == iaChosenCard && haveEnoughCoinToBuy.Contains(gamePiles[indexCounter].GetCard()))
+                            {
+                                cardIndex = indexCounter;
+                            }
+                        }
+
+                        players[1].BuyCard(gamePiles[cardIndex].WithdrawCard());
+                        display.DisplayText("Ordi : Je choisis " + iaChosenCard.GetCardName);
                     }
                     else
-                    {
-                        Console.WriteLine("Ordi : Pas de carte pour moi");
+                    {                        
+                        display.DisplayText("Ordi : Pas de cartes pour moi");
                     }
                     break;
                 case 1:
-                    Console.WriteLine("Ordi : Pas de carte pour moi");
+                    display.DisplayText("Ordi : Pas de cartes pour moi");
                     break;
             }
+            display.DisplayTown(players, 10);
+            Thread.Sleep(1500);
             // Fin de partie ?
             if (players[0].coins >= 20 || players[1].coins >= 20)
             {

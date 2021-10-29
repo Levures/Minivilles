@@ -250,9 +250,10 @@ namespace Minivilles
                         case ConsoleKey.Enter:
                             //calcul de l'index à partir de la position du curseur
                             chosenCard = (cursorPositionX - 8) / 20;
-                            if (players[0].coins < pileDeck[chosenCard].GetCard().GetCardCost)
+                            //Retourne l'index de la carte que si il choisis une carte
+                            if (cursorPositionX < 7 + pileDeck.Count * 20)
+                                if (players[0].coins < pileDeck[chosenCard].GetCard().GetCardCost)
                                 break;
-
                             hasChosen = true;
                             break;
 
@@ -475,6 +476,7 @@ namespace Minivilles
                             else Console.Write("     ");
                             WriteInColor("| ", cardColor);
                             break;
+                        default: break;
                     }
                     cardLoopCount++;
                 }
