@@ -413,7 +413,7 @@ namespace Minivilles
         }
 
 
-        public void DisplayTown(Player[] players, int dieResult)
+        public void DisplayTown(Player[] players, int dieResult, bool clear = false)
         {
             string sep =  "+-----+";
             string line = "|     |";
@@ -431,103 +431,112 @@ namespace Minivilles
                 //Gestion du curseur
                 Console.SetCursorPosition(cursorDisplayTown[0], cursorDisplayTown[1]);
 
-                foreach (Card card in player.GetPlayerTown)
-                {                    
-                    //Couleur de la carte correspondante
-                    ConsoleColor cardColor = GetCardColor(card);
-                    switch (i)
-                    {
-                        case 0:
-                            if (cardLoopCount == 0)
-                            {
-                                WriteInColor("Player", ConsoleColor.White);
-                                WriteInColor($" {player.coins}o", ConsoleColor.Yellow);
-                                string spacesToWrite = new string(' ', player.GetPlayerTown.Count * 8 - 9);
-                                Console.Write(spacesToWrite);
-                            }
-                            break;
-                        case 1 or 5:
-                            WriteInColor(sep, cardColor);
-                            Console.Write(" ");
-                            break;
-                        case 2:
-                            WriteInColor("|", cardColor);
-                            WriteInColor($" {card.GetCardAbreviation} ", ConsoleColor.White);
-                            WriteInColor("| ", cardColor);
-                            break;
-                        case 3:
-                            WriteInColor(line, cardColor);
-                            Console.Write(" ");
-                            break;
-                        case 4:
-                            bool canBeActivated = false;
-                            foreach (int activationValue in card.GetActivationValue)
-                            {
-                                if (activationValue == dieResult)
-                                    canBeActivated = true;
-                            }
-                            WriteInColor("|", cardColor);
-                            if (card.GetCardColor == "blue" && canBeActivated)
-                                WriteInColor($" +{card.GetCardGivedCoins}$ ", ConsoleColor.Yellow);
-                            else if (card.GetCardColor == "green" && player.GetIsMyTurn && canBeActivated)
-                                WriteInColor($" +{card.GetCardGivedCoins}$ ", ConsoleColor.Yellow);
-                            else if (card.GetCardColor == "red" && !player.GetIsMyTurn && canBeActivated)
-                                WriteInColor($" +{card.GetCardGivedCoins}$ ", ConsoleColor.Yellow);
-                            else Console.Write("     ");
-                            WriteInColor("| ", cardColor);
-                            break;
-                        default: break;
-                    }
-                    cardLoopCount++;
-                }
-                WriteInColor(playersSep, ConsoleColor.Gray);
-                cardLoopCount = 0;
-                foreach (Card card in IA.GetPlayerTown)
+                if (clear)
                 {
-                    //Couleur de la carte correspondante
-                    ConsoleColor cardColor = GetCardColor(card);
-                    switch (i)
-                    {
-                        case 0:
-                            if (cardLoopCount == 0)
-                            {
-                                WriteInColor("IA", ConsoleColor.White);
-                                WriteInColor($" {IA.coins}o", ConsoleColor.Yellow);
-                            }
-                            break;
-                        case 1 or 5:
-                            WriteInColor(sep, cardColor);
-                            Console.Write(" ");
-                            break;
-                        case 2:
-                            WriteInColor("|", cardColor);
-                            WriteInColor($" {card.GetCardAbreviation} ", ConsoleColor.White);
-                            WriteInColor("| ", cardColor);
-                            break;
-                        case 3:
-                            WriteInColor(line, cardColor);
-                            Console.Write(" ");
-                            break;
-                        case 4:
-                            bool canBeActivated = false;
-                            foreach (int activationValue in card.GetActivationValue)
-                            {
-                                if (activationValue == dieResult)
-                                    canBeActivated = true;
-                            }
-                            WriteInColor("|", cardColor);
-                            if (card.GetCardColor == "blue" && canBeActivated)
-                                WriteInColor($" +{card.GetCardGivedCoins}$ ", ConsoleColor.Yellow);
-                            else if (card.GetCardColor == "green" && IA.GetIsMyTurn && canBeActivated)
-                                WriteInColor($" +{card.GetCardGivedCoins}$ ", ConsoleColor.Yellow);
-                            else if (card.GetCardColor == "red" && !IA.GetIsMyTurn && canBeActivated)
-                                WriteInColor($" +{card.GetCardGivedCoins}$ ", ConsoleColor.Yellow);
-                            else Console.Write("     ");
-                            WriteInColor("| ", cardColor);
-                            break;
-                    }
-                    cardLoopCount++;
+                    Console.Write(new string(' ', Console.LargestWindowWidth));
                 }
+                else
+                {
+                    foreach (Card card in player.GetPlayerTown)
+                    {
+                        //Couleur de la carte correspondante
+                        ConsoleColor cardColor = GetCardColor(card);
+                        switch (i)
+                        {
+                            case 0:
+                                if (cardLoopCount == 0)
+                                {
+                                    WriteInColor("Player", ConsoleColor.White);
+                                    WriteInColor($" {player.coins}o", ConsoleColor.Yellow);
+                                    string spacesToWrite = new string(' ', player.GetPlayerTown.Count * 8 - 9);
+                                    Console.Write(spacesToWrite);
+                                }
+                                break;
+                            case 1 or 5:
+                                WriteInColor(sep, cardColor);
+                                Console.Write(" ");
+                                break;
+                            case 2:
+                                WriteInColor("|", cardColor);
+                                WriteInColor($" {card.GetCardAbreviation} ", ConsoleColor.White);
+                                WriteInColor("| ", cardColor);
+                                break;
+                            case 3:
+                                WriteInColor(line, cardColor);
+                                Console.Write(" ");
+                                break;
+                            case 4:
+                                bool canBeActivated = false;
+                                foreach (int activationValue in card.GetActivationValue)
+                                {
+                                    if (activationValue == dieResult)
+                                        canBeActivated = true;
+                                }
+                                WriteInColor("|", cardColor);
+                                if (card.GetCardColor == "blue" && canBeActivated)
+                                    WriteInColor($" +{card.GetCardGivedCoins}$ ", ConsoleColor.Yellow);
+                                else if (card.GetCardColor == "green" && player.GetIsMyTurn && canBeActivated)
+                                    WriteInColor($" +{card.GetCardGivedCoins}$ ", ConsoleColor.Yellow);
+                                else if (card.GetCardColor == "red" && !player.GetIsMyTurn && canBeActivated)
+                                    WriteInColor($" +{card.GetCardGivedCoins}$ ", ConsoleColor.Yellow);
+                                else Console.Write("     ");
+                                WriteInColor("| ", cardColor);
+                                break;
+                            default: break;
+                        }
+                        cardLoopCount++;
+                    }
+                    WriteInColor(playersSep, ConsoleColor.Gray);
+                    cardLoopCount = 0;
+                    foreach (Card card in IA.GetPlayerTown)
+                    {
+                        //Couleur de la carte correspondante
+                        ConsoleColor cardColor = GetCardColor(card);
+                        switch (i)
+                        {
+                            case 0:
+                                if (cardLoopCount == 0)
+                                {
+                                    WriteInColor("IA", ConsoleColor.White);
+                                    WriteInColor($" {IA.coins}o", ConsoleColor.Yellow);
+                                }
+                                break;
+                            case 1 or 5:
+                                WriteInColor(sep, cardColor);
+                                Console.Write(" ");
+                                break;
+                            case 2:
+                                WriteInColor("|", cardColor);
+                                WriteInColor($" {card.GetCardAbreviation} ", ConsoleColor.White);
+                                WriteInColor("| ", cardColor);
+                                break;
+                            case 3:
+                                WriteInColor(line, cardColor);
+                                Console.Write(" ");
+                                break;
+                            case 4:
+                                bool canBeActivated = false;
+                                foreach (int activationValue in card.GetActivationValue)
+                                {
+                                    if (activationValue == dieResult)
+                                        canBeActivated = true;
+                                }
+                                WriteInColor("|", cardColor);
+                                if (card.GetCardColor == "blue" && canBeActivated)
+                                    WriteInColor($" +{card.GetCardGivedCoins}$ ", ConsoleColor.Yellow);
+                                else if (card.GetCardColor == "green" && IA.GetIsMyTurn && canBeActivated)
+                                    WriteInColor($" +{card.GetCardGivedCoins}$ ", ConsoleColor.Yellow);
+                                else if (card.GetCardColor == "red" && !IA.GetIsMyTurn && canBeActivated)
+                                    WriteInColor($" +{card.GetCardGivedCoins}$ ", ConsoleColor.Yellow);
+                                else Console.Write("     ");
+                                WriteInColor("| ", cardColor);
+                                break;
+                            default: break;
+
+                        }
+                        cardLoopCount++;
+                    }
+                }                
                 cursorDisplayTown[1] += 1;
             }
             cursorDisplayTown = new int[2] { 90, 33 };

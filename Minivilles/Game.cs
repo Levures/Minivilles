@@ -176,6 +176,7 @@ namespace Minivilles
                     display.DisplayText("Ordi : Pas de cartes pour moi");
                     break;
             }
+            display.DisplayTown(players, 10, true);
             display.DisplayTown(players, 10);
             Thread.Sleep(1500);
             // Fin de partie ?
