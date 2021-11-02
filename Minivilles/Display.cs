@@ -69,9 +69,9 @@ namespace Minivilles
                                 Console.Write(" ");
                                 break;
                             case 3:
-                                WriteInColor("|  ", cardColor);
+                                WriteInColor("| ", cardColor);
                                 WriteInColor(card.GetCardName, cardColor);
-                                for (int j = 0; j < 15 - card.GetCardName.Length; j++)
+                                for (int j = 0; j < 16 - card.GetCardName.Length; j++)
                                     Console.Write(" ");
                                 WriteInColor("| ", cardColor);
                                 break;
@@ -86,7 +86,14 @@ namespace Minivilles
                                 foreach (int value in activationValue)
                                 {
                                     WriteInColor("|" + value + "|", ConsoleColor.White);
-                                    characters += 3;
+                                    if (value < 10)
+                                    {
+                                        characters += 3;
+                                    }
+                                    else
+                                    {
+                                        characters += 4;
+                                    }                                        
                                 }
                                 for (int k = 0; k < 13 - characters; k++) { Console.Write(" "); }
                                 WriteInColor("| ", cardColor);

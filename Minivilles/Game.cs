@@ -20,17 +20,21 @@ namespace Minivilles
         private List<Pile> gamePiles = new List<Pile> { new Pile(new Card("Champs de blé", 2, "blue", new int[1] { 1 }, 1, "CDB")),
                                                         new Pile(new Card("Ferme", 1, "blue", new int[1] { 1 }, 1, "FME")),
                                                         new Pile(new Card("Boulangerie", 1, "green", new int[1] { 2 }, 1, "BLG")),
-                                                        new Pile(new Card("Café", 1, "red", new int[1] { 3 }, 4, "CAF")),
+                                                        new Pile(new Card("Café", 2, "red", new int[1] { 3 }, 1, "CAF")),
                                                         new Pile(new Card("Superette", 2, "green", new int[1] { 4 }, 3, "SUP")),
                                                         new Pile(new Card("Forêt", 1, "blue", new int[1] { 5 }, 2, "FOR")),
                                                         new Pile(new Card("Restaurant", 4, "red", new int[1] { 5 }, 2, "RES")),
-                                                        new Pile(new Card("Stade", 6, "blue", new int[1] { 6 }, 4, "STD"))};
+                                                        new Pile(new Card("Stade", 6, "blue", new int[1] { 6 }, 4, "STD")),
+                                                        new Pile(new Card("Magasin de jouet", 8, "green", new int[3] { 2, 3, 4 }, 1, "MDJ")),
+                                                        new Pile(new Card("Fête foraine", 8, "red", new int[2] { 1, 2 }, 2, "FFN")),
+                                                        new Pile(new Card("Banque", 6, "red", new int[1] { 6 }, 4, "BNQ"))};
 
 
-        public void game()
+public void game()
         {
             //Init
             Console.SetWindowSize(Console.LargestWindowWidth, Console.LargestWindowHeight);
+            Console.SetBufferSize(350, 50);
             Console.CursorVisible = false;
             foreach (Pile pile in gamePiles)
             {
