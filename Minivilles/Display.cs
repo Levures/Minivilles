@@ -207,7 +207,7 @@ namespace Minivilles
                                 cursorPositionX += 20;
                                 //Clear du curseur précédent
                                 Console.SetCursorPosition(0, cursorPositionY);
-                                Console.Write(new string(' ', Console.WindowWidth));
+                                Console.Write(new string(' ', Console.BufferWidth));
                                 //Ecriture du nouveau curseur au bon endroit
                                 Console.SetCursorPosition(cursorPositionX, cursorPositionY);
                                 if (cursorPositionX < 7 + pileDeck.Count * 20)
@@ -223,7 +223,7 @@ namespace Minivilles
                             {
                                 cursorPositionX = 8;
                                 Console.SetCursorPosition(0, cursorPositionY);
-                                Console.Write(new string(' ', Console.WindowWidth));
+                                Console.Write(new string(' ', Console.BufferWidth));
                                 Console.SetCursorPosition(cursorPositionX, cursorPositionY);
                                 if (players[0].coins < pileDeck[(cursorPositionX - 8) / 20].GetCard().GetCardCost)
                                     WriteInColor(cursor, ConsoleColor.Red);
@@ -238,7 +238,7 @@ namespace Minivilles
                             {
                                 cursorPositionX -= 20;
                                 Console.SetCursorPosition(0, cursorPositionY);
-                                Console.Write(new string(' ', Console.WindowWidth));
+                                Console.Write(new string(' ', Console.BufferWidth));
                                 Console.SetCursorPosition(cursorPositionX, cursorPositionY);
                                 chosenCard = (cursorPositionX - 8) / 20;
                                 if (players[0].coins < pileDeck[(cursorPositionX - 8) / 20].GetCard().GetCardCost)
@@ -250,7 +250,7 @@ namespace Minivilles
                             {
                                 cursorPositionX = 8 + 20 * (cardsDeck.Count - 1) + 20;
                                 Console.SetCursorPosition(0, cursorPositionY);
-                                Console.Write(new string(' ', Console.WindowWidth));
+                                Console.Write(new string(' ', Console.BufferWidth));
                                 Console.SetCursorPosition(cursorPositionX, cursorPositionY);
                                 if (cursorPositionX < 7 + pileDeck.Count * 20)
                                     if (players[0].coins < pileDeck[(cursorPositionX - 8) / 20].GetCard().GetCardCost)
@@ -284,7 +284,7 @@ namespace Minivilles
                 }
                 else return 100; // Retourne 100 si le joueur ne veut pas choisir de cartes
             }
-            else Console.Write(new string(' ', Console.WindowWidth));
+            else Console.Write(new string(' ', Console.BufferWidth));
             return 200;
         }
 
@@ -450,7 +450,7 @@ namespace Minivilles
 
                 if (clear)
                 {
-                    Console.Write(new string(' ', Console.LargestWindowWidth));
+                    Console.Write(new string(' ', Console.BufferWidth));
                 }
                 else
                 {
