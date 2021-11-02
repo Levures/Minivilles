@@ -84,8 +84,6 @@ namespace Minivilles
                     diceSeparator -= 10;
                 }
 
-                dieFace = players[0].die.Roll();
-                display.DisplayDie(dieFace, 35);
                 players[0].ApplyCardsEffect(dieFace, players[1]);
                 players[1].ApplyCardsEffect(dieFace, players[0]);
                 Thread.Sleep(500);
@@ -135,11 +133,15 @@ namespace Minivilles
 
                 players[1].isMyTurn = true;
                 System.Threading.Thread.Sleep(1000);
-                dieFace = players[1].die.Roll();
-                display.DisplayDie(dieFace, 35);
+                foreach (Die entry in dices)
+                {
+                    dieFace = players[1].die.Roll();
+                    display.DisplayDie(dieFace, diceSeparator);
+                    diceSeparator -= 10;
+                }
                 players[0].ApplyCardsEffect(dieFace, players[1]);
                 players[1].ApplyCardsEffect(dieFace, players[0]);
-                Thread.Sleep(1000);
+                Console.WriteLine("L'ordinateur a {0} pièce(s).", players[1].coins.ToString());
                 IATurn(dieFace);
             }
 
