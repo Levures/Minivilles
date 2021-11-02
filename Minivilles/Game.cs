@@ -81,7 +81,6 @@ public void game()
                 // Le joueur lance le dé.
                 int dieFace = 0;
                 int diceSeparator = 35;
-                int diceFacesIterator = 0;
 
                 foreach (Die entry in dices)
                 {
@@ -142,25 +141,13 @@ public void game()
 
                 players[0].isMyTurn = false;
                 Thread.Sleep(1000);
+
                 // Début du tour de l'ordinateur.
                 display.DisplayText("", "", "", true);
                 display.DisplayText("C'est au tour de l'ordinateur.");
 
                 players[1].isMyTurn = true;
                 System.Threading.Thread.Sleep(1000);
-
-                diceSeparator = 35;
-                diceFacesIterator = 0;
-
-                foreach (Die entry in dices)
-                {
-                    dieFace = players[1].die.Roll();
-                    display.DisplayDie(dieFace, diceSeparator);
-                    diceSeparator -= 10; 
-                    players[0].ApplyCardsEffect(dieFace, players[1]);
-                    players[1].ApplyCardsEffect(dieFace, players[0]);
-                    dicesFaces.Add(dieFace);
-                }
                 
                 IATurn(dieFace);
             }
@@ -181,7 +168,19 @@ public void game()
             List<Card> haveEnoughCoinToBuy = new List<Card>();
             bool canBuyCard = false;
 
-            foreach(Pile pile in gamePiles)
+            int diceSeparator = 35;
+
+            foreach (Die entry in dices)
+            {
+                dieFace = players[1].die.Roll();
+                display.DisplayDie(dieFace, diceSeparator);
+                diceSeparator -= 10;
+                players[0].ApplyCardsEffect(dieFace, players[1]);
+                players[1].ApplyCardsEffect(dieFace, players[0]);
+                dicesFaces.Add(dieFace);
+            }
+
+            foreach (Pile pile in gamePiles)
             {
                 if (pile.GetCard().GetCardCost <= players[1].coins)
                 {
@@ -238,8 +237,10 @@ public void game()
             display.DisplayTown(players, new int[1] { 10 }, true);
             display.DisplayTown(players, dicesFaces.ToArray());
             dicesFaces.Clear();
-            Thread.Sleep(1500);
-            int diceSeparator = 35;
+            display.DisplayText("", "", "Appuyez sur Entrée pour continuer");
+            Console.ReadLine();
+
+            diceSeparator = 35;
             foreach (Die entry in dices)
             {
                 display.DisplayDie(100, diceSeparator);
