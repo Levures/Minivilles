@@ -573,9 +573,9 @@ namespace Minivilles
             Console.ForegroundColor = ConsoleColor.Gray;
         }
 
-        public void DisplayDie(int dieFace)
+        public void DisplayDie(int dieFace, int topLeftAnglePos)
         {
-            int[] cursorThrowDice = new int[2] { 35, 20 };
+            int[] cursorThrowDice = new int[2] { topLeftAnglePos, 20 }; //35
 
             switch (dieFace)
             {

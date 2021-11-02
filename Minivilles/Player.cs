@@ -25,7 +25,7 @@ namespace Minivilles
         {
             for(int i = 0; i < town.Count; i++)
             {
-                switch (town[i].GetCardColor)
+                foreach(int activationValue in town[i].GetActivationValue)
                 {
                     case "red":
                         if(!isMyTurn && town[i].GetActivationValue.Contains(dieValue))

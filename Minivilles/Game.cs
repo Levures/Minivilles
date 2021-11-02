@@ -14,6 +14,7 @@ namespace Minivilles
         public Display display = new Display();
         private Random random = new Random();
         public bool canChooseCard;
+        public Die[] dices;
 
         private List<Pile> gamePiles = new List<Pile> { new Pile(new Card("Champs de blé", 2, "blue", new int[1] { 1 }, 1, "CDB")),
                                                         new Pile(new Card("Ferme", 1, "blue", new int[1] { 1 }, 1, "FME")),
@@ -52,6 +53,13 @@ namespace Minivilles
             canChooseCard = false;
             display.ChooseCard(gamePiles, canChooseCard, players);
 
+            Console.WriteLine("Avec combien de dés voulez-vous jouer ?");
+            int numberOfDice = Int32.Parse(Console.ReadLine());
+            dices = new Die[numberOfDice];
+            for(int i = 0; i < numberOfDice; i++)
+            {
+                dices.SetValue(new Die(), i);
+            }
 
             while (!endGame)
             {
@@ -66,6 +74,16 @@ namespace Minivilles
                 Console.ReadLine();
 
                 // Le joueur lance le dé.
+                int dieFace = 0;
+                int diceSeparator = 35;
+
+                foreach (Die entry in dices)
+                {
+                    dieFace = players[0].die.Roll();
+                    display.DisplayDie(dieFace, diceSeparator);
+                    diceSeparator -= 10;
+                }
+
                 int dieFace = players[0].die.Roll();
                 display.DisplayDie(dieFace);
                 players[0].ApplyCardsEffect(dieFace, players[1]);
@@ -116,13 +134,13 @@ namespace Minivilles
                 display.DisplayText("C'est au tour de l'ordinateur.");
 
                 players[1].isMyTurn = true;
-                Thread.Sleep(1000);
+                System.Threading.Thread.Sleep(1000);
                 dieFace = players[1].die.Roll();
                 display.DisplayDie(dieFace);
-                players[0].ApplyCardsEffect(dieFace, players[1]);
-                players[1].ApplyCardsEffect(dieFace, players[0]);
-                Thread.Sleep(1000);
-                IATurn(dieFace);
+                players[0].ApplyCardsEffect(dieFace);
+                players[1].ApplyCardsEffect(dieFace);
+                Console.WriteLine("L'ordinateur a {0} pièce(s).", players[1].coins.ToString());
+                IATurn();
             }
 
             if (players[0].coins < players[1].coins)
