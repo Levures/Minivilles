@@ -84,8 +84,8 @@ namespace Minivilles
                     diceSeparator -= 10;
                 }
 
-                int dieFace = players[0].die.Roll();
-                display.DisplayDie(dieFace);
+                dieFace = players[0].die.Roll();
+                display.DisplayDie(dieFace, 35);
                 players[0].ApplyCardsEffect(dieFace, players[1]);
                 players[1].ApplyCardsEffect(dieFace, players[0]);
                 Thread.Sleep(500);
@@ -113,7 +113,7 @@ namespace Minivilles
                         display.ChooseCard(gamePiles, false, players, true);
                     }
                 }
-                display.DisplayDie(100);
+                display.DisplayDie(100, 35);
 
 
                 display.DisplayTown(players, dieFace);
@@ -128,7 +128,7 @@ namespace Minivilles
                 Thread.Sleep(2000);
 
                 players[0].isMyTurn = false;
-
+                Thread.Sleep(1000);
                 // Début du tour de l'ordinateur.
                 display.DisplayText("", "", "", true);
                 display.DisplayText("C'est au tour de l'ordinateur.");
@@ -136,11 +136,11 @@ namespace Minivilles
                 players[1].isMyTurn = true;
                 System.Threading.Thread.Sleep(1000);
                 dieFace = players[1].die.Roll();
-                display.DisplayDie(dieFace);
-                players[0].ApplyCardsEffect(dieFace);
-                players[1].ApplyCardsEffect(dieFace);
-                Console.WriteLine("L'ordinateur a {0} pièce(s).", players[1].coins.ToString());
-                IATurn();
+                display.DisplayDie(dieFace, 35);
+                players[0].ApplyCardsEffect(dieFace, players[1]);
+                players[1].ApplyCardsEffect(dieFace, players[0]);
+                Thread.Sleep(1000);
+                IATurn(dieFace);
             }
 
             if (players[0].coins < players[1].coins)
@@ -221,7 +221,7 @@ namespace Minivilles
             display.DisplayTown(players, 10, true);
             display.DisplayTown(players, dieFace);
             Thread.Sleep(1500);
-            display.DisplayDie(100);
+            display.DisplayDie(100, 35);
             // Fin de partie ?
             if (players[0].coins >= 20 || players[1].coins >= 20)
             {

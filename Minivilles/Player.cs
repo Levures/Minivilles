@@ -25,27 +25,30 @@ namespace Minivilles
         {
             for(int i = 0; i < town.Count; i++)
             {
-                foreach(int activationValue in town[i].GetActivationValue)
+                foreach (int activationValue in town[i].GetActivationValue)
                 {
-                    case "red":
-                        if(!isMyTurn && town[i].GetActivationValue.Contains(dieValue))
-                        {
-                            coins += town[i].GetCardGivedCoins;
-                        }
-                        break;
-                    case "blue":
-                        if(town[i].GetActivationValue.Contains(dieValue))
-                        {
-                            coins += town[i].GetCardGivedCoins;
-                        }
-                        break;
+                    switch (town[i].GetCardColor)
+                    {
+                        case "red":
+                            if (!isMyTurn && town[i].GetActivationValue.Contains(dieValue))
+                            {
+                                coins += town[i].GetCardGivedCoins;
+                            }
+                            break;
+                        case "blue":
+                            if (town[i].GetActivationValue.Contains(dieValue))
+                            {
+                                coins += town[i].GetCardGivedCoins;
+                            }
+                            break;
 
-                    case "green":
-                        if(isMyTurn && town[i].GetActivationValue.Contains(dieValue))
-                        {
-                            coins += town[i].GetCardGivedCoins;
-                        }
-                        break;
+                        case "green":
+                            if (isMyTurn && town[i].GetActivationValue.Contains(dieValue))
+                            {
+                                coins += town[i].GetCardGivedCoins;
+                            }
+                            break;
+                    }                    
                 }
             }
             for (int i = 0; i < otherPlayer.GetPlayerTown.Count; i++)
@@ -54,7 +57,6 @@ namespace Minivilles
                 {
                     coins -= otherPlayer.GetPlayerTown[i].GetCardGivedCoins;
                 }
-
             }
         }
 
