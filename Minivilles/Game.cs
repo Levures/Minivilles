@@ -309,6 +309,7 @@ public void game()
                 foreach (Die entry in dices)
                 {
                     dieFace = players[1].die.Roll();
+                    display.DieShake(diceSeparator);
                     display.DisplayDie(dieFace, diceSeparator);
                     diceSeparator -= 10;
                     dicesFacesTotal += dieFace;
@@ -320,12 +321,13 @@ public void game()
                 display.DisplayText("Titouan : M'en fous je joue plus voilà");
                 players[1].isMyTurn = false;
             }
-            while (boudage = false)
+            while (!boudage)
             {
 
                 foreach (Die entry in dices)
                 {
                     dieFace = players[1].die.Roll();
+                    display.DieShake(diceSeparator);
                     display.DisplayDie(dieFace, diceSeparator);
                     diceSeparator -= 10;
                     dicesFacesTotal += dieFace;
