@@ -57,16 +57,7 @@ public void game()
             Thread.Sleep(2000);
             display.DisplayTown(players, new int[1] { 10 });
             canChooseCard = false;
-            display.ChooseCard(gamePiles, canChooseCard, players);
-
-            display.DisplayText("", "Avec combien de dés voulez-vous jouer ?", "(Entrez une valeur de 1 à 4)");
-            int numberOfDice = Int32.Parse(Console.ReadLine());
-            numberOfDice = Math.Clamp(numberOfDice, 1, 4);
-            dices = new Die[numberOfDice];
-            for(int i = 0; i < numberOfDice; i++)
-            {
-                dices.SetValue(new Die(), i);
-            }
+            display.ChooseCard(gamePiles, canChooseCard, players);            
 
             Console.SetCursorPosition(0, 26);
             Console.Write(new string(' ', Console.BufferWidth));
@@ -80,7 +71,38 @@ public void game()
                 Thread.Sleep(1000);
                 display.DisplayText("Tour du joueur");
                 Thread.Sleep(1000);
-                display.DisplayText("", "Appuyez sur Entrée pour lancer le dé.");
+                int numberOfDice;
+
+                while (true)
+                {
+                    display.DisplayText("", "Voulez-vous lancer un ou deux dés ?");
+                    try
+                    {
+                        numberOfDice = Int32.Parse(Console.ReadLine());
+                        if (numberOfDice == 1 || numberOfDice == 2)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            display.DisplayText("", "", "Un ou deux dés, pas plus pas moins vil gredin");
+                        }
+                    }
+                    catch
+                    {
+                        display.DisplayText("", "", "Un ou deux dés, pas plus pas moins vil gredin");
+                    }
+                }
+                display.DisplayText("", "", "", true);
+                display.DisplayText("Tour du joueur");
+                numberOfDice = Math.Clamp(numberOfDice, 1, 2);
+                dices = new Die[numberOfDice];
+                for (int i = 0; i < numberOfDice; i++)
+                {
+                    dices.SetValue(new Die(), i);
+                }
+
+                display.DisplayText("", "", "Appuyez sur Entrée pour lancer les dés.");
                 Console.ReadLine();
 
                 // Le joueur lance le dé.
