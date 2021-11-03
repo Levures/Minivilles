@@ -120,6 +120,7 @@ public void game()
                 foreach (Die entry in dices)
                 {
                     dieFace = players[0].die.Roll();
+                    display.DieShake(diceSeparator);
                     display.DisplayDie(dieFace, diceSeparator);
                     diceSeparator -= 10;
                     dicesFacesTotal += dieFace;
@@ -208,6 +209,7 @@ public void game()
             foreach (Die entry in dices)
             {
                 dieFace = players[1].die.Roll();
+                display.DieShake(diceSeparator);
                 display.DisplayDie(dieFace, diceSeparator);
                 diceSeparator -= 10;
                 dicesFacesTotal += dieFace;

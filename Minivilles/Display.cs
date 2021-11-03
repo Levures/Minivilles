@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace Minivilles
 {
@@ -704,6 +705,93 @@ namespace Minivilles
                     Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1] + 4);
                     Console.Write("         ");
                     break;
+            }
+        }
+
+        public void DieShake(int topLeftAnglePos)
+        {
+
+            for(int i = 0; i <= 6; i++)
+            {
+                int[] cursorThrowDice = new int[2] { topLeftAnglePos, 20 };
+
+                Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1]);
+                Console.Write("+-------+");
+                Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1] + 1);
+                Console.Write("|       |");
+                Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1] + 2);
+                Console.Write("|       |");
+                Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1] + 3);
+                Console.Write("|       |");
+                Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1] + 4);
+                Console.Write("+-------+");
+
+                Thread.Sleep(50);
+
+                Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1]);
+                Console.Write("         ");
+                Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1] + 1);
+                Console.Write("         ");
+                Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1] + 2);
+                Console.Write("         ");
+                Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1] + 3);
+                Console.Write("         ");
+                Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1] + 4);
+                Console.Write("         ");
+
+                cursorThrowDice[0] -= 1;
+                cursorThrowDice[1] += 1;
+
+                Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1]);
+                Console.Write("+-------+");
+                Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1] + 1);
+                Console.Write("|       |");
+                Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1] + 2);
+                Console.Write("|       |");
+                Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1] + 3);
+                Console.Write("|       |");
+                Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1] + 4);
+                Console.Write("+-------+");
+
+                Thread.Sleep(50);
+
+                Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1]);
+                Console.Write("         ");
+                Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1] + 1);
+                Console.Write("         ");
+                Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1] + 2);
+                Console.Write("         ");
+                Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1] + 3);
+                Console.Write("         ");
+                Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1] + 4);
+                Console.Write("         ");
+
+                cursorThrowDice[0] += 2;
+                cursorThrowDice[1] += 1;
+
+                Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1]);
+                Console.Write("+-------+");
+                Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1] + 1);
+                Console.Write("|       |");
+                Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1] + 2);
+                Console.Write("|       |");
+                Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1] + 3);
+                Console.Write("|       |");
+                Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1] + 4);
+                Console.Write("+-------+");
+
+                Thread.Sleep(50);
+
+                Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1]);
+                Console.Write("         ");
+                Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1] + 1);
+                Console.Write("         ");
+                Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1] + 2);
+                Console.Write("         ");
+                Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1] + 3);
+                Console.Write("         ");
+                Console.SetCursorPosition(cursorThrowDice[0], cursorThrowDice[1] + 4);
+                Console.Write("         ");
             }
         }
 
