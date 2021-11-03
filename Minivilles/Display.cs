@@ -289,7 +289,7 @@ namespace Minivilles
         }
 
         //Methode non fonctionelle (en cours)
-        public int ChooseBox(string[] msg, bool sep, ConsoleColor boxColor = ConsoleColor.Gray, ConsoleColor textColor = ConsoleColor.Gray)
+        public int ChooseBox(string[] msg, ConsoleColor boxColor = ConsoleColor.Gray, ConsoleColor textColor = ConsoleColor.Gray)
         {
             int[] msgLength = new int[msg.Length];
             for (int i = 0; i < msg.Length; i++)            
@@ -303,7 +303,6 @@ namespace Minivilles
             {
                 WriteInColor("+", boxColor);
                 WriteInColor(new string('-', maxMsgLength + 3), boxColor);
-
                 WriteLineInColor("+", boxColor);
 
                 WriteInColor("| ", boxColor);
@@ -311,11 +310,18 @@ namespace Minivilles
                 Console.Write(new string(' ', maxMsgLength - msg[i].Length + 2));
                 WriteLineInColor("|", boxColor);
             }
+
+            WriteInColor("+", boxColor);
+            WriteInColor(new string('-', maxMsgLength + 3), boxColor);
+            WriteLineInColor("+", boxColor);
+            
+
             Console.SetCursorPosition(maxMsgLength + 6, 1);
             WriteInColor(cursor, cursorColor);
 
             int selection = new();
             bool hasChosen = false;
+            int cursorY = 1;
             int cursorX = maxMsgLength + 6;
 
             //Boucle qui s'exécute pendant que l'utilisateur choisis sa carte
@@ -327,19 +333,47 @@ namespace Minivilles
                 switch (keyPresed.Key)
                 {
                     //Quand la flèche du bas est tapée et que le curseur n'est pas sur la dernière carte
-                    case ConsoleKey.RightArrow:
-
+                    case ConsoleKey.DownArrow:
+                        //Effacage de l'ancienne flèche
+                        Console.SetCursorPosition(cursorX, cursorY);
+                        Console.Write("    ");
+                        //Position de la nouvelle flèche
+                        if (cursorY < 2 * msg.Length - 1)
+                        {
+                            cursorY += 2;
+                            Console.SetCursorPosition(cursorX, cursorY);
+                        }
+                        else
+                        {
+                            cursorY = 1;
+                            Console.SetCursorPosition(cursorX, cursorY);
+                        }
+                        //Affichage de la nouvelle flèche
+                        WriteInColor(cursor, cursorColor);
                         break;
-
                     //Pareil pour le haut
-                    case ConsoleKey.LeftArrow:
-                        
+                    case ConsoleKey.UpArrow:
+                        //Effacage de l'ancienne flèche
+                        Console.SetCursorPosition(cursorX, cursorY);
+                        Console.Write("    ");
+                        //Position de la nouvelle flèche
+                        if (cursorY >= 2)
+                        {
+                            cursorY -= 2;
+                            Console.SetCursorPosition(cursorX, cursorY);
+                        }
+                        else
+                        {
+                            cursorY = 2 * msg.Length - 1;
+                            Console.SetCursorPosition(cursorX, cursorY);
+                        }
+                        //Affichage de la nouvelle flèche
+                        WriteInColor(cursor, cursorColor);
                         break;
-
                     //Touche entrée tapée
                     case ConsoleKey.Enter:
                         //calcul de l'index à partir de la position du curseur
-
+                        selection = ((cursorY + 1) / 2) - 1;
                         hasChosen = true;
                         break;
 
