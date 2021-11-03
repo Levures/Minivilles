@@ -35,7 +35,7 @@ public void game()
         {
             //Init
             Console.SetWindowSize(Console.LargestWindowWidth, Console.LargestWindowHeight);
-            Console.SetBufferSize(350, 50);
+            Console.SetBufferSize(350, 63);
             Console.CursorVisible = false;
             foreach (Pile pile in gamePiles)
             {
