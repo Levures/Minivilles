@@ -16,6 +16,8 @@ namespace Minivilles
         public bool canChooseCard;
         public Die[] dices;
         bool boudage = false;
+        private string nameOrdi;
+        
 
         private List<Pile> gamePiles = new List<Pile> { new Pile(new Card("Ferme", 1, "blue", new int[1] { 6 }, 1, "FME")),
                                                         new Pile(new Card("Boulangerie", 1, "green", new int[1] { 8 }, 2, "BLG")),
@@ -135,6 +137,13 @@ namespace Minivilles
                     display.DisplayDie(dieFace, diceSeparator);
                     diceSeparator -= 10;
                     dicesFacesTotal += dieFace;
+                    if (boudage)
+                    {
+                        display.DisplayText("Pfff trop de la chance, toi tu fais" + dieFace);
+                        Thread.Sleep(3000);
+                        display.DisplayText("","","", true);
+                        
+                    }
                 }
                 Console.WriteLine(dicesFacesTotal);
                 players[0].ApplyCardsEffect(dicesFacesTotal, players[1]);
@@ -190,7 +199,7 @@ namespace Minivilles
 
                 // Début du tour de l'ordinateur.
                 display.DisplayText("", "", "", true);
-                display.DisplayText("C'est au tour de l'ordinateur.");
+                display.DisplayText("C'est au tour de " + nameOrdi);
 
                 players[1].isMyTurn = true;
                 System.Threading.Thread.Sleep(1000);
@@ -320,12 +329,16 @@ namespace Minivilles
                     display.DisplayDie(dieFace, diceSeparator);
                     diceSeparator -= 10;
                     dicesFacesTotal += dieFace;
+                    display.DisplayText("Pfff, voilà moi je fais juste" + dieFace);
                 }
-
+                
+                
                 display.DisplayText("Titouan : Non mais là aussi tu triches chuis sûr");
                 Thread.Sleep(2000);
+                display.DisplayText("","","", true);
                 display.DisplayText("Titouan : Regarde t'as plein de pièces et moi j'ai rien là");
                 Thread.Sleep(1500);
+                display.DisplayText("","","", true);
 
                 players[0].ApplyCardsEffect(dicesFacesTotal, players[1]);
                 players[1].ApplyCardsEffect(dicesFacesTotal, players[0]);
@@ -333,6 +346,8 @@ namespace Minivilles
                 if (premierBoudage)
                 {
                     display.DisplayText("Titouan : M'en fous je joue plus voilà");
+                    Thread.Sleep(3000);
+                    display.DisplayText("","","", true);
                     premierBoudage = false;
                 }
                 players[1].isMyTurn = false;
