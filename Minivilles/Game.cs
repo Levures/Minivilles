@@ -31,7 +31,7 @@ namespace Minivilles
         
 
 
-public void game()
+        public void game()
         {
             //Init
             Console.SetWindowSize(Console.LargestWindowWidth, Console.LargestWindowHeight);
@@ -297,14 +297,10 @@ public void game()
             
             int diceSeparator = 35;
             int dicesFacesTotal = 0;
-            
+
             if (players[0].coins >= 15)
             {
                 boudage = true;
-                display.DisplayText("Titouan : Non mais là aussi tu triches chuis sûr");
-                Thread.Sleep(2000);
-                display.DisplayText("Titouan : Regarde t'as plein de pièces et moi j'ai rien là");
-                Thread.Sleep(1500);
                 
                 foreach (Die entry in dices)
                 {
@@ -315,13 +311,19 @@ public void game()
                     dicesFacesTotal += dieFace;
                 }
 
+                display.DisplayText("Titouan : Non mais là aussi tu triches chuis sûr");
+                Thread.Sleep(2000);
+                display.DisplayText("Titouan : Regarde t'as plein de pièces et moi j'ai rien là");
+                Thread.Sleep(1500);
+
                 players[0].ApplyCardsEffect(dicesFacesTotal, players[1]);
                 players[1].ApplyCardsEffect(dicesFacesTotal, players[0]);
                 
                 display.DisplayText("Titouan : M'en fous je joue plus voilà");
                 players[1].isMyTurn = false;
             }
-            while (!boudage)
+
+            if (!boudage)
             {
 
                 foreach (Die entry in dices)
@@ -394,20 +396,21 @@ public void game()
                         display.DisplayText("Titouan : Nan. J'achète rien, t'as des jeux sur ton téléphone ?");
                         break;
                 }
-                display.DisplayTown(players, 100, true);
-                display.DisplayTown(players, dicesFacesTotal);
-                display.DisplayText("", "", "Appuyez sur Entrée pour continuer");
-                Console.ReadLine();
-
-                diceSeparator = 35;
-                foreach (Die entry in dices)
-                {
-                    display.DisplayDie(100, diceSeparator);
-                    diceSeparator -= 10;
-                }
-            
-                players[1].isMyTurn = false;
             }
+
+            display.DisplayTown(players, 100, true);
+            display.DisplayTown(players, dicesFacesTotal);
+            display.DisplayText("", "", "Appuyez sur Entrée pour continuer");
+            Console.ReadLine();
+
+            diceSeparator = 35;
+            foreach (Die entry in dices)
+            {
+                display.DisplayDie(100, diceSeparator);
+                diceSeparator -= 10;
+            }
+
+            players[1].isMyTurn = false;
         }
         #endregion
     }
