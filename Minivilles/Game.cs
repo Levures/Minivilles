@@ -225,17 +225,15 @@ namespace Minivilles
                     players[1].isMyTurn = true;
                     System.Threading.Thread.Sleep(1000);
 
-                    IAChildhish(dieFace);
+                    if (players[0].coins < players[1].coins)
+                    {
+                        display.DisplayText("                                ", "Bahaha t'as perdu !", "                                ");
+                    }
+                    else
+                    {
+                        display.DisplayText("                                ", "Bravo champion !", "                                ");
+                    }
                 }                
-            }
-
-            if (players[0].coins < players[1].coins)
-            {
-                display.DisplayText("                                ", "Bahaha t'as perdu !", "                                ");
-            }
-            else
-            {
-                display.DisplayText("                                ", "Bravo champion !", "                                ");
             }
         }
 
