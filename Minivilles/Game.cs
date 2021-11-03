@@ -84,6 +84,7 @@ public void game()
                     display.DisplayText("", "Voulez-vous lancer un ou deux dés ?");
                     try
                     {
+                        Console.SetCursorPosition(130, 22);
                         numberOfDice = Int32.Parse(Console.ReadLine());
                         if (numberOfDice == 1 || numberOfDice == 2)
                         {
@@ -123,8 +124,7 @@ public void game()
                     diceSeparator -= 10;
                     dicesFacesTotal += dieFace;
                 }
-
-                Console.WriteLine("{0}", dicesFacesTotal);
+                Console.WriteLine(dicesFacesTotal);
                 players[0].ApplyCardsEffect(dicesFacesTotal, players[1]);
                 players[1].ApplyCardsEffect(dicesFacesTotal, players[0]);
 
@@ -212,7 +212,7 @@ public void game()
                 diceSeparator -= 10;
                 dicesFacesTotal += dieFace;
             }
-
+            Console.WriteLine(dicesFacesTotal);
             players[0].ApplyCardsEffect(dicesFacesTotal, players[1]);
             players[1].ApplyCardsEffect(dicesFacesTotal, players[0]);
 
