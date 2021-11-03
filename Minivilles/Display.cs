@@ -504,7 +504,7 @@ namespace Minivilles
                                     WriteInColor("Player", ConsoleColor.White);
                                     WriteInColor($" {player.coins}o", ConsoleColor.Yellow);
                                     string spacesToWrite = "E";
-                                    if (player.coins < 10 && player.coins > 0)
+                                    if (player.coins < 10 && player.coins >= 0)
                                     {
                                         spacesToWrite = new string(' ', player.GetPlayerTown.Count * 8 - 9);
                                     }
