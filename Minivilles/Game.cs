@@ -15,7 +15,6 @@ namespace Minivilles
         private Random random = new Random();
         public bool canChooseCard;
         public Die[] dices;
-        public List<int> dicesFaces = new List<int>();
 
         private List<Pile> gamePiles = new List<Pile> { new Pile(new Card("Champs de blé", 2, "blue", new int[1] { 1 }, 1, "CDB")),
                                                         new Pile(new Card("Ferme", 1, "blue", new int[1] { 1 }, 1, "FME")),
@@ -55,7 +54,7 @@ public void game()
             Thread.Sleep(2000);
             display.DisplayText("", "Voici votre plateau.");
             Thread.Sleep(2000);
-            display.DisplayTown(players, new int[1] { 10 });
+            display.DisplayTown(players, 100);
             canChooseCard = false;
             display.ChooseCard(gamePiles, canChooseCard, players);            
 
@@ -107,6 +106,7 @@ public void game()
 
                 // Le joueur lance le dé.
                 int dieFace = 0;
+                int dicesFacesTotal = 0;
                 int diceSeparator = 35;
 
                 foreach (Die entry in dices)
@@ -114,15 +114,15 @@ public void game()
                     dieFace = players[0].die.Roll();
                     display.DisplayDie(dieFace, diceSeparator);
                     diceSeparator -= 10;
-                    players[0].ApplyCardsEffect(dieFace, players[1]);
-                    players[1].ApplyCardsEffect(dieFace, players[0]);
-                    dicesFaces.Add(dieFace);
+                    dicesFacesTotal += dieFace;
                 }
 
-                
+                Console.WriteLine("{0}", dicesFacesTotal);
+                players[0].ApplyCardsEffect(dicesFacesTotal, players[1]);
+                players[1].ApplyCardsEffect(dicesFacesTotal, players[0]);
+
                 Thread.Sleep(500);
-                display.DisplayTown(players, dicesFaces.ToArray());
-                dicesFaces.Clear();
+                display.DisplayTown(players, dicesFacesTotal);
                 Thread.Sleep(1000);
                 
 
@@ -155,7 +155,7 @@ public void game()
                 }
 
 
-                display.DisplayTown(players, dicesFaces.ToArray());
+                display.DisplayTown(players, dicesFacesTotal);
                 display.ChooseCard(gamePiles, false, players);
 
                 Thread.Sleep(500);
@@ -196,16 +196,18 @@ public void game()
             bool canBuyCard = false;
 
             int diceSeparator = 35;
+            int dicesFacesTotal = 0;
 
             foreach (Die entry in dices)
             {
                 dieFace = players[1].die.Roll();
                 display.DisplayDie(dieFace, diceSeparator);
                 diceSeparator -= 10;
-                players[0].ApplyCardsEffect(dieFace, players[1]);
-                players[1].ApplyCardsEffect(dieFace, players[0]);
-                dicesFaces.Add(dieFace);
+                dicesFacesTotal += dieFace;
             }
+
+            players[0].ApplyCardsEffect(dicesFacesTotal, players[1]);
+            players[1].ApplyCardsEffect(dicesFacesTotal, players[0]);
 
             // Fin de partie ?
             if (players[0].coins >= 20 || players[1].coins >= 20)
@@ -250,9 +252,8 @@ public void game()
                                 gamePiles.Remove(pile);
                                 display.ChooseCard(gamePiles, false, players, true);
                                 display.ChooseCard(gamePiles, false, players);
-                                display.DisplayTown(players, new int[1] { 10 }, true);
-                                display.DisplayTown(players, dicesFaces.ToArray());
-                                dicesFaces.Clear();
+                                display.DisplayTown(players, 100, true);
+                                display.DisplayTown(players, dicesFacesTotal);
                             }
                         }
                     }
@@ -265,9 +266,8 @@ public void game()
                     display.DisplayText("Ordi : Pas de cartes pour moi.");
                     break;
             }
-            display.DisplayTown(players, new int[1] { 10 }, true);
-            display.DisplayTown(players, dicesFaces.ToArray());
-            dicesFaces.Clear();
+            display.DisplayTown(players, 100, true);
+            display.DisplayTown(players, dicesFacesTotal);
             display.DisplayText("", "", "Appuyez sur Entrée pour continuer");
             Console.ReadLine();
 

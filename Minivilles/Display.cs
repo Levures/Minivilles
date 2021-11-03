@@ -462,7 +462,7 @@ namespace Minivilles
         }
 
 
-        public void DisplayTown(Player[] players, int[] diceResult, bool clear = false)
+        public void DisplayTown(Player[] players, int diceResult, bool clear = false)
         {
             string sep =  "+-----+";
             string line = "|     |";
@@ -528,7 +528,7 @@ namespace Minivilles
                                 bool canBeActivated = false;
                                 foreach (int activationValue in card.GetActivationValue)
                                 {
-                                    if (diceResult.Contains(activationValue))
+                                    if (diceResult == activationValue)
                                         canBeActivated = true;
                                 }
                                 WriteInColor("|", cardColor);
@@ -577,7 +577,7 @@ namespace Minivilles
                                 bool canBeActivated = false;
                                 foreach (int activationValue in card.GetActivationValue)
                                 {
-                                    if (diceResult.Contains(activationValue))
+                                    if (diceResult == activationValue)
                                         canBeActivated = true;
                                 }
                                 WriteInColor("|", cardColor);
