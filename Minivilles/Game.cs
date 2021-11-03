@@ -54,21 +54,32 @@ namespace Minivilles
             players[1].town.Add(gamePiles[2].WithdrawCard());
 
             //Début
+            //Début 
             display.DisplayText("Bienvenue dans Minivilles !");
             Thread.Sleep(2000);
-            display.DisplayText("Bienvenue dans Minivilles !", "Votre objectif sera d'obtenir 20 pièces");
-            Thread.Sleep(4000);
+            display.DisplayText("", "Entrez r pour connaître les règles.", "(ou appuyer sur Entrée pour continuer)");
+            Console.SetCursorPosition(130, 22);
+
+            if (Console.ReadLine() == "r")
+            {
+                display.DisplayText("", "", "", true);
+                display.DisplayText("", "Votre objectif sera d'obtenir 20 pièces.");
+                Thread.Sleep(4000);
+                display.DisplayText("", "", "", true);
+                display.DisplayText("Votre objectif sera d'obtenir 20 pièces.", "Pour cela, vous allez investir dans l'immobilier.");
+                Thread.Sleep(4000);
+                display.DisplayText("", "", "", true);
+                display.DisplayText("", "Les bâtiments constitueront votre ville.");
+                Thread.Sleep(4000);
+                display.DisplayText("", "", "", true);
+                display.DisplayText("", "Selon le résultat du dé,");
+                Thread.Sleep(3000);
+                display.DisplayText("Selon le résultat du dé,", "ils s'activeront et rapporteront de la moula.");
+                Thread.Sleep(5000);
+            }
+
             display.DisplayText("","","", true);
-            display.DisplayText("Votre objectif sera d'obtenir 20 pièces", "Pour cela, vous allez investir dans l'immobilier.");
-            Thread.Sleep(4000);
-            display.DisplayText("","","", true);
-            display.DisplayText("Pour cela, vous allez investir dans l'immobilier.","Les bâtiments constitueront votre ville");
-            Thread.Sleep(4000);
-            display.DisplayText("","","", true);
-            display.DisplayText("Selon le résultat du dé, ils s'activeront","et rapporteront de la moula.");
-            Thread.Sleep(5000);
-            display.DisplayText("","","", true);
-            display.DisplayText("La partie est gagnée par celui qui obtient 20 pièces (o) !", "Bonne chance");
+            display.DisplayText("La partie est gagnée par celui qui obtient 20 pièces (o) !", "Bonne chance.");
             Thread.Sleep(4000);
             display.DisplayText("","","", true);
             Console.Clear();
@@ -134,9 +145,6 @@ namespace Minivilles
                     dices.SetValue(new Die(), i);
                 }
 
-                display.DisplayText("", "", "Appuyez sur Entrée pour lancer les dés.");
-                Console.ReadLine();
-
                 // Le joueur lance le dé.
                 int dieFace = 0;
                 int dicesFacesTotal = 0;
@@ -171,51 +179,54 @@ namespace Minivilles
                     endGame = true;
                 }
 
-                //Le joueur achète ou non une propriété.
-                display.DisplayText("", "", "", true);
-                display.DisplayText("Choisissez une carte, ou passez votre tour.");
-                int cardChosen = display.ChooseCard(gamePiles, true, players);
-                if (cardChosen != 100)
-                    players[0].BuyCard(gamePiles[cardChosen].WithdrawCard());
-                foreach (Pile pile in gamePiles.ToList())
+                if (!endGame)
                 {
-                    if (pile.GetStack.Count == 0)
+                    //Le joueur achète ou non une propriété.
+                    display.DisplayText("", "", "", true);
+                    display.DisplayText("Choisissez une carte, ou passez votre tour.");
+                    int cardChosen = display.ChooseCard(gamePiles, true, players);
+                    if (cardChosen != 100)
+                        players[0].BuyCard(gamePiles[cardChosen].WithdrawCard());
+                    foreach (Pile pile in gamePiles.ToList())
                     {
-                        gamePiles.Remove(pile);
-                        display.ChooseCard(gamePiles, false, players, true);
+                        if (pile.GetStack.Count == 0)
+                        {
+                            gamePiles.Remove(pile);
+                            display.ChooseCard(gamePiles, false, players, true);
+                        }
                     }
-                }
 
-                diceSeparator = 35;
-                foreach (Die entry in dices)
-                {
-                    display.DisplayDie(100, diceSeparator);
-                    diceSeparator -= 10;
-                }
+                    diceSeparator = 35;
+                    foreach (Die entry in dices)
+                    {
+                        display.DisplayDie(100, diceSeparator);
+                        diceSeparator -= 10;
+                    }
 
 
-                display.DisplayTown(players, dicesFacesTotal, nameChosen);
-                display.ChooseCard(gamePiles, false, players);
+                    display.DisplayTown(players, dicesFacesTotal, nameChosen);
+                    display.ChooseCard(gamePiles, false, players);
 
-                Thread.Sleep(500);
-                display.DisplayText("", "", "", true);
-                if (cardChosen <= gamePiles.Count - 1)
-                    display.DisplayText("Félicitations, " + gamePiles[cardChosen].GetCard().GetCardName + " s'ajoute à votre ville.");
-                else
-                    display.DisplayText("Pas de carte pour vous.");
-                Thread.Sleep(2000);
+                    Thread.Sleep(500);
+                    display.DisplayText("", "", "", true);
+                    if (cardChosen <= gamePiles.Count - 1)
+                        display.DisplayText("Félicitations, " + gamePiles[cardChosen].GetCard().GetCardName + " s'ajoute à votre ville.");
+                    else
+                        display.DisplayText("Pas de carte pour vous.");
+                    Thread.Sleep(2000);
 
-                players[0].isMyTurn = false;
-                Thread.Sleep(1000);
+                    players[0].isMyTurn = false;
+                    Thread.Sleep(1000);
 
-                // Début du tour de l'ordinateur.
-                display.DisplayText("", "", "", true);
-                display.DisplayText("C'est au tour de " + nameChosen);
+                    // Début du tour de l'ordinateur.
+                    display.DisplayText("", "", "", true);
+                    display.DisplayText("C'est au tour de " + nameChosen);
 
-                players[1].isMyTurn = true;
-                System.Threading.Thread.Sleep(1000);
-                
-                IAChildhish(dieFace);
+                    players[1].isMyTurn = true;
+                    System.Threading.Thread.Sleep(1000);
+
+                    IAChildhish(dieFace);
+                }                
             }
 
             if (players[0].coins < players[1].coins)
@@ -416,7 +427,7 @@ namespace Minivilles
                             }
 
                             players[1].BuyCard(gamePiles[cardIndex].WithdrawCard());
-                            display.DisplayText("Titouan : je vais prendre " + iaChosenCard.GetCardName);
+                            display.DisplayText($"Titouan : Je vais prendre {iaChosenCard.GetCardName}.");
                             foreach (Pile pile in gamePiles.ToList())
                             {
                                 if (pile.GetStack.Count == 0)
