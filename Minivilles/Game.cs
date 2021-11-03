@@ -16,7 +16,8 @@ namespace Minivilles
         public bool canChooseCard;
         public Die[] dices;
         bool boudage = false;
-        private string nameOrdi;
+        private string[] nameOrdi = new string[3] {"Titouan","Bernard Tapye", "Ordinateur"};
+        private string nameChosen = new string("prout");
         
 
         private List<Pile> gamePiles = new List<Pile> { new Pile(new Card("Ferme", 1, "blue", new int[1] { 6 }, 1, "FME")),
@@ -58,23 +59,34 @@ namespace Minivilles
             display.DisplayText("Bienvenue dans Minivilles !", "Votre objectif sera d'obtenir 20 pièces");
             Thread.Sleep(4000);
             display.DisplayText("","","", true);
-            display.DisplayText("Votre objectif sera d'obtenir 20 pièces", "Pour cela, vous allez investir dans l'immobilier");
+            display.DisplayText("Votre objectif sera d'obtenir 20 pièces", "Pour cela, vous allez investir dans l'immobilier.");
             Thread.Sleep(4000);
             display.DisplayText("","","", true);
-            display.DisplayText("Pour cela, vous allez investir dans l'immobilier","Les bâtiments constitueront votre ville");
+            display.DisplayText("Pour cela, vous allez investir dans l'immobilier.","Les bâtiments constitueront votre ville");
             Thread.Sleep(4000);
             display.DisplayText("","","", true);
-            display.DisplayText("Selon le résultat du dé","ils s'activeront et rapporteront de la moula.");
+            display.DisplayText("Selon le résultat du dé, ils s'activeront","et rapporteront de la moula.");
             Thread.Sleep(5000);
             display.DisplayText("","","", true);
             display.DisplayText("La partie est gagnée par celui qui obtient 20 pièces (o) !", "Bonne chance");
             Thread.Sleep(4000);
             display.DisplayText("","","", true);
+            Console.Clear();
+            string[] question = new string[1] { "Contre qui voulez-vous jouer ?" };
+            int index = display.ChooseBox(question.Concat(nameOrdi).Distinct().ToArray());
+            nameChosen = nameOrdi[index];
+            Thread.Sleep(3000);
+            Console.Clear();
+            
+            
+            
+            
+            display.DisplayText("","","", true);
             display.DisplayText("", "Voici votre plateau.");
             Thread.Sleep(2000);
             
             
-            display.DisplayTown(players, 100);
+            display.DisplayTown(players, 100, nameChosen);
             canChooseCard = false;
             display.ChooseCard(gamePiles, canChooseCard, players);            
 
@@ -139,18 +151,17 @@ namespace Minivilles
                     dicesFacesTotal += dieFace;
                     if (boudage)
                     {
-                        display.DisplayText("Pfff trop de la chance, toi tu fais" + dieFace);
+                        display.DisplayText("Pfff trop de la chance, toi tu fais " + dieFace);
                         Thread.Sleep(3000);
                         display.DisplayText("","","", true);
-                        
                     }
                 }
-                Console.WriteLine(dicesFacesTotal);
+                
                 players[0].ApplyCardsEffect(dicesFacesTotal, players[1]);
                 players[1].ApplyCardsEffect(dicesFacesTotal, players[0]);
 
                 Thread.Sleep(500);
-                display.DisplayTown(players, dicesFacesTotal);
+                display.DisplayTown(players, dicesFacesTotal, nameChosen);
                 Thread.Sleep(1000);
                 
 
@@ -183,7 +194,7 @@ namespace Minivilles
                 }
 
 
-                display.DisplayTown(players, dicesFacesTotal);
+                display.DisplayTown(players, dicesFacesTotal, nameChosen);
                 display.ChooseCard(gamePiles, false, players);
 
                 Thread.Sleep(500);
@@ -199,7 +210,7 @@ namespace Minivilles
 
                 // Début du tour de l'ordinateur.
                 display.DisplayText("", "", "", true);
-                display.DisplayText("C'est au tour de " + nameOrdi);
+                display.DisplayText("C'est au tour de " + nameChosen);
 
                 players[1].isMyTurn = true;
                 System.Threading.Thread.Sleep(1000);
@@ -281,8 +292,8 @@ namespace Minivilles
                                 gamePiles.Remove(pile);
                                 display.ChooseCard(gamePiles, false, players, true);
                                 display.ChooseCard(gamePiles, false, players);
-                                display.DisplayTown(players, 100, true);
-                                display.DisplayTown(players, dicesFacesTotal);
+                                display.DisplayTown(players, 100, " ", true);
+                                display.DisplayTown(players, dicesFacesTotal, nameChosen);
                             }
                         }
                     }
@@ -295,8 +306,8 @@ namespace Minivilles
                     display.DisplayText("Ordi : Pas de cartes pour moi.");
                     break;
             }
-            display.DisplayTown(players, 100, true);
-            display.DisplayTown(players, dicesFacesTotal);
+            display.DisplayTown(players, 100, " ",true);
+            display.DisplayTown(players, dicesFacesTotal, nameChosen);
             display.DisplayText("", "", "Appuyez sur Entrée pour continuer");
             Console.ReadLine();
 
@@ -318,7 +329,7 @@ namespace Minivilles
             int diceSeparator = 35;
             int dicesFacesTotal = 0;
 
-            if (players[0].coins >= 15)
+            if (players[0].coins >= 15 && players[0].coins > players[1].coins)
             {
                 boudage = true;
                 
@@ -329,7 +340,8 @@ namespace Minivilles
                     display.DisplayDie(dieFace, diceSeparator);
                     diceSeparator -= 10;
                     dicesFacesTotal += dieFace;
-                    display.DisplayText("Pfff, voilà moi je fais juste" + dieFace);
+                    display.DisplayText("Pfff, voilà moi je fais juste " + dieFace);
+                    Thread.Sleep(2000);
                 }
                 
                 
@@ -412,8 +424,8 @@ namespace Minivilles
                                     gamePiles.Remove(pile);
                                     display.ChooseCard(gamePiles, false, players, true);
                                     display.ChooseCard(gamePiles, false, players);
-                                    display.DisplayTown(players, 100, true);
-                                    display.DisplayTown(players, dicesFacesTotal);
+                                    display.DisplayTown(players, 100, " " ,true);
+                                    display.DisplayTown(players, dicesFacesTotal, nameChosen);
                                 }
                             }
                         }
@@ -428,8 +440,8 @@ namespace Minivilles
                 }
             }
 
-            display.DisplayTown(players, 100, true);
-            display.DisplayTown(players, dicesFacesTotal);
+            display.DisplayTown(players, 100, "", true);
+            display.DisplayTown(players, dicesFacesTotal, nameChosen);
             display.DisplayText("", "", "Appuyez sur Entrée pour continuer");
             Console.ReadLine();
 

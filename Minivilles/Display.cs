@@ -289,8 +289,7 @@ namespace Minivilles
             return 200;
         }
 
-        //Methode non fonctionelle (en cours)
-        public int ChooseBox(string[] msg, ConsoleColor boxColor = ConsoleColor.Gray, ConsoleColor textColor = ConsoleColor.Gray)
+       public int ChooseBox(string[] msg, ConsoleColor boxColor = ConsoleColor.Gray, ConsoleColor textColor = ConsoleColor.Gray)
         {
             int[] msgLength = new int[msg.Length];
             for (int i = 0; i < msg.Length; i++)            
@@ -466,7 +465,7 @@ namespace Minivilles
         }
 
 
-        public void DisplayTown(Player[] players, int diceResult, bool clear = false)
+        public void DisplayTown(Player[] players, int diceResult, string nameChosen, bool clear = false)
         {
             string sep =  "+-----+";
             string line = "|     |";
@@ -560,7 +559,7 @@ namespace Minivilles
                             case 0:
                                 if (cardLoopCount == 0)
                                 {
-                                    WriteInColor("IA", ConsoleColor.White);
+                                    WriteInColor(nameChosen, ConsoleColor.White);
                                     WriteInColor($" {IA.coins}o", ConsoleColor.Yellow);
                                 }
                                 break;
