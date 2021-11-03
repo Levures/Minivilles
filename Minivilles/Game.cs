@@ -53,10 +53,21 @@ public void game()
             //Début
             display.DisplayText("Bienvenue dans Minivilles !");
             Thread.Sleep(2000);
-            display.DisplayText("Votre objectif sera d'acheter des bâtiments.", "Selon le résultat du dé, ils s'activeront et rapporteront de la moula.");
+            display.DisplayText("Bienvenue dans Minivilles !", "Votre objectif sera d'obtenir 20 pièces");
+            Thread.Sleep(4000);
+            display.DisplayText("","","", true);
+            display.DisplayText("Votre objectif sera d'obtenir 20 pièces", "Pour cela, vous allez investir dans l'immobilier");
+            Thread.Sleep(4000);
+            display.DisplayText("","","", true);
+            display.DisplayText("Pour cela, vous allez investir dans l'immobilier","Les bâtiments constitueront votre ville");
+            Thread.Sleep(4000);
+            display.DisplayText("","","", true);
+            display.DisplayText("Selon le résultat du dé","ils s'activeront et rapporteront de la moula.");
             Thread.Sleep(5000);
+            display.DisplayText("","","", true);
             display.DisplayText("La partie est gagnée par celui qui obtient 20 pièces (o) !", "Bonne chance");
-            Thread.Sleep(2000);
+            Thread.Sleep(4000);
+            display.DisplayText("","","", true);
             display.DisplayText("", "Voici votre plateau.");
             Thread.Sleep(2000);
             
@@ -294,7 +305,7 @@ public void game()
         {
             List<Card> haveEnoughCoinToBuy = new List<Card>();
             bool canBuyCard = false;
-            
+            bool premierBoudage = true;
             int diceSeparator = 35;
             int dicesFacesTotal = 0;
             
@@ -318,7 +329,11 @@ public void game()
                 players[0].ApplyCardsEffect(dicesFacesTotal, players[1]);
                 players[1].ApplyCardsEffect(dicesFacesTotal, players[0]);
                 
-                display.DisplayText("Titouan : M'en fous je joue plus voilà");
+                if (premierBoudage)
+                {
+                    display.DisplayText("Titouan : M'en fous je joue plus voilà");
+                    premierBoudage = false;
+                }
                 players[1].isMyTurn = false;
             }
             while (!boudage)
