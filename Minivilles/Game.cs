@@ -15,6 +15,7 @@ namespace Minivilles
         private Random random = new Random();
         public bool canChooseCard;
         public Die[] dices;
+        bool boudage = false;
 
         private List<Pile> gamePiles = new List<Pile> { new Pile(new Card("Ferme", 1, "blue", new int[1] { 6 }, 1, "FME")),
                                                         new Pile(new Card("Boulangerie", 1, "green", new int[1] { 8 }, 2, "BLG")),
@@ -52,8 +53,14 @@ public void game()
             //Début
             display.DisplayText("Bienvenue dans Minivilles !");
             Thread.Sleep(2000);
+            display.DisplayText("Votre objectif sera d'acheter des bâtiments.", "Selon le résultat du dé, ils s'activeront et rapporteront de la moula.");
+            Thread.Sleep(5000);
+            display.DisplayText("La partie est gagnée par celui qui obtient 20 pièces (o) !", "Bonne chance");
+            Thread.Sleep(2000);
             display.DisplayText("", "Voici votre plateau.");
             Thread.Sleep(2000);
+            
+            
             display.DisplayTown(players, 100);
             canChooseCard = false;
             display.ChooseCard(gamePiles, canChooseCard, players);            
@@ -176,7 +183,7 @@ public void game()
                 players[1].isMyTurn = true;
                 System.Threading.Thread.Sleep(1000);
                 
-                IATurn(dieFace);
+                IAChildhish(dieFace);
             }
 
             if (players[0].coins < players[1].coins)
@@ -262,7 +269,7 @@ public void game()
                         display.DisplayText("Ordi : Pas de cartes pour moi.");
                     }
                     break;
-                case 3:
+                case 3 or 4:
                     display.DisplayText("Ordi : Pas de cartes pour moi.");
                     break;
             }
@@ -281,7 +288,123 @@ public void game()
             players[1].isMyTurn = false;
         }
 
-        #endregion
+        private void IAChildhish(int dieFace)
+        {
+            List<Card> haveEnoughCoinToBuy = new List<Card>();
+            bool canBuyCard = false;
+            
+            int diceSeparator = 35;
+            int dicesFacesTotal = 0;
+            
+            if (players[0].coins >= 15)
+            {
+                boudage = true;
+                display.DisplayText("Titouan : Non mais là aussi tu triches chuis sûr");
+                Thread.Sleep(2000);
+                display.DisplayText("Titouan : Regarde t'as plein de pièces et moi j'ai rien là");
+                Thread.Sleep(1500);
+                
+                foreach (Die entry in dices)
+                {
+                    dieFace = players[1].die.Roll();
+                    display.DisplayDie(dieFace, diceSeparator);
+                    diceSeparator -= 10;
+                    dicesFacesTotal += dieFace;
+                }
 
+                players[0].ApplyCardsEffect(dicesFacesTotal, players[1]);
+                players[1].ApplyCardsEffect(dicesFacesTotal, players[0]);
+                
+                display.DisplayText("Titouan : M'en fous je joue plus voilà");
+                players[1].isMyTurn = false;
+            }
+            while (boudage = false)
+            {
+
+                foreach (Die entry in dices)
+                {
+                    dieFace = players[1].die.Roll();
+                    display.DisplayDie(dieFace, diceSeparator);
+                    diceSeparator -= 10;
+                    dicesFacesTotal += dieFace;
+                }
+
+                players[0].ApplyCardsEffect(dicesFacesTotal, players[1]);
+                players[1].ApplyCardsEffect(dicesFacesTotal, players[0]);
+
+                // Fin de partie ?
+                
+                if (players[0].coins >= 20 || players[1].coins >= 20)
+                {
+                    endGame = true;
+                }
+
+                foreach (Pile pile in gamePiles)
+                {
+                    if (pile.GetCard().GetCardCost <= players[1].coins)
+                    {
+                        haveEnoughCoinToBuy.Add(pile.GetCard());
+                        canBuyCard = true;
+                    }
+                }
+
+                display.DisplayText("", "", "", true);
+
+                switch (random.Next(0, 5))
+                {
+                    case 0 or 1 or 2:
+                        if(canBuyCard)
+                        {
+                            Card iaChosenCard = haveEnoughCoinToBuy[random.Next(haveEnoughCoinToBuy.Count)];
+                            int indexCounter = -1;
+                            int cardIndex = 0;
+                            foreach (Pile pile in gamePiles)
+                            {
+                                indexCounter++;
+                                if (pile.GetCard() == iaChosenCard && haveEnoughCoinToBuy.Contains(gamePiles[indexCounter].GetCard()))
+                                {
+                                    cardIndex = indexCounter;
+                                }
+                            }
+
+                            players[1].BuyCard(gamePiles[cardIndex].WithdrawCard());
+                            display.DisplayText("Titouan : je vais prendre " + iaChosenCard.GetCardName);
+                            foreach (Pile pile in gamePiles.ToList())
+                            {
+                                if (pile.GetStack.Count == 0)
+                                {
+                                    gamePiles.Remove(pile);
+                                    display.ChooseCard(gamePiles, false, players, true);
+                                    display.ChooseCard(gamePiles, false, players);
+                                    display.DisplayTown(players, 100, true);
+                                    display.DisplayTown(players, dicesFacesTotal);
+                                }
+                            }
+                        }
+                        else
+                        {                        
+                            display.DisplayText("Titouan : Pas envie, elles puent");
+                        }
+                        break;
+                    case 3 or 4:
+                        display.DisplayText("Titouan : Nan. J'achète rien, t'as des jeux sur ton téléphone ?");
+                        break;
+                }
+                display.DisplayTown(players, 100, true);
+                display.DisplayTown(players, dicesFacesTotal);
+                display.DisplayText("", "", "Appuyez sur Entrée pour continuer");
+                Console.ReadLine();
+
+                diceSeparator = 35;
+                foreach (Die entry in dices)
+                {
+                    display.DisplayDie(100, diceSeparator);
+                    diceSeparator -= 10;
+                }
+            
+                players[1].isMyTurn = false;
+            }
+        }
+        #endregion
     }
 }
