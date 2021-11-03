@@ -300,6 +300,9 @@ namespace Minivilles
             string cursor = "<--";
             ConsoleColor cursorColor = ConsoleColor.Green;
 
+
+
+
             for (int i = 0; i < msg.Length; i++)
             {
                 WriteInColor("+", boxColor);
@@ -317,12 +320,12 @@ namespace Minivilles
             WriteLineInColor("+", boxColor);
             
 
-            Console.SetCursorPosition(maxMsgLength + 6, 1);
+            Console.SetCursorPosition(maxMsgLength + 6, 3);
             WriteInColor(cursor, cursorColor);
 
             int selection = new();
             bool hasChosen = false;
-            int cursorY = 1;
+            int cursorY = 3;
             int cursorX = maxMsgLength + 6;
 
             //Boucle qui s'exécute pendant que l'utilisateur choisis sa carte
@@ -346,7 +349,7 @@ namespace Minivilles
                         }
                         else
                         {
-                            cursorY = 1;
+                            cursorY = 3;
                             Console.SetCursorPosition(cursorX, cursorY);
                         }
                         //Affichage de la nouvelle flèche
@@ -358,7 +361,7 @@ namespace Minivilles
                         Console.SetCursorPosition(cursorX, cursorY);
                         Console.Write("    ");
                         //Position de la nouvelle flèche
-                        if (cursorY >= 2)
+                        if (cursorY >= 4)
                         {
                             cursorY -= 2;
                             Console.SetCursorPosition(cursorX, cursorY);
@@ -374,7 +377,7 @@ namespace Minivilles
                     //Touche entrée tapée
                     case ConsoleKey.Enter:
                         //calcul de l'index à partir de la position du curseur
-                        selection = ((cursorY + 1) / 2) - 1;
+                        selection = ((cursorY + 1) / 2) - 2;
                         hasChosen = true;
                         break;
 
