@@ -262,11 +262,11 @@ namespace Minivilles
                             }
                             else if (nameChosen == nameOrdi[1])
                             {
-                                display.DisplayText("Vous avez perdu.", $"{nameChosen}: ", "");
+                                display.DisplayText("Vous avez perdu.", $"{nameChosen}: Allez ciao loser, à jamais le premier", "");
                             }
                             else if (nameChosen == nameOrdi[2])
                             {
-                                display.DisplayText("Vous avez perdu.", $"{nameChosen}: ", "");
+                                display.DisplayText("Vous avez perdu.", $"{nameChosen}: Je.. c'est franchement embarassant pour toute la race humaine.", "");
                             }
                         }
                         else
@@ -604,13 +604,13 @@ namespace Minivilles
                     }
                 }
 
-                if (players[1].coins == -1)
+                if (players[1].coins < -1)
                 {
                     display.DisplayText("Bernard Tapie : non mais t'inquiètes,"," je vais me refaire gamin");
                     Thread.Sleep(2000);
                     display.DisplayText("","","", true);
 
-                    if (players[1].coins < -10)
+                    if (players[1].coins == -10)
                     {
                         display.DisplayText("Bernard Tapie : Gamin, tu veux pas me racheter Adidas ?");
                         Thread.Sleep(2000);
