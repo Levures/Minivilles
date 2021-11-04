@@ -86,15 +86,12 @@ namespace Minivilles
             string[] question = new string[1] { "Contre qui voulez-vous jouer ?" };
             int index = display.ChooseBox(question.Concat(nameOrdi).Distinct().ToArray());
             nameChosen = nameOrdi[index];
-            Thread.Sleep(3000);
             Console.Clear();
-            
-            
             
             
             display.DisplayText("","","", true);
             display.DisplayText("", "Voici votre plateau.");
-            Thread.Sleep(2000);
+            Thread.Sleep(3000);
             
             
             display.DisplayTown(players, 100, nameChosen);
@@ -207,10 +204,14 @@ namespace Minivilles
                     display.DisplayTown(players, dicesFacesTotal, nameChosen);
                     display.ChooseCard(gamePiles, false, players);
 
+                    display.DisplayTown(players, 0, nameChosen);
                     Thread.Sleep(500);
                     display.DisplayText("", "", "", true);
                     if (cardChosen <= gamePiles.Count - 1)
+                    {
                         display.DisplayText("Félicitations, " + gamePiles[cardChosen].GetCard().GetCardName + " s'ajoute à votre ville.");
+                    }
+                        
                     else
                         display.DisplayText("Pas de carte pour vous.");
                     Thread.Sleep(2000);
