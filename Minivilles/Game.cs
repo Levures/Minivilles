@@ -86,7 +86,6 @@ namespace Minivilles
             string[] question = new string[1] { "Contre qui voulez-vous jouer ?" };
             int index = display.ChooseBox(question.Concat(nameOrdi).Distinct().ToArray());
             nameChosen = nameOrdi[index];
-            Thread.Sleep(1000);
             Console.Clear();
             
             
@@ -245,65 +244,68 @@ namespace Minivilles
                     players[1].isMyTurn = true;
                     System.Threading.Thread.Sleep(1000);
 
-                    if (players[0].coins < players[1].coins)
+                    if (endGame)
                     {
-                        display.DisplayText("", "", "", true);
-                        display.DisplayText("", $"{nameChosen} possède {players[1].coins} pièces...", "");
-                        Thread.Sleep(2000);
-                        display.DisplayText("", "", "", true);
-                        display.DisplayText($"{nameChosen} possède {players[1].coins} pièces...", "Vous avez perdu.", "");
-                        Thread.Sleep(3000);
-                        display.DisplayText("", "", "", true);
+                        if (players[0].coins < players[1].coins)
+                        {
+                            display.DisplayText("", "", "", true);
+                            display.DisplayText("", $"{nameChosen} possède {players[1].coins} pièces...", "");
+                            Thread.Sleep(2000);
+                            display.DisplayText("", "", "", true);
+                            display.DisplayText($"{nameChosen} possède {players[1].coins} pièces...", "Vous avez perdu.", "");
+                            Thread.Sleep(3000);
+                            display.DisplayText("", "", "", true);
                         
-                        if (nameChosen == nameOrdi[0])
-                        {
-                            display.DisplayText("Vous avez perdu.", $"{nameChosen}: Haha tu sais pas jouer c'est moi chuis trop fort !", "");
+                            if (nameChosen == nameOrdi[0])
+                            {
+                                display.DisplayText("Vous avez perdu.", $"{nameChosen}: Haha tu sais pas jouer c'est moi chuis trop fort !", "");
+                            }
+                            else if (nameChosen == nameOrdi[1])
+                            {
+                                display.DisplayText("Vous avez perdu.", $"{nameChosen}: ", "");
+                            }
+                            else if (nameChosen == nameOrdi[2])
+                            {
+                                display.DisplayText("Vous avez perdu.", $"{nameChosen}: ", "");
+                            }
                         }
-                        else if (nameChosen == nameOrdi[1])
+                        else
                         {
-                            display.DisplayText("Vous avez perdu.", $"{nameChosen}: ", "");
-                        }
-                        else if (nameChosen == nameOrdi[2])
-                        {
-                            display.DisplayText("Vous avez perdu.", $"{nameChosen}: ", "");
-                        }
-                    }
-                    else
-                    {
-                        display.DisplayText("", "", "", true);
-                        display.DisplayText("", $"Vous possédez {players[0].coins} pièces...", "");
-                        Thread.Sleep(3000);
-                        display.DisplayText("", "", "", true);
-                        display.DisplayText($"Vous possédez {players[0].coins} pièces...", "Vous avez gagné !", "");
-                        Thread.Sleep(3000);
-                        display.DisplayText("", "", "", true);
-
-                        if (nameChosen == nameOrdi[0])
-                        {
-                            display.DisplayText("Vous avez gagné !", $"*{nameChosen} vous traite de boomer chauve et s'en va en pleurant*", "");
+                            display.DisplayText("", "", "", true);
+                            display.DisplayText("", $"Vous possédez {players[0].coins} pièces...", "");
                             Thread.Sleep(3000);
                             display.DisplayText("", "", "", true);
-                        }
-                        else if (nameChosen == nameOrdi[1])
-                        {
-                            display.DisplayText("Vous avez gagné !", $"{nameChosen}: Gamin, tu sais", "Quand on fait, on fait des choses biens");
-                            Thread.Sleep(2000);
-                            display.DisplayText("", "", "", true);
-                            display.DisplayText("Bernard Tapie: Quand on fait, on fait des choses biens,","on fait des choses moins biens", "c'est le lot de tous les gens qui font des choses");
-                            Thread.Sleep(2000);
-                            display.DisplayText("", "", "", true);
-                            display.DisplayText("Bernard Tapie 1943-2021, RIP in peace petit anje parti tro to");
-                            Thread.Sleep(2000);
-                            display.DisplayText("", "", "", true);
-                        }
-                        else if (nameChosen == nameOrdi[2])
-                        {
-                            display.DisplayText("Vous avez gagné !", $"{nameChosen}: Vous avez gagné. En même temps, je ne suis qu'un modeste processeur.", "");
+                            display.DisplayText($"Vous possédez {players[0].coins} pièces...", "Vous avez gagné !", "");
                             Thread.Sleep(3000);
                             display.DisplayText("", "", "", true);
-                        }
 
-                        display.DisplayText("", "", ".");
+                            if (nameChosen == nameOrdi[0])
+                            {
+                                display.DisplayText("Vous avez gagné !", $"*{nameChosen} vous traite de boomer chauve et s'en va en pleurant*", "");
+                                Thread.Sleep(3000);
+                                display.DisplayText("", "", "", true);
+                            }
+                            else if (nameChosen == nameOrdi[1])
+                            {
+                                display.DisplayText("Vous avez gagné !", $"{nameChosen}: Gamin, tu sais", "Quand on fait, on fait des choses biens");
+                                Thread.Sleep(3000);
+                                display.DisplayText("", "", "", true);
+                                display.DisplayText("","on fait des choses moins biens", "c'est le lot de tous les gens qui font des choses");
+                                Thread.Sleep(4000);
+                                display.DisplayText("", "", "", true);
+                                display.DisplayText("Bernard Tapie 1943-2021, RIP in peace petit anje parti tro to");
+                                Thread.Sleep(3000);
+                                display.DisplayText("", "", "", true);
+                            }
+                            else if (nameChosen == nameOrdi[2])
+                            {
+                                display.DisplayText("Vous avez gagné !", $"{nameChosen}: Vous avez gagné. En même temps, je ne suis qu'un modeste processeur.", "");
+                                Thread.Sleep(3000);
+                                display.DisplayText("", "", "", true);
+                            }
+
+                            display.DisplayText("", "", ".");
+                        }
                     }
                 }                
             }
