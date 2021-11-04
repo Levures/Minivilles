@@ -244,6 +244,59 @@ namespace Minivilles
                     }
                 }                
             }
+
+            if (players[0].coins < players[1].coins)
+            {
+                display.DisplayText("", "", "", true);
+                display.DisplayText("", $"{nameChosen} possède {players[1].coins} pièces...", "");
+                Thread.Sleep(2000);
+                display.DisplayText("", "", "", true);
+                display.DisplayText($"{nameChosen} possède {players[1].coins} pièces...", "Vous avez perdu.", "");
+                Thread.Sleep(3000);
+                display.DisplayText("", "", "", true);
+
+                if (nameChosen == nameOrdi[0])
+                {
+                    display.DisplayText("Vous avez perdu.", $"{nameChosen}: Haha tu sais pas jouer c'est moi chui trop fort !", "");
+                }
+                else if (nameChosen == nameOrdi[1])
+                {
+                    display.DisplayText("Vous avez perdu.", $"{nameChosen}: ", "");
+                }
+                else if (nameChosen == nameOrdi[2])
+                {
+                    display.DisplayText("Vous avez perdu.", $"{nameChosen}: ", "");
+                }
+
+            }
+            else
+            {
+                display.DisplayText("", "", "", true);
+                display.DisplayText("", $"Vous possédez {players[0].coins} pièces...", "");
+                Thread.Sleep(3000);
+                display.DisplayText("", "", "", true);
+                display.DisplayText($"Vous possédez {players[0].coins} pièces...", "Vous avez gagné !", "");
+                Thread.Sleep(3000);
+                display.DisplayText("", "", "", true);
+
+                if (nameChosen == nameOrdi[0])
+                {
+                    display.DisplayText("Vous avez gagné !", $"*{nameChosen} vous traîte de boomer chauve et s'en va en pleurant*", "");
+                    Thread.Sleep(3000);
+                }
+                else if (nameChosen == nameOrdi[1])
+                {
+                    display.DisplayText("Vous avez perdu.", $"{nameChosen}: ", "");
+                    Thread.Sleep(3000);
+                }
+                else if (nameChosen == nameOrdi[2])
+                {
+                    display.DisplayText("Vous avez perdu.", $"{nameChosen}: ", "");
+                    Thread.Sleep(3000);
+                }
+
+                display.DisplayText("", "", ".");
+            }
         }
 
         #region Private Methods
