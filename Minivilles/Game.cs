@@ -608,19 +608,6 @@ namespace Minivilles
                         
                     }
                 }
-                if (players[1].coins == -1)
-                {
-                    display.DisplayText("Bernard Tapie : non mais t'inquiètes,", " je vais me refaire gamin");
-                    Thread.Sleep(2000);
-                    display.DisplayText("", "", "", true);
-
-                    if (players[1].coins < -10)
-                    {
-                        display.DisplayText("Bernard Tapie : Gamin, tu veux pas me racheter Adidas ?");
-                        Thread.Sleep(2000);
-                        display.DisplayText("", "", "", true);
-                    }
-                }
             }
 
             display.DisplayTown(players, 100, " ", true);
@@ -633,6 +620,19 @@ namespace Minivilles
             {
                 display.DisplayDie(100, diceSeparator);
                 diceSeparator -= 10;
+            }
+            if (players[1].coins == -1)
+            {
+                display.DisplayText("Bernard Tapie : non mais t'inquiètes,", " je vais me refaire gamin");
+                Thread.Sleep(2000);
+                display.DisplayText("", "", "", true);
+
+                if (players[1].coins < -10)
+                {
+                    display.DisplayText("Bernard Tapie : Gamin, tu veux pas me racheter Adidas ?");
+                    Thread.Sleep(2000);
+                    display.DisplayText("", "", "", true);
+                }
             }
 
             players[1].isMyTurn = false;
