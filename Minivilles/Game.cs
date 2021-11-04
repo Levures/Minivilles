@@ -16,7 +16,7 @@ namespace Minivilles
         public bool canChooseCard;
         public Die[] dices;
         bool boudage = false;
-        private string[] nameOrdi = new string[3] {"Titouan","Bernard Tapye", "Ordinateur"};
+        private string[] nameOrdi = new string[3] {"Titouan","Bernard Tapie", "Ordinateur"};
         private string nameChosen = new string("prout");
         
 
@@ -221,6 +221,15 @@ namespace Minivilles
                     // Début du tour de l'ordinateur.
                     display.DisplayText("", "", "", true);
                     display.DisplayText("C'est au tour de " + nameChosen);
+
+                    if (nameChosen == "Titouan")
+                    {
+                        IAChildhish(dieFace);
+                    }
+                    else if (nameChosen == "Ordinateur")
+                    {
+                        IATurn(dieFace);
+                    }
 
                     players[1].isMyTurn = true;
                     System.Threading.Thread.Sleep(1000);

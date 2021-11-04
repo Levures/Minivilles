@@ -11,7 +11,7 @@ namespace Minivilles
 
         public List<Card> town = new List<Card>();
         public Die die = new Die();
-        public int coins { get; private set; } = 14;
+        public int coins { get; private set; } = 3;
         private Game game = new Game();
         public bool isMyTurn = false;
 
