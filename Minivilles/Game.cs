@@ -72,8 +72,6 @@ namespace Minivilles
                 display.DisplayText("", "Les bâtiments constitueront votre ville.");
                 Thread.Sleep(4000);
                 display.DisplayText("", "", "", true);
-                display.DisplayText("", "Selon le résultat du dé,");
-                Thread.Sleep(3000);
                 display.DisplayText("Selon le résultat du dé,", "ils s'activeront et rapporteront de la moula.");
                 Thread.Sleep(5000);
             }
@@ -154,19 +152,20 @@ namespace Minivilles
                     display.DisplayDie(dieFace, diceSeparator);
                     diceSeparator -= 10;
                     dicesFacesTotal += dieFace;
-                    if (boudage)
-                    {
-                        display.DisplayText("Titouan: Pfff trop de la chance, toi tu fais " + dieFace);
-                        Thread.Sleep(3000);
-                        display.DisplayText("", "", "", true);
-                    }
+                }
+                
+                if (boudage)
+                {
+                    display.DisplayText("Titouan: Pfff trop de la chance, toi tu fais " + dicesFacesTotal);
+                    Thread.Sleep(3000);
+                    display.DisplayText("", "", "", true);
+                }
 
-                    if (nameChosen == nameOrdi[1])
-                    {
-                        display.DisplayText("Bernard Tapie: bravo gamin, allez achète");
-                        Thread.Sleep(3000);
-                        display.DisplayText("", "", "", true);
-                    }
+                if (nameChosen == nameOrdi[1])
+                {
+                    display.DisplayText("Bernard Tapie: bravo gamin, allez achète");
+                    Thread.Sleep(3000);
+                    display.DisplayText("", "", "", true);
                 }
 
                 players[0].ApplyCardsEffect(dicesFacesTotal, players[1]);
@@ -206,8 +205,7 @@ namespace Minivilles
                         display.DisplayDie(100, diceSeparator);
                         diceSeparator -= 10;
                     }
-
-
+                    
                     display.DisplayTown(players, dicesFacesTotal, nameChosen);
                     display.ChooseCard(gamePiles, false, players);
 
@@ -264,11 +262,11 @@ namespace Minivilles
                             }
                             else if (nameChosen == nameOrdi[1])
                             {
-                                display.DisplayText("Vous avez perdu.", $"{nameChosen}: ", "");
+                                display.DisplayText("Vous avez perdu.", $"{nameChosen}: C'est pas grave petit, à jamais le premier, c'est comme ça.", "");
                             }
                             else if (nameChosen == nameOrdi[2])
                             {
-                                display.DisplayText("Vous avez perdu.", $"{nameChosen}: ", "");
+                                display.DisplayText("Vous avez perdu.", $"{nameChosen}: Je... c'est embarrassant pour l'entièreté de la race humaine...", "");
                             }
                         }
                         else
@@ -290,13 +288,13 @@ namespace Minivilles
                             else if (nameChosen == nameOrdi[1])
                             {
                                 display.DisplayText("Vous avez gagné !", $"{nameChosen}: Gamin, tu sais", "Quand on fait, on fait des choses biens");
-                                Thread.Sleep(2000);
+                                Thread.Sleep(3000);
                                 display.DisplayText("", "", "", true);
                                 display.DisplayText("Bernard Tapie: Quand on fait, on fait des choses biens,", "on fait des choses moins biens", "c'est le lot de tous les gens qui font des choses");
-                                Thread.Sleep(2000);
+                                Thread.Sleep(3000);
                                 display.DisplayText("", "", "", true);
                                 display.DisplayText("Bernard Tapie 1943-2021, RIP in peace petit anje parti tro to");
-                                Thread.Sleep(2000);
+                                Thread.Sleep(3000);
                                 display.DisplayText("", "", "", true);
                             }
                             else if (nameChosen == nameOrdi[2])
@@ -311,7 +309,6 @@ namespace Minivilles
                     }
                 }
             }
-
         }
 
         private void IATurn(int dieFace)
@@ -607,9 +604,10 @@ namespace Minivilles
                         display.ChooseCard(gamePiles, false, players);
                         display.DisplayTown(players, 100, " ", true);
                         display.DisplayTown(players, dicesFacesTotal, nameChosen);
+                        
+                        
                     }
                 }
-
                 if (players[1].coins == -1)
                 {
                     display.DisplayText("Bernard Tapie : non mais t'inquiètes,", " je vais me refaire gamin");
