@@ -26,8 +26,8 @@ namespace Minivilles
                                                         new Pile(new Card("Café", 2, "red", new int[1] { 9 }, 1, "CAF")),
                                                         new Pile(new Card("Superette", 2, "green", new int[3] { 2, 3, 8 }, 2, "SUP")),
                                                         new Pile(new Card("Forêt", 3, "blue", new int[3] { 10, 11, 12 }, 2, "FOR")),
+                                                        new Pile(new Card("Magasin de jouet", 3, "green", new int[5] { 2, 3, 4, 5, 6 }, 1, "MDJ")),
                                                         new Pile(new Card("Restaurant", 4, "red", new int[1] { 5 }, 2, "RES")),
-                                                        new Pile(new Card("Magasin de jouet", 5, "blue", new int[5] { 2, 3, 4, 5, 6 }, 1, "MDJ")),
                                                         new Pile(new Card("Stade", 6, "blue", new int[2] { 9, 10 }, 4, "STD")),
                                                         new Pile(new Card("Banque", 7, "red", new int[1] { 6 }, 4, "BNQ")),
                                                         new Pile(new Card("Fête foraine", 8, "red", new int[4] { 1, 9, 10, 11 }, 2, "FFN")) };
@@ -123,12 +123,12 @@ namespace Minivilles
                         }
                         else
                         {
-                            display.DisplayText("", "", "Un ou deux dés, pas plus pas moins vil gredin");
+                            display.DisplayText("", "", "Un ou deux dés, pas plus pas moins vil gredin.");
                         }
                     }
                     catch
                     {
-                        display.DisplayText("", "", "Un ou deux dés, pas plus pas moins vil gredin");
+                        display.DisplayText("", "", "Un ou deux dés, pas plus pas moins vil gredin.");
                     }
                 }
                 display.DisplayText("", "", "", true);
@@ -152,21 +152,7 @@ namespace Minivilles
                     display.DisplayDie(dieFace, diceSeparator);
                     diceSeparator -= 10;
                     dicesFacesTotal += dieFace;
-                }
-                
-                if (boudage)
-                {
-                    display.DisplayText("Titouan: Pfff trop de la chance, toi tu fais " + dicesFacesTotal);
-                    Thread.Sleep(3000);
-                    display.DisplayText("", "", "", true);
-                }
-
-                if (nameChosen == nameOrdi[1])
-                {
-                    display.DisplayText("Bernard Tapie: bravo gamin, allez achète");
-                    Thread.Sleep(3000);
-                    display.DisplayText("", "", "", true);
-                }
+                }                                
 
                 players[0].ApplyCardsEffect(dicesFacesTotal, players[1]);
                 players[1].ApplyCardsEffect(dicesFacesTotal, players[0]);
@@ -181,6 +167,21 @@ namespace Minivilles
                 {
                     endGame = true;
                 }
+
+                if (boudage)
+                {
+                    display.DisplayText($"Titouan: Pfff trop de la chance, toi tu fais {dicesFacesTotal}");
+                    Thread.Sleep(3000);
+                    display.DisplayText("", "", "", true);
+                }
+
+                if (nameChosen == nameOrdi[1])
+                {
+                    display.DisplayText("Bernard Tapie: Bravo gamin, allez achète.");
+                    Thread.Sleep(3000);
+                    display.DisplayText("", "", "", true);
+                }
+
 
                 if (!endGame)
                 {
@@ -287,13 +288,13 @@ namespace Minivilles
                             }
                             else if (nameChosen == nameOrdi[1])
                             {
-                                display.DisplayText("Vous avez gagné !", $"{nameChosen}: Gamin, tu sais", "Quand on fait, on fait des choses biens");
+                                display.DisplayText("Vous avez gagné !", $"{nameChosen}: Gamin, tu sais", "Quand on fait, on fait des choses biens,");
                                 Thread.Sleep(3000);
                                 display.DisplayText("", "", "", true);
-                                display.DisplayText("Bernard Tapie: Quand on fait, on fait des choses biens,", "on fait des choses moins biens", "c'est le lot de tous les gens qui font des choses");
+                                display.DisplayText("Bernard Tapie: Quand on fait, on fait des choses biens,", "on fait des choses moins biens.", "C'est le lot de tous les gens qui font des choses.");
                                 Thread.Sleep(3000);
                                 display.DisplayText("", "", "", true);
-                                display.DisplayText("Bernard Tapie 1943-2021, RIP in peace petit anje parti tro to");
+                                display.DisplayText("Bernard Tapie 1943-2021, RIP in peace petit anje parti tro to.");
                                 Thread.Sleep(3000);
                                 display.DisplayText("", "", "", true);
                             }
@@ -304,7 +305,7 @@ namespace Minivilles
                                 display.DisplayText("", "", "", true);
                             }
 
-                            display.DisplayText("", "", ".");
+                            display.DisplayText("", "", "");
                         }
                     }
                 }
@@ -366,7 +367,7 @@ namespace Minivilles
                         }
 
                         players[1].BuyCard(gamePiles[cardIndex].WithdrawCard());
-                        display.DisplayText("Ordi : Je choisis " + iaChosenCard.GetCardName);
+                        display.DisplayText($"Ordi : Je choisis {iaChosenCard.GetCardName}.");
                         foreach (Pile pile in gamePiles.ToList())
                         {
                             if (pile.GetStack.Count == 0)
@@ -423,15 +424,15 @@ namespace Minivilles
                     display.DisplayDie(dieFace, diceSeparator);
                     diceSeparator -= 10;
                     dicesFacesTotal += dieFace;
-                    display.DisplayText("Pfff, voilà moi je fais juste " + dieFace);
+                    display.DisplayText($"Pfff, voilà moi je fais juste {dieFace}... ");
                     Thread.Sleep(2000);
                 }
 
 
-                display.DisplayText("Titouan : Non mais là aussi tu triches chuis sûr");
+                display.DisplayText("Titouan : Non mais là aussi tu triches chuis sûr.");
                 Thread.Sleep(2000);
                 display.DisplayText("", "", "", true);
-                display.DisplayText("Titouan : Regarde t'as plein de pièces et moi j'ai rien là");
+                display.DisplayText("Titouan : Regarde t'as plein de pièces et moi j'ai rien là.");
                 Thread.Sleep(1500);
                 display.DisplayText("", "", "", true);
 
@@ -440,7 +441,7 @@ namespace Minivilles
 
                 if (premierBoudage)
                 {
-                    display.DisplayText("Titouan : M'en fous je joue plus voilà");
+                    display.DisplayText("Titouan : M'en fous je joue plus voilà.");
                     Thread.Sleep(3000);
                     display.DisplayText("", "", "", true);
                     premierBoudage = false;
@@ -592,7 +593,7 @@ namespace Minivilles
                 }
 
                 players[1].BuyCard(gamePiles[cardIndex].WithdrawCard());
-                display.DisplayText("Bernard Tapie : Je vais faire l'acquisition de " + iaChosenCard.GetCardName);
+                display.DisplayText($"Bernard Tapie : Je vais faire l'acquisition de {iaChosenCard.GetCardName}.");
                 display.DisplayText("", "", "", true);
                 
                 foreach (Pile pile in gamePiles.ToList())
@@ -623,14 +624,19 @@ namespace Minivilles
             }
             if (players[1].coins <= -1)
             {
-                display.DisplayText("Bernard Tapie : non mais t'inquiètes,", " je vais me refaire gamin");
+                display.DisplayText("", "", "", true);
+                display.DisplayText("", "Bernard Tapie : Non mais t'inquiète,");
                 Thread.Sleep(2000);
+                display.DisplayText("", "", "", true);
+                display.DisplayText("Bernard Tapie : Non mais t'inquiète,", "je vais me refaire gamin.");
+                Thread.Sleep(3000);
                 display.DisplayText("", "", "", true);
             }
             if (players[1].coins <= -10)
             {
+                display.DisplayText("", "", "", true);
                 display.DisplayText("Bernard Tapie : Gamin, tu veux pas me racheter Adidas ?");
-                Thread.Sleep(2000);
+                Thread.Sleep(3000);
                 display.DisplayText("", "", "", true);
             }
 
