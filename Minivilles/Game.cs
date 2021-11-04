@@ -156,7 +156,14 @@ namespace Minivilles
                     dicesFacesTotal += dieFace;
                     if (boudage)
                     {
-                        display.DisplayText("Pfff trop de la chance, toi tu fais " + dieFace);
+                        display.DisplayText("Titouan: Pfff trop de la chance, toi tu fais " + dieFace);
+                        Thread.Sleep(3000);
+                        display.DisplayText("","","", true);
+                    }
+
+                    if (nameChosen == nameOrdi[1])
+                    {
+                        display.DisplayText("Bernard Tapie: bravo gamin, allez achète");
                         Thread.Sleep(3000);
                         display.DisplayText("","","", true);
                     }
@@ -231,74 +238,81 @@ namespace Minivilles
                     {
                         IATurn(dieFace);
                     }
+                    else if (nameChosen == "Bernard Tapie")
+                    {
+                        IATapie(dieFace);
+                    }
 
                     players[1].isMyTurn = true;
                     System.Threading.Thread.Sleep(1000);
 
-                    if (players[0].coins < players[1].coins)
+                    if (endGame)
                     {
-                        display.DisplayText("                                ", "Bahaha t'as perdu !", "                                ");
-                    }
-                    else
-                    {
-                        display.DisplayText("                                ", "Bravo champion !", "                                ");
+                        if (players[0].coins < players[1].coins)
+                        {
+                            display.DisplayText("", "", "", true);
+                            display.DisplayText("", $"{nameChosen} possède {players[1].coins} pièces...", "");
+                            Thread.Sleep(2000);
+                            display.DisplayText("", "", "", true);
+                            display.DisplayText($"{nameChosen} possède {players[1].coins} pièces...", "Vous avez perdu.", "");
+                            Thread.Sleep(3000);
+                            display.DisplayText("", "", "", true);
+                        
+                            if (nameChosen == nameOrdi[0])
+                            {
+                                display.DisplayText("Vous avez perdu.", $"{nameChosen}: Haha tu sais pas jouer c'est moi chuis trop fort !", "");
+                            }
+                            else if (nameChosen == nameOrdi[1])
+                            {
+                                display.DisplayText("Vous avez perdu.", $"{nameChosen}: ", "");
+                            }
+                            else if (nameChosen == nameOrdi[2])
+                            {
+                                display.DisplayText("Vous avez perdu.", $"{nameChosen}: ", "");
+                            }
+                        }
+                        else
+                        {
+                            display.DisplayText("", "", "", true);
+                            display.DisplayText("", $"Vous possédez {players[0].coins} pièces...", "");
+                            Thread.Sleep(3000);
+                            display.DisplayText("", "", "", true);
+                            display.DisplayText($"Vous possédez {players[0].coins} pièces...", "Vous avez gagné !", "");
+                            Thread.Sleep(3000);
+                            display.DisplayText("", "", "", true);
+
+                            if (nameChosen == nameOrdi[0])
+                            {
+                                display.DisplayText("Vous avez gagné !", $"*{nameChosen} vous traite de boomer chauve et s'en va en pleurant*", "");
+                                Thread.Sleep(3000);
+                                display.DisplayText("", "", "", true);
+                            }
+                            else if (nameChosen == nameOrdi[1])
+                            {
+                                display.DisplayText("Vous avez gagné !", $"{nameChosen}: Gamin, tu sais", "Quand on fait, on fait des choses biens");
+                                Thread.Sleep(3000);
+                                display.DisplayText("", "", "", true);
+                                display.DisplayText("","on fait des choses moins biens", "c'est le lot de tous les gens qui font des choses");
+                                Thread.Sleep(4000);
+                                display.DisplayText("", "", "", true);
+                                display.DisplayText("Bernard Tapie 1943-2021, RIP in peace petit anje parti tro to");
+                                Thread.Sleep(3000);
+                                display.DisplayText("", "", "", true);
+                            }
+                            else if (nameChosen == nameOrdi[2])
+                            {
+                                display.DisplayText("Vous avez gagné !", $"{nameChosen}: Vous avez gagné. En même temps, je ne suis qu'un modeste processeur.", "");
+                                Thread.Sleep(3000);
+                                display.DisplayText("", "", "", true);
+                            }
+
+                            display.DisplayText("", "", ".");
+                        }
                     }
                 }                
             }
-
-            if (players[0].coins < players[1].coins)
-            {
-                display.DisplayText("", "", "", true);
-                display.DisplayText("", $"{nameChosen} possède {players[1].coins} pièces...", "");
-                Thread.Sleep(2000);
-                display.DisplayText("", "", "", true);
-                display.DisplayText($"{nameChosen} possède {players[1].coins} pièces...", "Vous avez perdu.", "");
-                Thread.Sleep(3000);
-                display.DisplayText("", "", "", true);
-
-                if (nameChosen == nameOrdi[0])
-                {
-                    display.DisplayText("Vous avez perdu.", $"{nameChosen}: Haha tu sais pas jouer c'est moi chui trop fort !", "");
-                }
-                else if (nameChosen == nameOrdi[1])
-                {
-                    display.DisplayText("Vous avez perdu.", $"{nameChosen}: ", "");
-                }
-                else if (nameChosen == nameOrdi[2])
-                {
-                    display.DisplayText("Vous avez perdu.", $"{nameChosen}: ", "");
-                }
-
-            }
-            else
-            {
-                display.DisplayText("", "", "", true);
-                display.DisplayText("", $"Vous possédez {players[0].coins} pièces...", "");
-                Thread.Sleep(3000);
-                display.DisplayText("", "", "", true);
-                display.DisplayText($"Vous possédez {players[0].coins} pièces...", "Vous avez gagné !", "");
-                Thread.Sleep(3000);
-                display.DisplayText("", "", "", true);
-
-                if (nameChosen == nameOrdi[0])
-                {
-                    display.DisplayText("Vous avez gagné !", $"*{nameChosen} vous traîte de boomer chauve et s'en va en pleurant*", "");
-                    Thread.Sleep(3000);
-                }
-                else if (nameChosen == nameOrdi[1])
-                {
-                    display.DisplayText("Vous avez perdu.", $"{nameChosen}: ", "");
-                    Thread.Sleep(3000);
-                }
-                else if (nameChosen == nameOrdi[2])
-                {
-                    display.DisplayText("Vous avez perdu.", $"{nameChosen}: ", "");
-                    Thread.Sleep(3000);
-                }
-
-                display.DisplayText("", "", ".");
-            }
         }
+        
 
         #region Private Methods
         private void IATurn(int dieFace)
@@ -524,6 +538,101 @@ namespace Minivilles
                 diceSeparator -= 10;
             }
 
+            players[1].isMyTurn = false;
+        }
+
+        private void IATapie(int dieFace)
+        {
+            List<Card> haveEnoughCoinToBuy = new List<Card>();
+            bool canBuyCard = false;
+
+            int diceSeparator = 35;
+            int dicesFacesTotal = 0;
+
+            foreach (Die entry in dices)
+            {
+                dieFace = players[1].die.Roll();
+                display.DieShake(diceSeparator);
+                display.DisplayDie(dieFace, diceSeparator);
+                diceSeparator -= 10;
+                dicesFacesTotal += dieFace;
+            }
+            Console.WriteLine(dicesFacesTotal);
+            players[0].ApplyCardsEffect(dicesFacesTotal, players[1]);
+            players[1].ApplyCardsEffect(dicesFacesTotal, players[0]);
+
+            // Fin de partie ?
+            if (players[0].coins >= 20 || players[1].coins >= 20)
+            {
+                endGame = true;
+            }
+
+            foreach (Pile pile in gamePiles)
+            {
+                if (pile.GetCard().GetCardCost <= players[1].coins || pile.GetCard().GetCardCost >= players[1].coins)
+                {
+                    haveEnoughCoinToBuy.Add(pile.GetCard());
+                    canBuyCard = true;
+                }
+            }
+
+            display.DisplayText("", "", "", true);
+
+            if(canBuyCard)
+            {
+                Card iaChosenCard = haveEnoughCoinToBuy[random.Next(haveEnoughCoinToBuy.Count)];
+                int indexCounter = -1;
+                int cardIndex = 0;
+                foreach (Pile pile in gamePiles)
+                {
+                    indexCounter++;
+                    if (pile.GetCard() == iaChosenCard && haveEnoughCoinToBuy.Contains(gamePiles[indexCounter].GetCard()))
+                    {
+                        cardIndex = indexCounter;
+                    }
+                }
+
+                players[1].BuyCard(gamePiles[cardIndex].WithdrawCard());
+                display.DisplayText("Bernard Tapie : Je vais faire l'acquisition de " + iaChosenCard.GetCardName);
+                foreach (Pile pile in gamePiles.ToList())
+                {
+                    if (pile.GetStack.Count == 0)
+                    {
+                        gamePiles.Remove(pile);
+                        display.ChooseCard(gamePiles, false, players, true);
+                        display.ChooseCard(gamePiles, false, players);
+                        display.DisplayTown(players, 100, " ", true);
+                        display.DisplayTown(players, dicesFacesTotal, nameChosen);
+                    }
+                }
+
+                if (players[1].coins == -1)
+                {
+                    display.DisplayText("Bernard Tapie : non mais t'inquiètes,"," je vais me refaire gamin");
+                    Thread.Sleep(2000);
+                    display.DisplayText("","","", true);
+
+                    if (players[1].coins < -10)
+                    {
+                        display.DisplayText("Bernard Tapie : Gamin, tu veux pas me racheter Adidas ?");
+                        Thread.Sleep(2000);
+                        display.DisplayText("", "", "", true);
+                    }
+                }
+            }
+
+            display.DisplayTown(players, 100, " ",true);
+            display.DisplayTown(players, dicesFacesTotal, nameChosen);
+            display.DisplayText("", "", "Appuyez sur Entrée pour continuer");
+            Console.ReadLine();
+
+            diceSeparator = 35;
+            foreach (Die entry in dices)
+            {
+                display.DisplayDie(100, diceSeparator);
+                diceSeparator -= 10;
+            }
+            
             players[1].isMyTurn = false;
         }
         #endregion
