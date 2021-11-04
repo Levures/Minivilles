@@ -328,7 +328,6 @@ namespace Minivilles
                 diceSeparator -= 10;
                 dicesFacesTotal += dieFace;
             }
-            Console.WriteLine(dicesFacesTotal);
             players[0].ApplyCardsEffect(dicesFacesTotal, players[1]);
             players[1].ApplyCardsEffect(dicesFacesTotal, players[0]);
 
@@ -558,7 +557,6 @@ namespace Minivilles
                 diceSeparator -= 10;
                 dicesFacesTotal += dieFace;
             }
-            Console.WriteLine(dicesFacesTotal);
             players[0].ApplyCardsEffect(dicesFacesTotal, players[1]);
             players[1].ApplyCardsEffect(dicesFacesTotal, players[0]);
 
@@ -595,6 +593,8 @@ namespace Minivilles
 
                 players[1].BuyCard(gamePiles[cardIndex].WithdrawCard());
                 display.DisplayText("Bernard Tapie : Je vais faire l'acquisition de " + iaChosenCard.GetCardName);
+                display.DisplayText("", "", "", true);
+                
                 foreach (Pile pile in gamePiles.ToList())
                 {
                     if (pile.GetStack.Count == 0)
@@ -621,18 +621,17 @@ namespace Minivilles
                 display.DisplayDie(100, diceSeparator);
                 diceSeparator -= 10;
             }
-            if (players[1].coins == -1)
+            if (players[1].coins <= -1)
             {
                 display.DisplayText("Bernard Tapie : non mais t'inquiètes,", " je vais me refaire gamin");
                 Thread.Sleep(2000);
                 display.DisplayText("", "", "", true);
-
-                if (players[1].coins < -10)
-                {
-                    display.DisplayText("Bernard Tapie : Gamin, tu veux pas me racheter Adidas ?");
-                    Thread.Sleep(2000);
-                    display.DisplayText("", "", "", true);
-                }
+            }
+            if (players[1].coins <= -10)
+            {
+                display.DisplayText("Bernard Tapie : Gamin, tu veux pas me racheter Adidas ?");
+                Thread.Sleep(2000);
+                display.DisplayText("", "", "", true);
             }
 
             players[1].isMyTurn = false;
